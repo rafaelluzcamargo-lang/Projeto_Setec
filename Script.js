@@ -19,6 +19,8 @@ const saveKey = "pixelSpeedRunSaveV5";
 
 const defaultSave = {
     totalPoints: 0,
+    totalCoins: 0,
+    unlockedSkins: ["green"],
 
     selectedSkin: "green",
 
@@ -62,9 +64,22 @@ function loadSave() {
             return cloneDefault();
         }
 
+        const unlockedSkins = Array.isArray(data.unlockedSkins)
+            ? [...new Set(["green", ...data.unlockedSkins])]
+            : ["green", data.selectedSkin || "green"];
+
+        const selectedSkin = unlockedSkins.includes(data.selectedSkin)
+            ? data.selectedSkin
+            : "green";
+
         return {
             ...cloneDefault(),
             ...data,
+            selectedSkin,
+            totalCoins: Number.isFinite(data.totalCoins)
+                ? data.totalCoins
+                : 0,
+            unlockedSkins,
             records: {
                 ...defaultSave.records,
                 ...(data.records || {})
@@ -680,7 +695,7 @@ const skins = [
     {
         id: "blue",
         name: "Velocista Pulse",
-        cost: 500,
+        cost: 100,
         shirt: "#287ba7",
         pants: "#243f58",
         hair: "#202a32",
@@ -692,7 +707,7 @@ const skins = [
     {
         id: "red",
         name: "Piloto Orbital",
-        cost: 1100,
+        cost: 220,
         shirt: "#dceaf0",
         pants: "#526e82",
         hair: "#182b3c",
@@ -704,7 +719,7 @@ const skins = [
     {
         id: "purple",
         name: "Ninja Circuito",
-        cost: 2000,
+        cost: 400,
         shirt: "#34435e",
         pants: "#1b293b",
         hair: "#111a28",
@@ -716,7 +731,7 @@ const skins = [
     {
         id: "gold",
         name: "Guardião Aurora",
-        cost: 3500,
+        cost: 700,
         shirt: "#b7cbd4",
         pants: "#38546c",
         hair: "#182636",
@@ -728,7 +743,7 @@ const skins = [
     {
         id: "silver",
         name: "Androide Axiom",
-        cost: 2400,
+        cost: 480,
         shirt: "#c5d7e0",
         pants: "#5b778b",
         hair: "#8298a5",
@@ -740,7 +755,7 @@ const skins = [
     {
         id: "cyan",
         name: "Mecânico Volt",
-        cost: 3200,
+        cost: 640,
         shirt: "#327386",
         pants: "#31495c",
         hair: "#202a32",
@@ -752,7 +767,7 @@ const skins = [
     {
         id: "black",
         name: "Agente Eclipse",
-        cost: 4500,
+        cost: 900,
         shirt: "#263448",
         pants: "#162334",
         hair: "#111923",
@@ -766,8 +781,9 @@ const skins = [
 function skinUnlocked(skin) {
 
     return (
-        save.totalPoints >=
-        skin.cost
+        save.unlockedSkins.includes(
+            skin.id
+        )
     );
 }
 
@@ -782,7 +798,7 @@ function updateSkinsScreen() {
     if (display) {
 
         display.textContent =
-            save.totalPoints.toLocaleString(
+            save.totalCoins.toLocaleString(
                 "pt-BR"
             );
     }
@@ -805,6 +821,9 @@ function updateSkinsScreen() {
 
         const unlocked =
             skinUnlocked(skin);
+
+        const canBuy =
+            save.totalCoins >= skin.cost;
 
 
         const card =
@@ -878,25 +897,24 @@ function updateSkinsScreen() {
                 ${
                     unlocked
                         ? (skin.cost === 0 ? "Padrão · Desbloqueada" : "Desbloqueada")
-                        : `${skin.cost.toLocaleString("pt-BR")} pontos`
+                        : `${skin.cost.toLocaleString("pt-BR")} moedas`
                 }
             </p>
 
             <button
-                ${unlocked ? "" : "disabled"}
+                ${unlocked || canBuy ? "" : "disabled"}
             >
                 ${
-                    save.selectedSkin ===
-                    skin.id
-                        ? "EQUIPADA"
-                        : "EQUIPAR"
+                    unlocked
+                        ? (save.selectedSkin === skin.id ? "EQUIPADA" : "EQUIPAR")
+                        : "COMPRAR"
                 }
             </button>
 
         `;
 
 
-        if (unlocked) {
+        if (unlocked || canBuy) {
 
             const button =
                 card.querySelector(
@@ -907,6 +925,15 @@ function updateSkinsScreen() {
 
                 button.onclick =
                     () => {
+
+                        if (!skinUnlocked(skin)) {
+                            if (save.totalCoins < skin.cost) {
+                                return;
+                            }
+
+                            save.totalCoins -= skin.cost;
+                            save.unlockedSkins.push(skin.id);
+                        }
 
                         save.selectedSkin =
                             skin.id;
@@ -1233,121 +1260,121 @@ const themes = [
     {
         name: "FLORESTA",
 
-        sky1: "#15334f",
-        sky2: "#477697",
+        sky1: "#263d35",
+        sky2: "#a9c88a",
 
-        mountain: "#6387a5",
-        mountain2: "#3f6687",
+        mountain: "#63775b",
+        mountain2: "#3d5847",
 
-        ground: "#284963",
-        grass: "#688eaa",
+        ground: "#344b38",
+        grass: "#849e58",
 
-        platform: "#395c79",
-        platformTop: "#c5e4f4",
+        platform: "#64513a",
+        platformTop: "#d5dc8e",
 
-        wood: "#35546e",
+        wood: "#574734",
 
-        accent: "#8fe4ff"
+        accent: "#d9eb8b"
     },
 
     {
         name: "PARQUE",
 
-        sky1: "#112941",
-        sky2: "#3c7093",
+        sky1: "#82b8ca",
+        sky2: "#e9d6ad",
 
-        mountain: "#5d7891",
-        mountain2: "#385570",
+        mountain: "#82968b",
+        mountain2: "#5b746a",
 
-        ground: "#203b55",
-        grass: "#61839d",
+        ground: "#4c5c43",
+        grass: "#87a45d",
 
-        platform: "#344f6b",
-        platformTop: "#d1e5f2",
+        platform: "#715f49",
+        platformTop: "#e5d8ae",
 
-        wood: "#2c4964",
+        wood: "#785b39",
 
-        accent: "#a6efff"
+        accent: "#f2c66d"
     },
 
     {
         name: "ESCOLA",
 
-        sky1: "#182d4b",
-        sky2: "#587a9d",
+        sky1: "#99c5d4",
+        sky2: "#efd4aa",
 
-        mountain: "#6d82a0",
-        mountain2: "#485f7d",
+        mountain: "#969780",
+        mountain2: "#77745f",
 
-        ground: "#2d435b",
-        grass: "#8cacbf",
+        ground: "#55574a",
+        grass: "#98915f",
 
-        platform: "#435c76",
-        platformTop: "#d9e8f3",
+        platform: "#66736b",
+        platformTop: "#e5c98f",
 
-        wood: "#3e536d",
+        wood: "#8c6646",
 
-        accent: "#c3f1ff"
+        accent: "#df8c56"
     },
 
     {
         name: "MONTANHA",
 
-        sky1: "#1e405e",
-        sky2: "#6799b6",
+        sky1: "#78b4d2",
+        sky2: "#e0e6dc",
 
-        mountain: "#779bb6",
-        mountain2: "#526f8b",
+        mountain: "#92a8ab",
+        mountain2: "#566f78",
 
-        ground: "#304a62",
-        grass: "#a7c6d8",
+        ground: "#64715f",
+        grass: "#dde6cf",
 
-        platform: "#607f98",
-        platformTop: "#effaff",
+        platform: "#6b7773",
+        platformTop: "#f1f3dc",
 
-        wood: "#48647e",
+        wood: "#7c6042",
 
-        accent: "#c9f5ff"
+        accent: "#c5e9ed"
     },
 
     {
         name: "GALÁXIA",
 
-        sky1: "#071329",
-        sky2: "#1c345c",
+        sky1: "#0a1b32",
+        sky2: "#1d4650",
 
-        mountain: "#395584",
-        mountain2: "#1c2c4a",
+        mountain: "#396278",
+        mountain2: "#183243",
 
-        ground: "#142943",
-        grass: "#44698f",
+        ground: "#142b37",
+        grass: "#4f7f7a",
 
-        platform: "#304a70",
-        platformTop: "#b4deff",
+        platform: "#31505a",
+        platformTop: "#aee5cb",
 
-        wood: "#263d62",
+        wood: "#263d47",
 
-        accent: "#b7d2ff"
+        accent: "#ffb86b"
     },
 
     {
         name: "BASE LUNAR",
 
-        sky1: "#101d31",
-        sky2: "#496982",
+        sky1: "#17232d",
+        sky2: "#657578",
 
-        mountain: "#627b8b",
-        mountain2: "#354e63",
+        mountain: "#78858a",
+        mountain2: "#46545b",
 
-        ground: "#31475b",
-        grass: "#597789",
+        ground: "#414b4a",
+        grass: "#7c8580",
 
-        platform: "#405c71",
-        platformTop: "#c5e6f2",
+        platform: "#596761",
+        platformTop: "#d4d6c6",
 
-        wood: "#344d62",
+        wood: "#574c3e",
 
-        accent: "#a4e9ff"
+        accent: "#f0aa6e"
     }
 ];
 
@@ -3217,12 +3244,16 @@ function updateCoins() {
 
             game.coins++;
 
+            save.totalCoins += 10;
+
+            saveGame();
+
             game.score +=
-                50;
+                10;
 
 
             showVisualEvent(
-                "🪙 MOEDA +50"
+                "🪙 MOEDA +10"
             );
         }
     }
@@ -3689,40 +3720,93 @@ function drawDigitalSky(t) {
     }
 
 
+    const hazeColors = [
+        "rgba(236,233,173,0.18)",
+        "rgba(255,226,172,0.20)",
+        "rgba(255,220,172,0.18)",
+        "rgba(239,248,239,0.16)"
+    ];
+
+    const haze = ctx.createRadialGradient(
+        825,
+        105,
+        8,
+        825,
+        105,
+        470
+    );
+
+    haze.addColorStop(0, hazeColors[game.theme]);
+    haze.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = haze;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+
+function drawSun(sunX, sunY, radius) {
+    const halo = ctx.createRadialGradient(
+        sunX,
+        sunY,
+        radius * 0.45,
+        sunX,
+        sunY,
+        radius * 2.7
+    );
+
+    halo.addColorStop(0, "rgba(255,235,178,0.35)");
+    halo.addColorStop(1, "rgba(255,235,178,0)");
+    ctx.fillStyle = halo;
+    ctx.fillRect(
+        sunX - radius * 2.7,
+        sunY - radius * 2.7,
+        radius * 5.4,
+        radius * 5.4
+    );
+
+    const sun = ctx.createRadialGradient(
+        sunX - radius * 0.3,
+        sunY - radius * 0.35,
+        2,
+        sunX,
+        sunY,
+        radius
+    );
+
+    sun.addColorStop(0, "#fff8dd");
+    sun.addColorStop(1, "#f4d58e");
+    ctx.fillStyle = sun;
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, radius, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+
+function drawPineTree(treeX, baseY, treeHeight, foliageColor, opacity = 1) {
     ctx.save();
-    ctx.globalAlpha = 0.13;
-    ctx.strokeStyle = t.accent;
-    ctx.lineWidth = 1;
+    ctx.globalAlpha = opacity;
+    ctx.fillStyle = "#594b38";
+    ctx.fillRect(
+        treeX - treeHeight * 0.035,
+        baseY - treeHeight * 0.22,
+        treeHeight * 0.07,
+        treeHeight * 0.22
+    );
 
-    for (let y = 72; y < 432; y += 54) {
+    ctx.fillStyle = foliageColor;
+
+    for (let tier = 0; tier < 3; tier++) {
+        const tierTop = baseY - treeHeight + tier * treeHeight * 0.24;
+        const tierWidth = treeHeight * (0.24 + tier * 0.105);
+
         ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-    }
-
-    const offset = (game.cameraX * 0.06) % 96;
-
-    for (let x = -96 - offset; x < canvas.width; x += 96) {
-        ctx.beginPath();
-        ctx.moveTo(x, 52);
-        ctx.lineTo(x, 432);
-        ctx.stroke();
+        ctx.moveTo(treeX, tierTop);
+        ctx.lineTo(treeX - tierWidth, tierTop + treeHeight * 0.38);
+        ctx.lineTo(treeX + tierWidth, tierTop + treeHeight * 0.38);
+        ctx.closePath();
+        ctx.fill();
     }
 
     ctx.restore();
-
-    for (let i = 0; i < 22; i++) {
-        let x = (i * 173 - game.cameraX * 0.035) % canvas.width;
-
-        if (x < 0) {
-            x += canvas.width;
-        }
-
-        const y = 24 + (i * 67) % 255;
-        const color = i % 4 === 0 ? "#e8f8ff" : t.accent;
-        drawTechNode(x, y, i % 5 === 0 ? 2 : 1.2, color);
-    }
 }
 
 
@@ -4278,12 +4362,12 @@ function drawMoonBaseBackground(t) {
 
 function drawForestBackground(t) {
 
-    drawOrbitalBody(880, 85, 48, t);
+    drawSun(880, 85, 42);
 
 
     drawMountains(
-        t.mountain,
         t.mountain2,
+        t.mountain,
         0.18
     );
 
@@ -4296,34 +4380,11 @@ function drawForestBackground(t) {
     }
 
 
-    const offset =
-        (game.cameraX * 0.12) % 340;
+    const treeOffset = (game.cameraX * 0.34) % 190;
 
-
-    for (
-        let x = -340 - offset;
-        x < canvas.width + 340;
-        x += 340
-    ) {
-
-        ctx.fillStyle = "rgba(30,67,88,0.38)";
-        ctx.beginPath();
-        ctx.ellipse(x + 105, 400, 76, 31, 0, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.fillStyle = "rgba(39,82,103,0.42)";
-        ctx.beginPath();
-        ctx.ellipse(x + 105, 378, 46, 28, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = "rgba(123,190,207,0.12)";
-        ctx.beginPath();
-        ctx.ellipse(x + 105, 425, 10, 28, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        drawTechNode(x + 88, 378, 2, "rgba(183,238,248,0.62)");
-        drawTechNode(x + 121, 390, 2, "rgba(183,238,248,0.52)");
+    for (let treeX = -190 - treeOffset; treeX < canvas.width + 190; treeX += 190) {
+        drawPineTree(treeX + 46, 490, 92, "#28493a", 0.66);
+        drawPineTree(treeX + 132, 484, 126, "#294b3b", 0.86);
     }
 }
 
@@ -4334,6 +4395,8 @@ function drawForestBackground(t) {
 
 function drawParkBackground(t) {
     const offset = (game.cameraX * 0.12) % 420;
+
+    drawSun(850, 86, 38);
 
     ctx.fillStyle = "rgba(75,132,150,0.4)";
     ctx.beginPath();
@@ -4403,12 +4466,14 @@ function drawParkBackground(t) {
 function drawSchoolBackground(t) {
     const offset = (game.cameraX * 0.22) % 420;
 
+    drawSun(850, 82, 36);
+
     for (let x = -420 - offset; x < canvas.width + 420; x += 420) {
-        ctx.fillStyle = "rgba(25,53,76,0.94)";
+        ctx.fillStyle = "rgba(116,98,76,0.92)";
         roundRect(x + 18, 218, 382, 248, 8);
         ctx.fill();
 
-        ctx.fillStyle = "rgba(101,150,175,0.54)";
+        ctx.fillStyle = "rgba(151,91,58,0.86)";
         ctx.beginPath();
         ctx.moveTo(x + 2, 220);
         ctx.lineTo(x + 52, 177);
@@ -4424,10 +4489,10 @@ function drawSchoolBackground(t) {
                 const windowX = x + 48 + column * 66;
                 const windowY = 252 + row * 67;
 
-                ctx.fillStyle = "rgba(153,218,239,0.25)";
+                ctx.fillStyle = "rgba(239,210,151,0.74)";
                 roundRect(windowX, windowY, 42, 38, 4);
                 ctx.fill();
-                ctx.strokeStyle = "rgba(210,243,255,0.7)";
+                ctx.strokeStyle = "rgba(248,235,201,0.72)";
                 ctx.lineWidth = 1;
                 ctx.strokeRect(windowX, windowY, 42, 38);
                 drawTechLine(windowX + 21, windowY + 2, windowX + 21, windowY + 36, "rgba(217,246,255,0.5)", 1, 2);
@@ -4435,16 +4500,16 @@ function drawSchoolBackground(t) {
             }
         }
 
-        ctx.fillStyle = "rgba(10,30,47,0.92)";
+        ctx.fillStyle = "rgba(77,53,41,0.96)";
         roundRect(x + 174, 365, 74, 101, 5);
         ctx.fill();
-        drawTechLine(x + 211, 365, x + 211, 466, t.accent, 2, 8);
-        drawTechNode(x + 237, 419, 3, "#e8f8ff");
+        ctx.fillStyle = "rgba(236,190,112,0.9)";
+        ctx.fillRect(x + 231, 414, 4, 4);
 
-        ctx.fillStyle = "rgba(24,66,91,0.95)";
+        ctx.fillStyle = "rgba(107,61,44,0.96)";
         roundRect(x + 126, 229, 168, 25, 5);
         ctx.fill();
-        ctx.strokeStyle = t.accent;
+        ctx.strokeStyle = "#efcf91";
         ctx.lineWidth = 1;
         ctx.strokeRect(x + 126, 229, 168, 25);
         ctx.fillStyle = "#f2fbff";
@@ -4473,7 +4538,7 @@ function drawSchoolBackground(t) {
 
 function drawMountainBackground(t) {
 
-    drawOrbitalBody(840, 92, 42, t);
+    drawSun(840, 92, 34);
 
 
     drawMountainPeaks(t);
@@ -4501,38 +4566,11 @@ function drawMountainBackground(t) {
     }
 
 
-    const offset =
-        (game.cameraX * 0.14) % 390;
+    const treeOffset = (game.cameraX * 0.14) % 390;
 
-
-    for (
-        let x = -390 - offset;
-        x < canvas.width + 390;
-        x += 390
-    ) {
-        ctx.fillStyle = "rgba(22,48,73,0.82)";
-        roundRect(x + 34, 382, 142, 54, 8);
-        ctx.fill();
-
-        ctx.fillStyle = "rgba(160,222,248,0.22)";
-        ctx.fillRect(x + 45, 391, 120, 4);
-
-        drawTechLine(x + 34, 382, x + 176, 382, t.accent, 2, 10);
-        drawTechLine(x + 53, 382, x + 53, 436, t.accent, 1, 5);
-        drawTechLine(x + 157, 382, x + 157, 436, t.accent, 1, 5);
-
-        ctx.fillStyle = "rgba(29,61,88,0.92)";
-        ctx.beginPath();
-        ctx.ellipse(x + 105, 382, 34, 15, 0, Math.PI, Math.PI * 2);
-        ctx.fill();
-
-        drawTechLine(x + 71, 382, x + 105, 367, "#e8f8ff", 1, 6);
-        drawTechLine(x + 105, 367, x + 139, 382, "#e8f8ff", 1, 6);
-        drawTechLine(x + 105, 367, x + 105, 342, t.accent, 2, 9);
-        drawTechNode(x + 105, 342, 4, "#e8f8ff");
-
-        ctx.fillStyle = t.accent;
-        ctx.fillRect(x + 71, 405, 68, 3);
+    for (let treeX = -390 - treeOffset; treeX < canvas.width + 390; treeX += 390) {
+        drawPineTree(treeX + 92, 475, 112, "#415f55", 0.82);
+        drawPineTree(treeX + 215, 482, 78, "#718a7a", 0.68);
     }
 }
 
@@ -4750,70 +4788,32 @@ function drawNeonBackground(t) {
     ========================================================= */
 
 function drawMountains(
-    color1,
-    color2,
+    backColor,
+    frontColor,
     parallax
 ) {
 
-    const offset =
-        (game.cameraX * parallax) % 220;
+    for (let layer = 0; layer < 2; layer++) {
+        const layerParallax = parallax + layer * 0.08;
+        const offset = (game.cameraX * layerParallax) % 420;
+        const mountainColor = layer === 0 ? backColor : frontColor;
+        const baseY = layer === 0 ? 452 : 474;
 
+        for (let mountainX = -420 - offset; mountainX < canvas.width + 420; mountainX += 420) {
+            const peakX = mountainX + 190 + Math.sin(mountainX * 0.014) * 28;
+            const peakY = 150 + Math.abs(Math.sin(mountainX * 0.009)) * 112 + layer * 42;
 
-    for (
-        let x = -220 - offset;
-        x < canvas.width + 220;
-        x += 220
-    ) {
-        const height =
-            88 + Math.abs(Math.sin((x + offset) * 0.017)) * 112;
-
-        const top =
-            455 - height;
-
-        const width =
-            150 + Math.abs(Math.sin(x * 0.031)) * 38;
-
-        ctx.fillStyle = color2;
-        roundRect(x + 18, top, width, height, 7);
-        ctx.fill();
-
-        ctx.fillStyle = color1;
-        ctx.fillRect(x + 28, top + 12, width - 20, 5);
-        ctx.fillRect(x + 28, top + 22, 18, 3);
-
-        for (let y = top + 40; y < 440; y += 27) {
-            for (let windowX = x + 32; windowX < x + width - 10; windowX += 32) {
-                ctx.fillStyle = "rgba(207,242,255,0.76)";
-                ctx.fillRect(windowX, y, 8, 11);
-            }
+            ctx.fillStyle = mountainColor;
+            ctx.beginPath();
+            ctx.moveTo(mountainX, baseY);
+            ctx.lineTo(peakX - 145, peakY + 112);
+            ctx.lineTo(peakX - 38, peakY + 46);
+            ctx.lineTo(peakX, peakY);
+            ctx.lineTo(peakX + 49, peakY + 62);
+            ctx.lineTo(peakX + 142, baseY);
+            ctx.closePath();
+            ctx.fill();
         }
-
-        drawTechLine(
-            x + 18,
-            top,
-            x + 18 + width,
-            top,
-            "#e8f8ff",
-            2,
-            10
-        );
-
-        drawTechLine(
-            x + 18 + width * 0.72,
-            top - 28,
-            x + 18 + width * 0.72,
-            top,
-            color1,
-            2,
-            8
-        );
-
-        drawTechNode(
-            x + 18 + width * 0.72,
-            top - 28,
-            3,
-            "#e8f8ff"
-        );
     }
 }
 
@@ -4822,26 +4822,20 @@ function drawMountains(
    NUVEM
    ========================================================= */
 
-function drawCloud(
-    x,
-    y
-) {
+function drawCloud(cloudX, cloudY) {
 
-    const t =
-        getCurrentTheme();
-
-    ctx.fillStyle = "rgba(27,61,91,0.92)";
-    roundRect(x, y, 100, 18, 8);
+    ctx.fillStyle = "rgba(246,248,231,0.72)";
+    ctx.beginPath();
+    ctx.ellipse(cloudX + 48, cloudY + 8, 50, 13, 0, 0, Math.PI * 2);
+    ctx.ellipse(cloudX + 34, cloudY + 1, 22, 17, 0, 0, Math.PI * 2);
+    ctx.ellipse(cloudX + 59, cloudY - 5, 27, 21, 0, 0, Math.PI * 2);
+    ctx.ellipse(cloudX + 80, cloudY + 4, 21, 14, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = "rgba(181,232,255,0.36)";
-    roundRect(x + 26, y - 8, 44, 11, 5);
+    ctx.fillStyle = "rgba(255,255,247,0.32)";
+    ctx.beginPath();
+    ctx.ellipse(cloudX + 56, cloudY - 7, 17, 9, -0.1, 0, Math.PI * 2);
     ctx.fill();
-
-    drawTechLine(x + 10, y + 17, x + 90, y + 17, t.accent, 2, 9);
-    drawTechLine(x + 25, y + 22, x + 75, y + 22, "#e8f8ff", 1, 5);
-    drawTechNode(x + 15, y + 9, 2, "#e8f8ff");
-    drawTechNode(x + 85, y + 9, 2, "#e8f8ff");
 }
 
 
@@ -4879,16 +4873,9 @@ function drawDecorations() {
 
         if (game.theme === 0) {
             if (item.type === "tree") {
-                ctx.fillStyle = "rgba(37,70,84,0.64)";
-                roundRect(x + 13, item.y - 1, 11, 58, 5);
-                ctx.fill();
-
-                drawCircle(x + 18, item.y - 19, item.size * 0.43, "rgba(62,111,124,0.58)");
-                drawCircle(x + 4, item.y - 5, item.size * 0.29, "rgba(54,99,114,0.55)");
-                drawCircle(x + 33, item.y - 7, item.size * 0.31, "rgba(65,115,128,0.52)");
-                drawTechLine(x + 18, item.y + 5, x + 18, item.y + 37, "rgba(156,224,239,0.42)", 1, 3);
+                drawPineTree(x + 18, item.y + 52, item.size * 1.8, "#31563f", 0.82);
             } else {
-                ctx.fillStyle = "rgba(66,99,114,0.48)";
+                ctx.fillStyle = "rgba(103,100,77,0.62)";
                 ctx.beginPath();
                 ctx.moveTo(x + 1, item.y + 29);
                 ctx.quadraticCurveTo(x + 4, item.y + 13, x + 16, item.y + 12);
@@ -4906,11 +4893,26 @@ function drawDecorations() {
                 drawCircle(x + 8, item.y + 1, item.size * 0.25, "rgba(113,171,137,0.72)");
                 drawCircle(x + 34, item.y + 1, item.size * 0.25, "rgba(74,139,121,0.72)");
             } else {
-                ctx.fillStyle = "rgba(95,139,145,0.72)";
+                ctx.fillStyle = "rgba(121,113,85,0.72)";
                 ctx.beginPath();
                 ctx.ellipse(x + 20, item.y + 28, 22, 7, 0, 0, Math.PI * 2);
                 ctx.fill();
-                drawTechLine(x + 7, item.y + 27, x + 31, item.y + 27, "rgba(196,238,232,0.52)", 1, 3);
+            }
+        } else if (game.theme === 2 || game.theme === 3) {
+            if (item.type === "tree") {
+                const foliage = game.theme === 2 ? "#626c48" : "#526a5a";
+                drawPineTree(x + 22, item.y + 49, item.size * 1.7, foliage, 0.82);
+            } else {
+                ctx.fillStyle = game.theme === 2
+                    ? "rgba(134,112,83,0.7)"
+                    : "rgba(128,139,129,0.72)";
+                ctx.beginPath();
+                ctx.ellipse(x + 22, item.y + 27, 22, 9, -0.08, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = "rgba(238,232,207,0.3)";
+                ctx.beginPath();
+                ctx.ellipse(x + 17, item.y + 24, 8, 3, -0.1, 0, Math.PI * 2);
+                ctx.fill();
             }
         } else if (game.theme === 4) {
             ctx.fillStyle = "rgba(48,68,105,0.82)";
@@ -6522,6 +6524,16 @@ function drawPlayer() {
     ctx.fill();
 
 
+    ctx.fillStyle = "rgba(18,35,47,0.2)";
+    ctx.beginPath();
+    ctx.moveTo(x + 25, y + 21);
+    ctx.lineTo(x + 31, y + 24);
+    ctx.lineTo(x + 31, y + 42);
+    ctx.quadraticCurveTo(x + 29, y + 47, x + 24, y + 48);
+    ctx.closePath();
+    ctx.fill();
+
+
     ctx.fillStyle =
         "rgba(255,255,255,0.18)";
 
@@ -6537,6 +6549,21 @@ function drawPlayer() {
     ctx.strokeStyle = "rgba(20,43,61,0.32)";
     ctx.lineWidth = 1;
     ctx.stroke();
+
+
+    if (skin.model === "guardian") {
+        const armorGradient = ctx.createLinearGradient(x + 2, y + 20, x + 13, y + 33);
+        armorGradient.addColorStop(0, adjustColor(skin.shirt, 35));
+        armorGradient.addColorStop(1, adjustColor(skin.shirt, -28));
+        ctx.fillStyle = armorGradient;
+        roundRect(x + 3, y + 21, 11, 10, 4);
+        ctx.fill();
+        roundRect(x + 25, y + 21, 11, 10, 4);
+        ctx.fill();
+        ctx.strokeStyle = "rgba(24,39,51,0.45)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    }
 
 
     drawTechLine(x + 9, y + 43, x + 16, y + 45, "rgba(35,65,82,0.28)", 1, 0);
@@ -6681,6 +6708,17 @@ function drawPlayer() {
     ctx.fill();
 
 
+    ctx.fillStyle = "rgba(123,72,51,0.12)";
+    ctx.beginPath();
+    ctx.moveTo(x + 24, y + 1);
+    ctx.lineTo(x + 32, y + 6);
+    ctx.lineTo(x + 32, y + 14);
+    ctx.lineTo(x + 27, y + 20);
+    ctx.lineTo(x + 23, y + 18);
+    ctx.closePath();
+    ctx.fill();
+
+
     ctx.fillStyle = "rgba(255,236,214,0.28)";
     ctx.beginPath();
     ctx.ellipse(x + 14, y + 5, 5, 2, -0.35, 0, Math.PI * 2);
@@ -6691,8 +6729,11 @@ function drawPlayer() {
        CABELO
        ===================================================== */
 
-    ctx.fillStyle =
-        skin.hair;
+    const hairGradient = ctx.createLinearGradient(x + 9, y - 5, x + 29, y + 8);
+    hairGradient.addColorStop(0, adjustColor(skin.hair, 24));
+    hairGradient.addColorStop(0.55, skin.hair);
+    hairGradient.addColorStop(1, adjustColor(skin.hair, -22));
+    ctx.fillStyle = hairGradient;
 
 
     ctx.beginPath();
@@ -7177,11 +7218,6 @@ function finishLevel() {
         );
 
 
-    const coinBonus =
-        game.coins *
-        35;
-
-
     const lifeBonus =
         game.lives *
         150;
@@ -7190,7 +7226,6 @@ function finishLevel() {
     const levelScore =
         game.score +
         timeBonus +
-        coinBonus +
         lifeBonus;
 
 
@@ -7377,8 +7412,15 @@ function finishLevel() {
 
 function gameOver() {
 
+    if (!game.running) {
+        return;
+    }
+
+
     game.running =
         false;
+
+    saveGame();
 
 
     const overlay =
