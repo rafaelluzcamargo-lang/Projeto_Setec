@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Speed Run</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main id="app">
+
+        <!-- ================= MENU ================= -->
+        <section id="menuScreen" class="screen active">
+
+            <div class="menu-box">
+
+                <div class="logo">
+                    <span>PIXEL</span>
+                    <strong>SPEED RUN</strong>
+                </div>
+
+                <div class="logo-sub">
+                    PARKOUR ADVENTURE
+                </div>
+
+                <button class="menu-btn primary" id="playBtn">
+                    <span>▶</span> JOGAR
+                </button>
+
+                <button class="menu-btn" id="skinsBtn">
+                    <span>◆</span> SKINS
+                </button>
+
+                <button class="menu-btn" id="recordsBtn">
+                    <span>★</span> RECORDES
+                </button>
+
+                <button class="menu-btn" id="achievementsBtn">
+                    <span>🏆</span> CONQUISTAS
+                </button>
+
+                <button class="menu-btn" id="accessibilityBtn">
+                    <span>⚙</span> ACESSIBILIDADE
+                </button>
+
+                <div class="small-info">
+                    A / D ou ← / → para correr<br>
+                    Espaço / W / ↑ para pular
+                </div>
+
+            </div>
+
+            <footer class="section-footer">
+                Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            </footer>
+
+        </section>
+
+
+        <!-- ================= DIFICULDADE ================= -->
+        <section id="difficultyScreen" class="screen">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    ESCOLHA A DIFICULDADE
+                </div>
+
+                <button class="difficulty-btn easy"
+                        data-difficulty="easy">
+
+                    <div class="diff-icon">
+                        ●
+                    </div>
+
+                    <div>
+                        <strong>FÁCIL</strong>
+
+                        <span>
+                            Sem drones, plataformas lentas e mais margem no salto
+                        </span>
+                    </div>
+
+                </button>
+
+                <button class="difficulty-btn medium"
+                        data-difficulty="medium">
+
+                    <div class="diff-icon">
+                        ◆
+                    </div>
+
+                    <div>
+                        <strong>MÉDIO</strong>
+
+                        <span>
+                            Drones ativos e ritmo equilibrado
+                        </span>
+                    </div>
+
+                </button>
+
+                <button class="difficulty-btn hard"
+                        data-difficulty="hard">
+
+                    <div class="diff-icon">
+                        ▲
+                    </div>
+
+                    <div>
+                        <strong>DIFÍCIL</strong>
+
+                        <span>
+                            Mais serras rápidas, salto mais baixo e menos proteção
+                        </span>
+                    </div>
+
+                </button>
+
+                <button class="back-btn"
+                        data-back="menuScreen">
+
+                    VOLTAR
+
+                </button>
+
+            </div>
+
+            <footer class="section-footer">
+                Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            </footer>
+
+        </section>
+
+
+        <!-- ================= SKINS ================= -->
+        <section id="skinsScreen" class="screen">
+
+            <div class="panel skin-panel">
+
+                <div class="panel-title">
+                    PERSONAGENS
+                </div>
+
+                <div class="points-display">
+                    PONTOS DISPONÍVEIS:
+                    <strong id="totalPointsDisplay">
+                        0
+                    </strong>
+                </div>
+
+                <div
+                    id="skinsContainer"
+                    class="skins-container">
+                </div>
+
+                <button class="back-btn"
+                        data-back="menuScreen">
+
+                    VOLTAR
+
+                </button>
+
+            </div>
+
+            <footer class="section-footer">
+                Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            </footer>
+
+        </section>
+
+
+        <!-- ================= RECORDES ================= -->
+        <section id="recordsScreen" class="screen">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    RECORDES
+                </div>
+
+                <div class="record-list">
+
+                    <div class="record-row">
+
+                        <div>
+                            <span class="record-icon easy-color">
+                                ●
+                            </span>
+
+                            FÁCIL
+                        </div>
+
+                        <strong id="easyRecord">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="record-row">
+
+                        <div>
+                            <span class="record-icon medium-color">
+                                ◆
+                            </span>
+
+                            MÉDIO
+                        </div>
+
+                        <strong id="mediumRecord">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="record-row">
+
+                        <div>
+                            <span class="record-icon hard-color">
+                                ▲
+                            </span>
+
+                            DIFÍCIL
+                        </div>
+
+                        <strong id="hardRecord">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <button class="back-btn"
+                        data-back="menuScreen">
+
+                    VOLTAR
+
+                </button>
+
+            </div>
+
+            <footer class="section-footer">
+                Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            </footer>
+
+        </section>
+
+
+        <!-- ================= CONQUISTAS ================= -->
+        <section id="achievementsScreen" class="screen">
+
+            <div class="panel achievement-panel">
+
+                <div class="panel-title">
+                    CONQUISTAS
+                </div>
+
+                <div
+                    id="achievementsContainer"
+                    class="achievement-container">
+                </div>
+
+                <button class="back-btn"
+                        data-back="menuScreen">
+
+                    VOLTAR
+
+                </button>
+
+            </div>
+
+            <footer class="section-footer">
+                Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            </footer>
+
+        </section>
+
+
+        <!-- ================= ACESSIBILIDADE ================= -->
+        <section id="accessibilityScreen" class="screen">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    ACESSIBILIDADE
+                </div>
+
+                <fieldset class="accessibility-group">
+                    <legend>VISÃO</legend>
+
+                    <label class="option">
+                        <input type="checkbox" id="highContrast">
+                        <span>Alto contraste</span>
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" id="colorBlindMode">
+                        <span>Identificação por formas e padrões</span>
+                    </label>
+
+                    <label class="option text-size-option">
+                        <span>Tamanho do texto</span>
+                        <select id="fontSizeSelect" name="fontSize">
+                            <option value="normal">Normal</option>
+                            <option value="large">Grande</option>
+                            <option value="xlarge">Muito grande</option>
+                        </select>
+                    </label>
+                </fieldset>
+
+                <fieldset class="accessibility-group">
+                    <legend>AUDIÇÃO</legend>
+
+                    <label class="option">
+                        <input type="checkbox" id="eventText">
+                        <span>Legendas e mensagens do jogo</span>
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" id="visualAlerts">
+                        <span>Sinais visuais de eventos</span>
+                    </label>
+                </fieldset>
+
+                <fieldset class="accessibility-group">
+                    <legend>CONTROLES</legend>
+
+                    <label class="option">
+                        <input type="checkbox" id="onScreenControls">
+                        <span>Mostrar controles na tela</span>
+                    </label>
+
+                    <p class="accessibility-help">
+                        Jogue com botões ou teclado, sem depender de comandos de voz.
+                    </p>
+                </fieldset>
+
+                <button class="back-btn"
+                        data-back="menuScreen">
+
+                    VOLTAR
+
+                </button>
+
+            </div>
+
+            <footer class="section-footer">
+                Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            </footer>
+
+        </section>
+
+
+        <!-- ================= JOGO ================= -->
+        <section id="gameScreen"
+                 class="screen game-screen">
+
+            <div class="hud">
+
+                <div class="hud-group">
+
+                    <div class="hud-item">
+                        FASE
+                        <b id="levelText">
+                            1
+                        </b>
+                    </div>
+
+                    <div class="hud-item">
+                        PONTOS
+                        <b id="scoreText">
+                            0
+                        </b>
+                    </div>
+
+                    <div class="hud-item">
+                        MOEDAS
+                        <b id="coinsText">
+                            0
+                        </b>
+                    </div>
+
+                </div>
+
+                <div class="timer">
+
+                    <span id="mapNameText">
+                        FLORESTA
+                    </span>
+
+                    <strong id="timerText">
+                        00:00.0
+                    </strong>
+
+                </div>
+
+                <div class="hud-group right">
+
+                    <div class="hud-item">
+                        VIDAS
+                        <b id="livesText">
+                            3
+                        </b>
+                    </div>
+
+                    <button
+                        id="pauseBtn"
+                        class="pause-btn">
+
+                        Ⅱ
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ÁREA DO JOGO -->
+            <div class="game-area">
+
+                <canvas
+                    id="gameCanvas"
+                    width="1100"
+                    height="600">
+                </canvas>
+
+                <footer class="game-footer">
+                    Feito por: ..... — Aluno 2° Desenvolvimento de Sistemas do Colégio Estadual Barbosa Ferraz
+                </footer>
+
+            </div>
+
+
+            <!-- CONTROLES MOBILE -->
+            <div class="mobile-controls">
+
+                <button id="leftBtn" aria-label="Mover para a esquerda">
+                    ◀
+                </button>
+
+                <button id="jumpBtn" aria-label="Pular">
+                    ▲
+                </button>
+
+                <button id="rightBtn" aria-label="Mover para a direita">
+                    ▶
+                </button>
+
+            </div>
+
+
+            <!-- ================= PAUSA ================= -->
+
+            <div id="pauseOverlay"
+                 class="overlay">
+
+                <div class="pause-box">
+
+                    <div class="panel-title">
+                        JOGO PAUSADO
+                    </div>
+
+                    <button
+                        class="menu-btn"
+                        id="resumeBtn">
+
+                        CONTINUAR
+
+                    </button>
+
+                    <button
+                        class="menu-btn"
+                        id="restartBtn">
+
+                        RECOMEÇAR
+
+                    </button>
+
+                    <button
+                        class="menu-btn"
+                        id="quitBtn">
+
+                        SAIR
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= FINAL ================= -->
+
+            <div id="finishOverlay"
+                 class="overlay">
+
+                <div class="pause-box">
+
+                    <div
+                        class="panel-title"
+                        id="finishTitle">
+
+                        FASE CONCLUÍDA!
+
+                    </div>
+
+                    <div class="results">
+
+                        <div>
+                            Pontuação
+
+                            <strong id="finishScore">
+                                0
+                            </strong>
+                        </div>
+
+                        <div>
+                            Tempo
+
+                            <strong id="finishTime">
+                                00:00.0
+                            </strong>
+                        </div>
+
+                        <div>
+                            Moedas
+
+                            <strong id="finishCoins">
+                                0
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="menu-btn primary"
+                        id="nextLevelBtn">
+
+                        PRÓXIMA FASE
+
+                    </button>
+
+                    <button
+                        class="menu-btn"
+                        id="finishMenuBtn">
+
+                        MENU
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= GAME OVER ================= -->
+
+            <div id="gameOverOverlay"
+                 class="overlay">
+
+                <div class="pause-box">
+
+                    <div class="panel-title danger-title">
+                        GAME OVER
+                    </div>
+
+                    <p class="game-over-text">
+                        Você ficou sem vidas.
+                    </p>
+
+                    <button
+                        class="menu-btn primary"
+                        id="tryAgainBtn">
+
+                        TENTAR NOVAMENTE
+
+                    </button>
+
+                    <button
+                        class="menu-btn"
+                        id="gameOverMenuBtn">
+
+                        MENU
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div
+        id="liveStatus"
+        class="sr-only"
+        aria-live="polite">
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
