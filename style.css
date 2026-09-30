@@ -124,6 +124,24 @@ button {
    MENU
    ========================================================= */
 
+#menuScreen {
+    isolation: isolate;
+}
+
+#menuScreen::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    z-index: 0;
+
+    background:
+        linear-gradient(rgba(10, 20, 30, 0.28), rgba(10, 20, 30, 0.48)),
+        url("img setec/frente.jpg") center / cover no-repeat;
+
+    filter: blur(5px);
+    transform: scale(1.02);
+}
+
 .menu-box {
     width: 430px;
 
@@ -165,6 +183,7 @@ button {
         );
 
     position: relative;
+    z-index: 1;
 }
 
 .menu-box::before,
@@ -380,6 +399,14 @@ button {
     letter-spacing: 2px;
 }
 
+.creator-copy {
+    max-width: 390px;
+    margin: 0 auto;
+    color: #c2d9eb;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
 .back-btn {
     width: 100%;
 
@@ -591,14 +618,14 @@ button {
     box-shadow: 0 0 12px var(--skin-accent);
 }
 
-.skin-card.model-school { --skin-accent: #9fe8ff; }
-.skin-card.model-runner { --skin-accent: #8eeaff; }
-.skin-card.model-pilot { --skin-accent: #8be6ff; }
-.skin-card.model-ninja { --skin-accent: #adf1ff; }
-.skin-card.model-guardian { --skin-accent: #f0d598; }
-.skin-card.model-android { --skin-accent: #7deaff; }
-.skin-card.model-mechanic { --skin-accent: #a7e6bd; }
-.skin-card.model-shadow { --skin-accent: #77ddff; }
+.skin-card.model-school { --skin-accent: #9fe8ff; --skin-glow: rgba(38,134,201,0.18); }
+.skin-card.model-runner { --skin-accent: #ffd166; --skin-glow: rgba(230,95,62,0.2); }
+.skin-card.model-pilot { --skin-accent: #58cbb3; --skin-glow: rgba(36,131,150,0.2); }
+.skin-card.model-ninja { --skin-accent: #f29ac5; --skin-glow: rgba(154,72,118,0.2); }
+.skin-card.model-guardian { --skin-accent: #f7ce5e; --skin-glow: rgba(171,112,42,0.2); }
+.skin-card.model-android { --skin-accent: #5bd6b1; --skin-glow: rgba(58,145,117,0.2); }
+.skin-card.model-mechanic { --skin-accent: #f2c14e; --skin-glow: rgba(189,99,61,0.2); }
+.skin-card.model-shadow { --skin-accent: #e9bd72; --skin-glow: rgba(157,117,55,0.2); }
 
 .skin-model-tag {
     display: block;
@@ -610,36 +637,17 @@ button {
     text-transform: uppercase;
 }
 
-.skin-card.locked {
-    opacity: 0.62;
-}
-
 .skin-card.selected {
-    border-color: #c3f1ff;
+    border-color: var(--skin-accent);
 
     box-shadow:
-        0 0 0 2px
-        rgba(
-            151,
-            225,
-            255,
-            0.42
-        ),
-        0 0 22px
-        rgba(
-            88,
-            196,
-            245,
-            0.24
-        );
-}
-
-.skin-card.locked {
-    opacity: 0.46;
+        0 0 0 2px var(--skin-glow),
+        0 0 22px var(--skin-glow);
 }
 
 .skin-preview {
     position: relative;
+    isolation: isolate;
 
     width: 100px;
     height: 140px;
@@ -649,12 +657,12 @@ button {
         auto
         9px;
 
-    perspective: 520px;
-    transform-style: preserve-3d;
+    transform: scale(1.08);
+    transform-origin: center;
 
     background:
-        radial-gradient(ellipse at 50% 70%, rgba(91,178,213,0.2), transparent 58%),
-        linear-gradient(90deg, rgba(0,0,0,0.16), transparent 35%, rgba(255,255,255,0.14) 75%, transparent);
+        radial-gradient(ellipse at 50% 78%, var(--skin-glow, rgba(91,178,213,0.16)), transparent 68%),
+        linear-gradient(180deg, rgba(255,255,255,0.055), rgba(0,0,0,0.025));
 
     border-radius:
         10px
@@ -670,6 +678,19 @@ button {
             0,
             0.25
         );
+}
+
+.skin-preview::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 25px;
+    right: 25px;
+    bottom: 7px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--skin-accent);
+    opacity: 0.58;
 }
 
 .skin-cape,
@@ -693,6 +714,10 @@ button {
     z-index: 2;
 }
 
+.skin-neck {
+    z-index: 1;
+}
+
 .skin-arm,
 .skin-leg {
     z-index: 3;
@@ -701,10 +726,10 @@ button {
 .skin-head {
     position: absolute;
 
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 36px;
 
-    left: 31px;
+    left: 33px;
     top: 7px;
 
     background: linear-gradient(108deg, #f5d2ad 0 34%, #dfaa80 67%, #ad765b 100%);
@@ -724,22 +749,20 @@ button {
             0.35
         );
 
-    transform: rotateY(-13deg) rotateX(3deg);
     box-shadow:
-        inset 4px 2px 5px rgba(255,255,255,0.42),
-        inset -7px -1px 7px rgba(66,37,28,0.26),
-        3px 4px 0 rgba(18,25,31,0.25);
+        inset 3px 2px 0 rgba(255,255,255,0.32),
+        2px 3px 0 rgba(18,25,31,0.24);
 }
 
 .skin-head::after {
     content: "";
     position: absolute;
-    right: 5px;
-    top: 17px;
-    width: 9px;
-    height: 6px;
-    background: linear-gradient(135deg, #e7b48d, #bd8666);
-    clip-path: polygon(0 0, 100% 38%, 28% 100%);
+    left: 16px;
+    top: 26px;
+    width: 4px;
+    height: 3px;
+    border-radius: 0 1px 1px 0;
+    background: #b97859;
     z-index: 3;
 }
 
@@ -764,30 +787,78 @@ button {
 .skin-eye {
     position: absolute;
 
-    width: 4px;
-    height: 5px;
+    width: 5px;
+    height: 7px;
 
-    background: #17202a;
+    background: #f8fbff;
+    border: 1px solid rgba(23,32,42,0.72);
+    border-radius: 2px 2px 3px 3px;
 
     top: 19px;
+    z-index: 2;
+}
+
+.skin-eye::after {
+    content: "";
+    position: absolute;
+    left: 1px;
+    bottom: 1px;
+    width: 2px;
+    height: 4px;
+    border-radius: 2px;
+    background: #17202a;
 }
 
 .skin-eye.one {
-    left: 10px;
+    left: 9px;
 }
 
 .skin-eye.two {
-    right: 10px;
+    right: 9px;
+}
+
+.skin-mouth {
+    position: absolute;
+    left: 13px;
+    top: 30px;
+    width: 8px;
+    height: 2px;
+    border-radius: 0 0 4px 4px;
+    background: #874c46;
+    z-index: 2;
+}
+
+.skin-neck {
+    position: absolute;
+    left: 44px;
+    top: 36px;
+    width: 12px;
+    height: 10px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #b97859, #edc19d 42%, #c58c69);
+}
+
+.skin-preview.model-pilot .skin-neck {
+    background: linear-gradient(90deg, #29475b, #4d7180, #29475b);
+}
+
+.skin-preview.model-android .skin-neck {
+    background: linear-gradient(90deg, #b97859, #edc19d 42%, #c58c69);
+}
+
+.skin-preview.model-ninja .skin-neck,
+.skin-preview.model-shadow .skin-neck {
+    background: linear-gradient(90deg, var(--pants), var(--shirt), var(--pants));
 }
 
 .skin-body {
     position: absolute;
 
-    width: 48px;
+    width: 46px;
     height: 48px;
 
-    left: 26px;
-    top: 44px;
+    left: 27px;
+    top: 43px;
 
     background: linear-gradient(105deg, rgba(255,255,255,0.48), var(--shirt) 27% 72%, rgba(12,23,32,0.5));
 
@@ -806,39 +877,32 @@ button {
             0.3
         );
 
-    transform: perspective(180px) rotateY(-14deg);
+    transform: none;
     box-shadow:
-        inset 4px 0 5px rgba(255,255,255,0.28),
-        inset -8px 0 8px rgba(7,16,24,0.3),
-        4px 5px 0 rgba(7,16,24,0.3);
+        inset 3px 0 0 rgba(255,255,255,0.24),
+        2px 3px 0 rgba(7,16,24,0.28);
 }
 
 .skin-arm {
     position: absolute;
 
-    width: 12px;
+    width: 14px;
     height: 37px;
 
-    top: 49px;
+    top: 50px;
 
     background: linear-gradient(90deg, rgba(255,255,255,0.24), var(--shirt) 38%, rgba(10,20,28,0.34));
 
     border-radius: 8px;
-    box-shadow: inset 2px 0 3px rgba(255,255,255,0.2), 2px 3px 0 rgba(8,18,26,0.28);
+    box-shadow: inset 1px 0 0 rgba(255,255,255,0.18), 1px 2px 0 rgba(8,18,26,0.24);
 }
 
 .skin-arm.left {
     left: 16px;
-
-    transform:
-        rotate(8deg);
 }
 
 .skin-arm.right {
     right: 16px;
-
-    transform:
-        rotate(-8deg);
 }
 
 .skin-leg {
@@ -847,12 +911,12 @@ button {
     width: 15px;
     height: 37px;
 
-    top: 89px;
+    top: 87px;
 
     background: linear-gradient(100deg, rgba(255,255,255,0.2), var(--pants) 38%, rgba(8,16,25,0.48));
 
     border-radius: 4px;
-    box-shadow: inset 2px 0 3px rgba(255,255,255,0.18), 2px 3px 0 rgba(8,18,26,0.3);
+    box-shadow: inset 1px 0 0 rgba(255,255,255,0.16), 1px 2px 0 rgba(8,16,25,0.26);
 }
 
 .skin-leg::after {
@@ -868,11 +932,11 @@ button {
 }
 
 .skin-leg.left {
-    left: 32px;
+    left: 33px;
 }
 
 .skin-leg.right {
-    right: 32px;
+    right: 33px;
 }
 
 .skin-preview.model-runner .skin-body {
@@ -881,15 +945,13 @@ button {
 
 .skin-preview.model-runner .skin-leg {
     width: 12px;
-    transform: skewX(-5deg);
 }
 
 .skin-preview.model-guardian .skin-body {
     clip-path: polygon(5% 0, 95% 0, 100% 26%, 88% 100%, 12% 100%, 0 26%);
     box-shadow:
-        inset 5px 0 4px rgba(255,255,255,0.3),
-        inset -9px 0 8px rgba(8,16,24,0.38),
-        4px 5px 0 rgba(7,16,24,0.36);
+    inset 3px 0 0 rgba(255,255,255,0.24),
+    2px 3px 0 rgba(7,16,24,0.28);
 }
 
 .skin-preview.model-guardian .skin-arm {
@@ -931,6 +993,36 @@ button {
 }
 
 .skin-preview.model-school .skin-emblem::after { content: "B"; }
+
+.skin-preview.model-school .skin-body::before,
+.skin-preview.model-school .skin-body::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    width: 19px;
+    height: 22px;
+    background: linear-gradient(135deg, #347fbd, #1765aa 68%);
+}
+
+.skin-preview.model-school .skin-body::before {
+    left: -1px;
+    clip-path: polygon(0 0, 100% 0, 58% 48%, 0 82%);
+}
+
+.skin-preview.model-school .skin-body::after {
+    right: -1px;
+    clip-path: polygon(0 0, 100% 0, 100% 82%, 42% 48%);
+}
+
+.skin-preview.model-school .skin-arm {
+    background: linear-gradient(90deg, #14518a, #2877b6 48%, #164f86);
+}
+
+.skin-preview.model-school .skin-leg {
+    background:
+        linear-gradient(90deg, #f5f8fb 0 2px, transparent 2px 100%),
+        linear-gradient(100deg, rgba(255,255,255,0.2), var(--pants) 38%, rgba(8,16,25,0.48));
+}
 
 .skin-preview.model-runner .skin-hair {
     top: 8px;
@@ -1074,6 +1166,264 @@ button {
 
 .skin-preview.model-shadow .skin-chest-detail {
     background: linear-gradient(120deg, transparent 35%, var(--accent) 38% 45%, transparent 48%);
+}
+
+.skin-preview.model-pilot .skin-head,
+.skin-preview.model-guardian .skin-head,
+.skin-preview.model-android .skin-head {
+    background: linear-gradient(108deg, #f5d2ad 0 34%, #dfaa80 67%, #ad765b 100%);
+    border: 2px solid rgba(0,0,0,0.35);
+    border-radius: 10px 10px 12px 12px;
+    clip-path: none;
+}
+
+.skin-preview.model-pilot .skin-hair,
+.skin-preview.model-guardian .skin-hair,
+.skin-preview.model-ninja .skin-hair,
+.skin-preview.model-shadow .skin-hair,
+.skin-preview.model-android .skin-hair {
+    display: block;
+    width: 38px;
+    height: 16px;
+    left: -2px;
+    top: -3px;
+    border-radius: 12px 12px 3px 3px;
+    background: linear-gradient(115deg, rgba(255,255,255,0.16), var(--hair) 42%, rgba(0,0,0,0.38));
+}
+
+.skin-preview.model-pilot .skin-visor,
+.skin-preview.model-shadow .skin-visor,
+.skin-preview.model-android .skin-visor {
+    display: block;
+    z-index: 6;
+    top: 17px;
+    left: -1px;
+    width: 36px;
+    height: 12px;
+    border: 0;
+    border-radius: 0;
+    background: linear-gradient(transparent 4px, var(--accent) 4px 6px, transparent 6px);
+    box-shadow: none;
+}
+
+.skin-preview.model-pilot .skin-visor::before,
+.skin-preview.model-pilot .skin-visor::after,
+.skin-preview.model-shadow .skin-visor::before,
+.skin-preview.model-shadow .skin-visor::after,
+.skin-preview.model-android .skin-visor::before,
+.skin-preview.model-android .skin-visor::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    width: 13px;
+    height: 9px;
+    border: 2px solid var(--accent);
+    border-radius: 5px 5px 4px 4px;
+    background: rgba(25,40,52,0.28);
+}
+
+.skin-preview.model-pilot .skin-visor::before,
+.skin-preview.model-shadow .skin-visor::before,
+.skin-preview.model-android .skin-visor::before {
+    left: 0;
+}
+
+.skin-preview.model-pilot .skin-visor::after,
+.skin-preview.model-shadow .skin-visor::after,
+.skin-preview.model-android .skin-visor::after {
+    right: 0;
+}
+
+.skin-preview.model-ninja .skin-visor {
+    display: block;
+    z-index: 6;
+    top: -8px;
+    left: -5px;
+    width: 44px;
+    height: 22px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.skin-preview.model-ninja .skin-visor::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 0;
+    width: 26px;
+    height: 16px;
+    border: 2px solid var(--accent);
+    border-bottom: 0;
+    border-radius: 16px 16px 0 0;
+}
+
+.skin-preview.model-ninja .skin-visor::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--accent);
+    box-shadow: 38px 0 var(--accent);
+}
+
+.skin-preview.model-guardian .skin-visor {
+    display: block;
+    z-index: 6;
+    top: 4px;
+    left: 0;
+    width: 34px;
+    height: 4px;
+    border: 0;
+    border-radius: 2px;
+    background: var(--accent);
+    box-shadow: none;
+}
+
+.skin-preview.model-mechanic .skin-visor {
+    display: block;
+    z-index: 6;
+    top: -5px;
+    left: 2px;
+    width: 30px;
+    height: 9px;
+    border: 2px solid var(--accent);
+    border-radius: 12px 12px 5px 5px;
+    background: var(--shirt);
+    box-shadow: none;
+}
+
+.skin-preview.model-ninja .skin-cape,
+.skin-preview.model-guardian .skin-cape,
+.skin-preview.model-shadow .skin-cape {
+    display: none;
+}
+
+.skin-preview.model-ninja .skin-body,
+.skin-preview.model-guardian .skin-body,
+.skin-preview.model-mechanic .skin-body,
+.skin-preview.model-shadow .skin-body,
+.skin-preview.model-android .skin-body {
+    width: 46px;
+    left: 27px;
+    clip-path: none;
+    border-radius: 12px 12px 8px 8px;
+}
+
+.skin-preview.model-guardian .skin-arm {
+    width: 14px;
+    height: 37px;
+    border-radius: 8px;
+}
+
+.skin-preview.model-pilot .skin-pack,
+.skin-preview.model-mechanic .skin-pack,
+.skin-preview.model-shadow .skin-pack {
+    z-index: 1;
+    top: 48px;
+    left: 22px;
+    width: 56px;
+    height: 40px;
+    border: 2px solid var(--accent);
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--pants), #203347);
+}
+
+.skin-preview.model-guardian .skin-chest-detail {
+    border: 0;
+    border-radius: 0;
+    background: linear-gradient(55deg, transparent 0 43%, var(--accent) 44% 54%, transparent 55%);
+}
+
+.skin-preview.model-mechanic .skin-chest-detail {
+    border: 2px solid var(--accent);
+    border-radius: 4px 4px 8px 8px;
+    background: linear-gradient(90deg, transparent 0 45%, var(--accent) 46% 50%, transparent 51%);
+}
+
+.skin-preview.model-shadow .skin-chest-detail {
+    border-color: var(--accent);
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent 0 46%, var(--accent) 47% 50%, transparent 51%);
+}
+
+.skin-preview.model-guardian .skin-emblem {
+    box-shadow: none;
+}
+
+.skin-preview.model-runner .skin-chest-detail::after {
+    content: "07";
+    position: absolute;
+    left: 8px;
+    top: 7px;
+    color: #fff;
+    font-size: 7px;
+    font-weight: 900;
+}
+
+.skin-preview.model-pilot .skin-chest-detail {
+    display: block;
+    z-index: 5;
+    top: 60px;
+    left: 43px;
+    width: 14px;
+    height: 13px;
+    border: 1px solid var(--accent);
+    border-radius: 2px 2px 4px 4px;
+    background: linear-gradient(90deg, transparent 0 35%, var(--accent) 36% 46%, transparent 47% 57%, var(--accent) 58% 68%, transparent 69%);
+}
+
+.skin-preview.model-ninja .skin-chest-detail {
+    display: block;
+    z-index: 5;
+    top: 60px;
+    left: 44px;
+    color: var(--accent);
+    font-size: 15px;
+}
+
+.skin-preview.model-ninja .skin-chest-detail::after {
+    content: "♪";
+}
+
+.skin-preview.model-guardian .skin-emblem::after {
+    content: "G";
+    color: #233b31;
+    font-size: 6px;
+    font-weight: 900;
+}
+
+.skin-preview.model-android .skin-chest-detail::after {
+    content: "A+";
+    display: grid;
+    height: 100%;
+    place-items: center;
+    color: var(--accent);
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.skin-preview.model-mechanic .skin-chest-detail::after {
+    content: "ART";
+    display: block;
+    padding-top: 5px;
+    color: var(--accent);
+    font-size: 6px;
+    font-weight: 900;
+}
+
+.skin-preview.model-shadow .skin-chest-detail::after {
+    content: "ABC";
+    display: block;
+    padding-top: 14px;
+    color: var(--accent);
+    font-size: 6px;
+    font-weight: 900;
+    text-align: center;
 }
 
 .skin-card h3 {

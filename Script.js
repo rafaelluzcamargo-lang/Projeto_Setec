@@ -219,6 +219,20 @@ if (accessibilityBtn) {
 }
 
 
+const creatorBtn =
+    document.getElementById("creatorBtn");
+
+if (creatorBtn) {
+
+    creatorBtn.onclick = () => {
+
+        showScreen(
+            "creatorScreen"
+        );
+    };
+}
+
+
 document.querySelectorAll(
     "[data-back]"
 ).forEach(button => {
@@ -685,7 +699,7 @@ const skins = [
         name: "Uniforme Escolar",
         cost: 0,
         shirt: "#f5f8fb",
-        pants: "#4381ae",
+        pants: "#1765aa",
         hair: "#30241e",
         accent: "#9fe8ff",
         model: "school",
@@ -694,86 +708,86 @@ const skins = [
 
     {
         id: "blue",
-        name: "Velocista Pulse",
+        name: "Atleta",
         cost: 100,
-        shirt: "#287ba7",
-        pants: "#243f58",
-        hair: "#202a32",
-        accent: "#8eeaff",
+        shirt: "#e65a43",
+        pants: "#293345",
+        hair: "#34251f",
+        accent: "#ffd166",
         model: "runner",
-        role: "Corrida aerodinâmica"
+        role: "Aluno atleta"
     },
 
     {
         id: "red",
-        name: "Piloto Orbital",
+        name: "Professor de Ciências",
         cost: 220,
-        shirt: "#dceaf0",
-        pants: "#526e82",
-        hair: "#182b3c",
-        accent: "#8be6ff",
+        shirt: "#edf5ef",
+        pants: "#315564",
+        hair: "#37291f",
+        accent: "#58cbb3",
         model: "pilot",
-        role: "Traje pressurizado"
+        role: "Professor"
     },
 
     {
         id: "purple",
-        name: "Ninja Circuito",
+        name: "Músico",
         cost: 400,
-        shirt: "#34435e",
-        pants: "#1b293b",
-        hair: "#111a28",
-        accent: "#adf1ff",
+        shirt: "#675078",
+        pants: "#333044",
+        hair: "#2b2025",
+        accent: "#f29ac5",
         model: "ninja",
-        role: "Manto furtivo"
+        role: "Aluno músico"
     },
 
     {
         id: "gold",
-        name: "Guardião Aurora",
+        name: "Representante de Turma",
         cost: 700,
-        shirt: "#b7cbd4",
-        pants: "#38546c",
-        hair: "#182636",
-        accent: "#f0d598",
+        shirt: "#46705e",
+        pants: "#354d47",
+        hair: "#35251e",
+        accent: "#f2cb6b",
         model: "guardian",
-        role: "Armadura de elite"
+        role: "Representante de turma"
     },
 
     {
         id: "silver",
-        name: "Androide Axiom",
+        name: "Aluno Inteligente",
         cost: 480,
-        shirt: "#c5d7e0",
-        pants: "#5b778b",
-        hair: "#8298a5",
-        accent: "#7deaff",
+        shirt: "#c7d8cf",
+        pants: "#53686b",
+        hair: "#657d77",
+        accent: "#5bd6b1",
         model: "android",
-        role: "Chassi sintético"
+        role: "Leitura e estudos"
     },
 
     {
         id: "cyan",
-        name: "Mecânico Volt",
+        name: "Artista",
         cost: 640,
-        shirt: "#327386",
-        pants: "#31495c",
-        hair: "#202a32",
-        accent: "#a7e6bd",
+        shirt: "#c97b59",
+        pants: "#405158",
+        hair: "#35251e",
+        accent: "#f0c95d",
         model: "mechanic",
-        role: "Kit de manutenção"
+        role: "Aluno artista"
     },
 
     {
         id: "black",
-        name: "Agente Eclipse",
+        name: "Aluno Leitor",
         cost: 900,
-        shirt: "#263448",
-        pants: "#162334",
-        hair: "#111923",
-        accent: "#77ddff",
+        shirt: "#48556a",
+        pants: "#303b49",
+        hair: "#342823",
+        accent: "#e9bd72",
         model: "shadow",
-        role: "Infiltração tática"
+        role: "Leitura"
     }
 ];
 
@@ -867,7 +881,11 @@ function updateSkinsScreen() {
 
                     <div class="skin-eye two"></div>
 
+                    <div class="skin-mouth"></div>
+
                 </div>
+
+                <div class="skin-neck"></div>
 
                 <div class="skin-body"></div>
 
@@ -6084,29 +6102,14 @@ function getSelectedSkin() {
 
 
 function drawSkinBackLayer(skin, x, y) {
-    if (["ninja", "guardian", "shadow"].includes(skin.model)) {
-        ctx.fillStyle =
-            skin.model === "guardian"
-                ? "rgba(42,65,82,0.94)"
-                : "rgba(18,31,47,0.92)";
-
-        ctx.beginPath();
-        ctx.moveTo(x + 8, y + 24);
-        ctx.lineTo(x + 30, y + 24);
-        ctx.lineTo(x + 36, y + 55);
-        ctx.lineTo(x + 21, y + 50);
-        ctx.lineTo(x + 3, y + 55);
-        ctx.closePath();
+    if (["pilot", "mechanic", "shadow", "android"].includes(skin.model)) {
+        ctx.fillStyle = adjustColor(skin.pants, -12);
+        roundRect(x + 27, y + 27, 9, 22, 3);
         ctx.fill();
-
-        drawTechLine(x + 20, y + 30, x + 20, y + 48, skin.accent, 1, 4);
-    }
-
-    if (["pilot", "mechanic"].includes(skin.model)) {
-        ctx.fillStyle = skin.model === "pilot" ? "#7895a7" : "#466474";
-        roundRect(x + 27, y + 25, 9, 23, 3);
-        ctx.fill();
-        drawTechLine(x + 29, y + 29, x + 34, y + 29, skin.accent, 1, 4);
+        ctx.strokeStyle = skin.accent;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x + 28, y + 30, 7, 15);
+        drawTechLine(x + 29, y + 33, x + 34, y + 33, skin.accent, 1, 0);
     }
 }
 
@@ -6119,50 +6122,62 @@ function drawSkinChestDetails(skin, x, y) {
             break;
 
         case "pilot":
-            drawTechLine(x + 10, y + 23, x + 27, y + 44, "#365c73", 3, 3);
-            drawTechLine(x + 29, y + 23, x + 13, y + 43, skin.accent, 2, 5);
-            drawTechNode(x + 20, y + 34, 3, "#eafaff");
-            break;
-
-        case "ninja":
-            ctx.fillStyle = "#23364d";
-            roundRect(x + 7, y + 35, 25, 6, 3);
-            ctx.fill();
-            drawTechLine(x + 9, y + 37, x + 29, y + 37, skin.accent, 1, 4);
-            break;
-
-        case "guardian":
-            ctx.fillStyle = "#8ca9b8";
-            roundRect(x + 3, y + 21, 10, 8, 3);
-            ctx.fill();
-            roundRect(x + 26, y + 21, 9, 8, 3);
-            ctx.fill();
-            drawTechLine(x + 13, y + 25, x + 20, y + 39, skin.accent, 2, 6);
-            drawTechLine(x + 27, y + 25, x + 20, y + 39, skin.accent, 2, 6);
-            drawTechNode(x + 20, y + 35, 3, skin.accent);
-            break;
-
-        case "android":
-            ctx.fillStyle = "#6e8998";
-            roundRect(x + 9, y + 25, 22, 20, 4);
+            drawTechLine(x + 20, y + 23, x + 20, y + 46, adjustColor(skin.pants, -10), 2, 0);
+            ctx.fillStyle = "#f7fbf7";
+            roundRect(x + 10, y + 31, 8, 10, 2);
             ctx.fill();
             ctx.strokeStyle = skin.accent;
             ctx.lineWidth = 1;
-            ctx.strokeRect(x + 11, y + 27, 18, 16);
-            drawTechNode(x + 20, y + 35, 4, skin.accent);
+            ctx.strokeRect(x + 10.5, y + 31.5, 7, 9);
+            drawTechLine(x + 12, y + 34, x + 16, y + 34, skin.accent, 1, 0);
+            break;
+
+        case "ninja":
+            ctx.fillStyle = skin.accent;
+            ctx.fillRect(x + 19, y + 26, 2, 12);
+            ctx.fillRect(x + 19, y + 26, 9, 2);
+            ctx.beginPath();
+            ctx.ellipse(x + 16, y + 39, 4, 2, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 25, y + 37, 4, 2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            break;
+
+        case "guardian":
+            drawTechLine(x + 10, y + 23, x + 29, y + 45, skin.accent, 3, 0);
+            drawTechLine(x + 11, y + 23, x + 30, y + 45, "#f5f8fb", 1, 0);
+            drawTechNode(x + 14, y + 28, 3, skin.accent);
+            break;
+
+        case "android":
+            ctx.fillStyle = adjustColor(skin.pants, -10);
+            roundRect(x + 10, y + 30, 20, 14, 2);
+            ctx.fill();
+            ctx.strokeStyle = skin.accent;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x + 11, y + 31, 18, 12);
+            drawTechLine(x + 20, y + 32, x + 20, y + 42, skin.accent, 1, 0);
+            drawTechLine(x + 13, y + 34, x + 18, y + 35, skin.accent, 1, 0);
+            drawTechLine(x + 22, y + 35, x + 27, y + 34, skin.accent, 1, 0);
             break;
 
         case "mechanic":
-            ctx.fillStyle = "#253f52";
-            roundRect(x + 9, y + 29, 8, 10, 2);
+            ctx.fillStyle = adjustColor(skin.pants, -10);
+            roundRect(x + 10, y + 29, 20, 17, 3);
             ctx.fill();
-            roundRect(x + 23, y + 29, 8, 10, 2);
-            ctx.fill();
-            drawTechLine(x + 8, y + 42, x + 31, y + 42, skin.accent, 2, 4);
+            ctx.strokeStyle = skin.accent;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x + 11, y + 30, 18, 15);
+            drawTechNode(x + 20, y + 36, 3, skin.accent);
             break;
 
         case "shadow":
-            drawTechLine(x + 11, y + 24, x + 28, y + 44, skin.accent, 2, 8);
+            ctx.fillStyle = adjustColor(skin.pants, -10);
+            roundRect(x + 11, y + 27, 18, 14, 2);
+            ctx.fill();
+            ctx.strokeStyle = skin.accent;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x + 12, y + 28, 16, 12);
+            drawTechLine(x + 20, y + 29, x + 20, y + 39, skin.accent, 1, 0);
             break;
     }
 }
@@ -6175,88 +6190,60 @@ function drawSkinHeadwear(skin, x, y) {
             break;
 
         case "pilot":
-            ctx.fillStyle = "#839eae";
-            roundRect(x + 5, y - 5, 30, 27, 9);
-            ctx.fill();
             ctx.strokeStyle = skin.accent;
             ctx.lineWidth = 2;
-            ctx.strokeRect(x + 6, y - 4, 28, 25);
-            ctx.fillStyle = "#173047";
-            roundRect(x + 8, y + 6, 24, 8, 4);
-            ctx.fill();
-            drawTechLine(x + 11, y + 8, x + 29, y + 8, "#dff8ff", 1, 5);
+            ctx.beginPath();
+            ctx.ellipse(x + 14, y + 10, 6, 5, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 27, y + 10, 6, 5, 0, 0, Math.PI * 2);
+            ctx.stroke();
+            drawTechLine(x + 19, y + 10, x + 22, y + 10, skin.accent, 2, 0);
             break;
 
         case "ninja":
-            ctx.fillStyle = "#1c2b3e";
-            ctx.beginPath();
-            ctx.moveTo(x + 6, y + 8);
-            ctx.quadraticCurveTo(x + 7, y - 8, x + 21, y - 6);
-            ctx.quadraticCurveTo(x + 34, y - 5, x + 34, y + 8);
-            ctx.lineTo(x + 29, y + 5);
-            ctx.lineTo(x + 24, y + 9);
-            ctx.lineTo(x + 19, y + 5);
-            ctx.lineTo(x + 13, y + 9);
-            ctx.closePath();
+            ctx.fillStyle = adjustColor(skin.pants, -10);
+            roundRect(x + 8, y + 2, 25, 4, 2);
             ctx.fill();
-            ctx.fillStyle = "#263b52";
-            roundRect(x + 8, y + 12, 25, 6, 2);
+            roundRect(x + 6, y + 5, 5, 12, 2);
             ctx.fill();
-            drawTechLine(x + 12, y + 14, x + 29, y + 14, skin.accent, 1, 5);
+            roundRect(x + 30, y + 5, 5, 12, 2);
+            ctx.fill();
+            drawTechLine(x + 8, y + 6, x + 8, y + 14, skin.accent, 1, 0);
+            drawTechLine(x + 32, y + 6, x + 32, y + 14, skin.accent, 1, 0);
             break;
 
         case "guardian":
-            ctx.fillStyle = "#8aa7b7";
-            roundRect(x + 5, y - 4, 30, 24, 8);
+            ctx.fillStyle = adjustColor(skin.pants, -12);
+            roundRect(x + 7, y + 1, 28, 5, 2);
             ctx.fill();
-            ctx.strokeStyle = skin.accent;
-            ctx.lineWidth = 2;
-            ctx.strokeRect(x + 7, y - 2, 26, 20);
-            ctx.fillStyle = "#203b52";
-            roundRect(x + 9, y + 7, 22, 6, 3);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.moveTo(x + 16, y - 4);
-            ctx.lineTo(x + 20, y - 11);
-            ctx.lineTo(x + 24, y - 4);
-            ctx.fillStyle = skin.accent;
-            ctx.fill();
+            drawTechLine(x + 8, y + 3, x + 34, y + 3, skin.accent, 1, 0);
             break;
 
         case "android":
-            ctx.fillStyle = "#a8c1cc";
-            roundRect(x + 6, y - 3, 28, 25, 6);
-            ctx.fill();
             ctx.strokeStyle = skin.accent;
-            ctx.lineWidth = 2;
-            ctx.strokeRect(x + 8, y - 1, 24, 21);
-            ctx.fillStyle = "#18344a";
-            roundRect(x + 9, y + 7, 22, 7, 3);
-            ctx.fill();
-            drawTechNode(x + 14, y + 10, 2, skin.accent);
-            drawTechNode(x + 26, y + 10, 2, skin.accent);
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(x + 14, y + 10, 4, 0, Math.PI * 2);
+            ctx.arc(x + 27, y + 10, 4, 0, Math.PI * 2);
+            ctx.stroke();
+            drawTechLine(x + 18, y + 10, x + 23, y + 10, skin.accent, 1, 0);
             break;
 
         case "mechanic":
-            ctx.fillStyle = "#30495c";
-            roundRect(x + 8, y - 2, 25, 8, 4);
+            ctx.fillStyle = adjustColor(skin.shirt, -18);
+            roundRect(x + 9, y - 4, 24, 9, 5);
             ctx.fill();
-            ctx.strokeStyle = skin.accent;
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(x + 14, y + 8, 5, Math.PI, Math.PI * 2);
-            ctx.arc(x + 27, y + 8, 5, Math.PI, Math.PI * 2);
-            ctx.stroke();
+            roundRect(x + 7, y + 2, 27, 3, 2);
+            ctx.fill();
             break;
 
         case "shadow":
-            ctx.fillStyle = "#172436";
-            roundRect(x + 5, y - 6, 31, 30, 10);
-            ctx.fill();
-            ctx.fillStyle = "#203850";
-            roundRect(x + 8, y + 10, 25, 8, 3);
-            ctx.fill();
-            drawTechLine(x + 12, y + 13, x + 29, y + 13, skin.accent, 1, 7);
+            ctx.strokeStyle = skin.accent;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(x + 14, y + 10, 4, 0, Math.PI * 2);
+            ctx.arc(x + 27, y + 10, 4, 0, Math.PI * 2);
+            ctx.stroke();
+            drawTechLine(x + 18, y + 10, x + 23, y + 10, skin.accent, 1, 0);
             break;
     }
 }
@@ -6437,7 +6424,8 @@ function drawPlayer() {
         0,
         0,
         pantsColor,
-        player.facing
+        player.facing,
+        skin.model
     );
 
 
@@ -6464,7 +6452,8 @@ function drawPlayer() {
         0,
         0,
         pantsColor,
-        player.facing
+        player.facing,
+        skin.model
     );
 
 
@@ -6570,27 +6559,39 @@ function drawPlayer() {
     drawTechLine(x + 24, y + 37, x + 28, y + 40, "rgba(255,255,255,0.25)", 1, 0);
 
 
-    if (skin.id === "green") {
-        ctx.fillStyle = "#d9e6ed";
+    if (skin.model === "school") {
+        ctx.save();
+        roundRect(x + 7, y + 19, 25, 29, 8);
+        ctx.clip();
+
+        ctx.fillStyle = "#1765aa";
         ctx.beginPath();
-        ctx.moveTo(x + 13, y + 20);
-        ctx.lineTo(x + 19, y + 26);
-        ctx.lineTo(x + 20, y + 22);
-        ctx.lineTo(x + 24, y + 20);
-        ctx.lineTo(x + 21, y + 28);
-        ctx.lineTo(x + 18, y + 28);
+        ctx.moveTo(x + 7, y + 19);
+        ctx.lineTo(x + 17, y + 19);
+        ctx.lineTo(x + 15, y + 26);
+        ctx.lineTo(x + 7, y + 31);
         ctx.closePath();
         ctx.fill();
 
-        ctx.fillStyle = "#264c69";
-        ctx.font = "bold 4px Arial, sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText("Colégio", x + 20, y + 35);
-        ctx.fillText("Barbosa", x + 20, y + 41);
+        ctx.beginPath();
+        ctx.moveTo(x + 22, y + 19);
+        ctx.lineTo(x + 32, y + 19);
+        ctx.lineTo(x + 32, y + 31);
+        ctx.lineTo(x + 24, y + 26);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
 
-        ctx.fillStyle = "#4381ae";
-        ctx.fillRect(x + 19, y + 28, 2, 2);
-        ctx.fillRect(x + 19, y + 32, 2, 2);
+        drawTechLine(x + 17, y + 21, x + 14, y + 27, "#dcecf5", 1, 0);
+        drawTechLine(x + 23, y + 21, x + 26, y + 27, "#dcecf5", 1, 0);
+
+        ctx.fillStyle = "#1d5c97";
+        roundRect(x + 11, y + 31, 5, 7, 1);
+        ctx.fill();
+        drawTechLine(x + 12, y + 33, x + 15, y + 33, "#f5f8fb", 1, 0);
+
+        ctx.fillStyle = "#1765aa";
+        ctx.fillRect(x + 19, y + 28, 1, 16);
     }
 
 
@@ -6617,13 +6618,17 @@ function drawPlayer() {
                 : 0;
 
 
+    const sleeveColor =
+        skin.model === "school"
+            ? "#1765aa"
+            : shirtColor;
+
+
     drawArm(
         x + 8,
         y + 22,
         armOne,
-        shirtColor,
-        skin.model,
-        skin.accent
+        sleeveColor
     );
 
 
@@ -6631,9 +6636,7 @@ function drawPlayer() {
         x + 31,
         y + 22,
         armTwo,
-        shirtColor,
-        skin.model,
-        skin.accent
+        sleeveColor
     );
 
 
@@ -6872,7 +6875,8 @@ function drawLeg(
     x,
     y,
     color,
-    facing = 1
+    facing = 1,
+    model = ""
 ) {
 
     const denimGradient =
@@ -6905,6 +6909,11 @@ function drawLeg(
     ctx.strokeStyle = "rgba(18,43,63,0.22)";
     ctx.lineWidth = 0.8;
     ctx.stroke();
+
+    if (model === "school") {
+        const stripeX = facing > 0 ? x + 2 : x - 2;
+        drawTechLine(stripeX, y + 3, stripeX, y + 10, "#f5f8fb", 1, 0);
+    }
 
 
     ctx.fillStyle =
@@ -6972,9 +6981,7 @@ function drawArm(
     x,
     y,
     rotation,
-    color,
-    model = "school",
-    accent = "#9fe8ff"
+    color
 ) {
 
     ctx.save();
@@ -7025,14 +7032,14 @@ function drawArm(
     const handGradient =
         ctx.createLinearGradient(-3, 10, 3, 16);
 
-    handGradient.addColorStop(0, model === "android" ? "#d5e4ea" : "#f0c59e");
-    handGradient.addColorStop(1, model === "android" ? "#718b99" : "#be8664");
+    handGradient.addColorStop(0, "#f0c59e");
+    handGradient.addColorStop(1, "#be8664");
     ctx.fillStyle = handGradient;
     ctx.beginPath();
     ctx.ellipse(0, 13, 3.7, 4.2, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = model === "android" ? accent : "rgba(255,255,255,0.34)";
+    ctx.fillStyle = "rgba(255,255,255,0.34)";
     ctx.fillRect(-1, 10, 2, 1);
     ctx.restore();
 
