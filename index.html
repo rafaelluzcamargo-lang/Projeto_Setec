@@ -1,643 +1,1020 @@
+<!-- Define HTML5; neste ponto se inicia qualquer documento HTML moderno. -->
 <!DOCTYPE html>
+<!-- Define a raiz e o idioma português brasileiro; aqui pode ser ajustado o idioma do site. -->
 <html lang="pt-BR">
+<!-- Abre os metadados e recursos do documento, não exibidos como conteúdo da página. -->
 <head>
+    <!-- Define a codificação UTF-8 para acentos e símbolos; pode ser trocada por outra codificação se necessário. -->
     <meta charset="UTF-8">
+    <!-- Ajusta a escala em celulares; valores de largura ou zoom podem ser configurados aqui. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Speed Run</title>
+    <!-- Define o título mostrado na aba do navegador; pode receber o nome do jogo ou da página. -->
+    <title>Speed Run Parkour</title>
+    <!-- Carrega os estilos visuais externos; outro arquivo CSS pode ser vinculado aqui. -->
     <link rel="stylesheet" href="style.css">
+<!-- Fecha a área de metadados; outros metadados e links podem ser incluídos antes deste fechamento. -->
 </head>
 
+<!-- Inicia o conteúdo visível e interativo da página; novos componentes da interface podem ser adicionados aqui. -->
 <body>
 
+    <!-- Agrupa a aplicação principal do jogo; pode conter as telas e controles globais. -->
     <main id="app">
 
         <!-- ================= MENU ================= -->
+        <!-- Cria a tela inicial; o id identifica a tela e as classes controlam aparência e visibilidade. -->
         <section id="menuScreen" class="screen active">
 
+            <!-- Reúne o logotipo e os comandos do menu; opções adicionais podem ser colocadas neste painel. -->
             <div class="menu-box">
 
+                <!-- Agrupa as partes tipográficas do logotipo; outras linhas de marca podem ser acrescentadas aqui. -->
                 <div class="logo">
-                    <span>PIXEL</span>
-                    <strong>SPEED RUN</strong>
+                    <!-- Exibe a primeira parte do nome do jogo; pode ser substituída por outro texto de marca. -->
+                    <span>Speed Run</span>
+                    <!-- Destaca a segunda parte do nome do jogo; pode receber o subtítulo principal da marca. -->
+                    <strong>Parkour</strong>
+                <!-- Fecha o agrupamento do logotipo; mais elementos da marca podem ser inseridos antes. -->
                 </div>
 
+                <!-- Apresenta uma descrição curta sob o logotipo; pode receber outra frase de apresentação. -->
                 <div class="logo-sub">
+                    <!-- Texto complementar do menu; pode ser trocado por uma descrição curta do jogo. -->
                     PARKOUR ADVENTURE
+                <!-- Fecha o subtítulo do logotipo; conteúdo complementar pode ser inserido antes. -->
                 </div>
 
+                <!-- Botão que inicia o fluxo de jogo; classes definem estilo e id permite associar a ação no JavaScript. -->
                 <button class="menu-btn primary" id="playBtn">
+                    <!-- Símbolo visual do comando; outro ícone pode ser colocado neste elemento. -->
                     <span>▶</span> JOGAR
+                <!-- Fecha o botão de início; comandos adicionais podem ser criados como botões próximos. -->
                 </button>
 
+                <!-- Botão para abrir a seleção de personagens; o id conecta o controle ao JavaScript. -->
                 <button class="menu-btn" id="skinsBtn">
+                    <!-- Ícone do comando de personagens; pode ser substituído por outro símbolo. -->
                     <span>◆</span> SKINS
+                <!-- Fecha o botão de personagens; novas ações de personalização podem ser colocadas ao lado. -->
                 </button>
 
+                <!-- Botão para abrir a tela de recordes; o id identifica este controle no JavaScript. -->
                 <button class="menu-btn" id="recordsBtn">
+                    <!-- Ícone do comando de recordes; outro símbolo pode ser usado aqui. -->
                     <span>★</span> RECORDES
+                <!-- Fecha o botão de recordes; outros atalhos de estatísticas podem ser adicionados perto dele. -->
                 </button>
 
+                <!-- Botão para abrir a lista de conquistas; o id permite registrar sua interação. -->
                 <button class="menu-btn" id="achievementsBtn">
+                    <!-- Símbolo da área de conquistas; pode ser substituído por outro ícone. -->
                     <span>🏆</span> CONQUISTAS
+                <!-- Fecha o botão de conquistas; novos comandos relacionados a objetivos podem ser incluídos. -->
                 </button>
 
+                <!-- Botão para acessar opções de acessibilidade; o id liga a interface à lógica do jogo. -->
                 <button class="menu-btn" id="accessibilityBtn">
+                    <!-- Ícone de configurações; outro símbolo de acessibilidade pode ser colocado aqui. -->
                     <span>⚙</span> ACESSIBILIDADE
+                <!-- Fecha o botão de acessibilidade; outras configurações podem ter comandos próprios. -->
                 </button>
 
+                <!-- Botão para abrir informações do criador; o id identifica sua ação no JavaScript. -->
                 <button class="menu-btn" id="creatorBtn">
+                    <!-- Ícone informativo e rótulo do comando; o texto pode ser ajustado para outra seção informativa. -->
                     <span>ⓘ</span> SOBRE O CRIADOR
+                <!-- Fecha o botão de informações; mais links institucionais podem ser adicionados ao menu. -->
                 </button>
 
+                <!-- Agrupa instruções rápidas de teclado; outras dicas de controles podem ser listadas neste bloco. -->
                 <div class="small-info">
+                    <!-- Mostra as teclas de movimento horizontal; pode ser atualizado se os controles mudarem. -->
                     A / D ou ← / → para correr<br>
+                    <!-- Mostra as teclas de pulo; novas instruções podem ser acrescentadas em outra linha. -->
                     Espaço / W / ↑ para pular
+                <!-- Fecha as instruções rápidas; informações adicionais podem ser incluídas dentro deste bloco. -->
                 </div>
 
+            <!-- Fecha o painel principal do menu; outros elementos do menu devem ser inseridos antes. -->
             </div>
 
+            <!-- Inicia o rodapé da tela; a classe reaproveita a formatação comum das telas. -->
             <footer class="section-footer">
-                Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+                <!-- Crédito exibido na interface; substitua os pontos pelo nome e informações desejadas. -->
+                Feito por: Rafael Bento Luz de Camargo — Aluno do 2° Desenvolvimento de Sistemas
+            <!-- Fecha o rodapé do menu; outros créditos podem ser adicionados antes. -->
             </footer>
 
+        <!-- Fecha a tela inicial; novas áreas do menu devem ficar dentro desta seção. -->
         </section>
 
 
         <!-- ================= DIFICULDADE ================= -->
+        <!-- Cria a tela de escolha da dificuldade; o id permite exibi-la pelo JavaScript e a classe aplica o estilo de tela. -->
         <section id="difficultyScreen" class="screen">
 
+            <!-- Agrupa título, opções de dificuldade e comando para voltar; outros controles podem ser inseridos aqui. -->
             <div class="panel">
 
+                <!-- Define o título deste painel; pode receber outro texto de orientação. -->
                 <div class="panel-title">
+                    <!-- Texto visível para orientar a escolha do jogador; pode ser substituído por uma instrução. -->
                     ESCOLHA A DIFICULDADE
+                <!-- Fecha o título do painel; informações de cabeçalho adicionais cabem antes deste fechamento. -->
                 </div>
 
+                <!-- Opção de dificuldade fácil; a classe estiliza o botão e o atributo data fornece o valor ao JavaScript. -->
                 <button class="difficulty-btn easy"
                         data-difficulty="easy">
 
+                    <!-- Agrupa o símbolo visual da dificuldade; outro indicador pode ser colocado neste elemento. -->
                     <div class="diff-icon">
+                        <!-- Forma que representa o nível fácil; pode ser trocada por outro símbolo. -->
                         ●
+                    <!-- Fecha o contêiner do símbolo; outros detalhes visuais podem ser adicionados aqui. -->
                     </div>
 
+                    <!-- Agrupa o nome do nível e sua descrição; informações complementares podem ser incluídas neste bloco. -->
                     <div>
+                        <!-- Nome mostrado para a dificuldade fácil; pode ser alterado sem mudar o valor de data-difficulty. -->
                         <strong>FÁCIL</strong>
 
+                        <!-- Inicia a descrição dos efeitos do nível; pode receber outras regras ou dicas. -->
                         <span>
+                            <!-- Explica o desafio oferecido pelo nível fácil; ajuste o texto se as regras mudarem. -->
                             Sem drones, plataformas lentas e mais margem no salto
+                        <!-- Fecha a descrição do nível fácil; mais detalhes podem ser acrescentados antes. -->
                         </span>
+                    <!-- Fecha o agrupamento de nome e descrição da opção fácil. -->
                     </div>
 
+                <!-- Fecha o botão fácil; outras opções podem seguir com valores próprios em data-difficulty. -->
                 </button>
 
+                <!-- Opção de dificuldade média; a classe diferencia a aparência e data-difficulty identifica a escolha. -->
                 <button class="difficulty-btn medium"
                         data-difficulty="medium">
 
+                    <!-- Contêiner do símbolo da dificuldade média; pode conter outro ícone ou indicador. -->
                     <div class="diff-icon">
+                        <!-- Símbolo do nível médio; pode ser substituído por outra forma. -->
                         ◆
+                    <!-- Fecha o contêiner do símbolo do nível médio. -->
                     </div>
 
+                    <!-- Agrupa rótulo e resumo da opção média; novas informações podem ser adicionadas aqui. -->
                     <div>
+                        <!-- Nome visível da dificuldade média; pode ser renomeado mantendo o valor interno correspondente. -->
                         <strong>MÉDIO</strong>
 
+                        <!-- Inicia a descrição da dificuldade média; pode receber outras características do nível. -->
                         <span>
+                            <!-- Resume o ritmo e os perigos deste nível; atualize junto das regras do jogo. -->
                             Drones ativos e ritmo equilibrado
+                        <!-- Fecha a descrição da opção média. -->
                         </span>
+                    <!-- Fecha o agrupamento de texto da opção média. -->
                     </div>
 
+                <!-- Fecha o botão médio; novas dificuldades podem ser inseridas como opções semelhantes. -->
                 </button>
 
+                <!-- Opção de dificuldade difícil; sua classe e seu valor de dados identificam o nível no código. -->
                 <button class="difficulty-btn hard"
                         data-difficulty="hard">
 
+                    <!-- Contêiner do símbolo de dificuldade; outro indicador visual pode ser incluído. -->
                     <div class="diff-icon">
+                        <!-- Símbolo que representa o nível difícil; pode ser trocado por outro. -->
                         ▲
+                    <!-- Fecha o contêiner do símbolo difícil. -->
                     </div>
 
+                    <!-- Agrupa o rótulo e a explicação da dificuldade difícil. -->
                     <div>
+                        <!-- Nome visível do nível difícil; pode ser alterado sem mudar sua identificação interna. -->
                         <strong>DIFÍCIL</strong>
 
+                        <!-- Inicia a descrição dos desafios do nível difícil. -->
                         <span>
+                            <!-- Explica obstáculos e limitações deste nível; pode ser ajustado às regras implementadas. -->
                             Mais serras rápidas, salto mais baixo e menos proteção
+                        <!-- Fecha a descrição da dificuldade difícil. -->
                         </span>
+                    <!-- Fecha o agrupamento textual da opção difícil. -->
                     </div>
 
+                <!-- Fecha o botão difícil; outras opções podem ser inseridas antes do comando de voltar. -->
                 </button>
 
+                <!-- Botão de retorno; data-back informa qual tela deve ser reaberta ao clicar. -->
                 <button class="back-btn"
                         data-back="menuScreen">
 
+                    <!-- Rótulo mostrado no botão de retorno; pode ser substituído por outro texto curto. -->
                     VOLTAR
 
+                <!-- Fecha o botão que retorna ao menu inicial. -->
                 </button>
 
+            <!-- Fecha o painel de dificuldade; novos elementos da tela devem ficar antes deste fechamento. -->
             </div>
 
+            <!-- Inicia o rodapé da tela de dificuldade; a classe reaproveita os estilos comuns. -->
             <footer class="section-footer">
+                <!-- Crédito do projeto; substitua os pontos pelos dados do autor ou da equipe. -->
                 Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            <!-- Fecha o rodapé da tela de dificuldade. -->
             </footer>
 
+        <!-- Fecha a seção de dificuldade; telas independentes devem ser criadas fora desta seção. -->
         </section>
 
 
         <!-- ================= SKINS ================= -->
+        <!-- Cria a tela de seleção de personagens; o id a conecta à navegação do jogo. -->
         <section id="skinsScreen" class="screen">
 
+            <!-- Painel da loja de personagens; a classe adicional permite layout próprio para esta tela. -->
             <div class="panel skin-panel">
 
+                <!-- Título da lista de personagens; pode ser renomeado conforme o tema da loja. -->
                 <div class="panel-title">
+                    <!-- Rótulo principal visível da área de personagens. -->
                     PERSONAGENS
+                <!-- Fecha o título da tela de personagens. -->
                 </div>
 
+                <!-- Mostra o saldo atual de moedas; este bloco pode incluir outras informações de compra. -->
                 <div class="points-display">
+                    <!-- Rótulo que explica o valor exibido logo abaixo. -->
                     MOEDAS DISPONÍVEIS:
+                    <!-- Identificador do número atualizado pelo JavaScript; o conteúdo inicial funciona como reserva. -->
                     <strong id="totalPointsDisplay">
+                        <!-- Valor inicial até o saldo salvo ser carregado pelo jogo. -->
                         0
+                    <!-- Fecha o campo de saldo; o JavaScript substitui seu conteúdo pelo total atual. -->
                     </strong>
+                <!-- Fecha a área que apresenta as moedas disponíveis. -->
                 </div>
 
+                <!-- Área vazia preenchida dinamicamente com cartões de personagens; outras entradas são geradas pelo JavaScript. -->
                 <div
                     id="skinsContainer"
                     class="skins-container">
+                <!-- Fecha o contêiner dinâmico de personagens; seus cartões são criados em tempo de execução. -->
                 </div>
 
+                <!-- Botão para retornar ao menu; data-back contém o identificador da tela de destino. -->
                 <button class="back-btn"
                         data-back="menuScreen">
 
+                    <!-- Texto do comando de retorno; pode ser trocado por outro rótulo. -->
                     VOLTAR
 
+                <!-- Fecha o botão de retorno da tela de personagens. -->
                 </button>
 
+            <!-- Fecha o painel que contém saldo, personagens e retorno. -->
             </div>
 
+            <!-- Inicia o crédito no rodapé da tela de personagens. -->
             <footer class="section-footer">
+                <!-- Texto de crédito; pode receber o nome real do autor ou da equipe. -->
                 Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            <!-- Fecha o rodapé de personagens. -->
             </footer>
 
+        <!-- Fecha a tela de personagens; novas áreas independentes devem ser colocadas fora da seção. -->
         </section>
 
 
         <!-- ================= RECORDES ================= -->
+        <!-- Tela com pontuações por dificuldade; o id permite que a navegação a localize. -->
         <section id="recordsScreen" class="screen">
 
+            <!-- Painel que contém o título, a lista de resultados e o botão de retorno. -->
             <div class="panel">
 
+                <!-- Cabeçalho da tela de recordes; o texto pode ser personalizado. -->
                 <div class="panel-title">
+                    <!-- Identifica a informação apresentada neste painel. -->
                     RECORDES
+                <!-- Fecha o título dos recordes. -->
                 </div>
 
+                <!-- Agrupa as linhas de recordes; outra categoria pode ser adicionada dentro deste contêiner. -->
                 <div class="record-list">
 
+                    <!-- Linha com o resultado da dificuldade fácil; novas informações dessa categoria cabem aqui. -->
                     <div class="record-row">
 
+                        <!-- Agrupa ícone e rótulo do nível fácil. -->
                         <div>
+                            <!-- Ícone colorido do nível fácil; pode ser trocado ou acompanhado de texto. -->
                             <span class="record-icon easy-color">
+                                <!-- Forma visual associada à dificuldade fácil. -->
                                 ●
+                            <!-- Fecha o ícone do nível fácil. -->
                             </span>
 
+                            <!-- Rótulo legível da categoria deste recorde. -->
                             FÁCIL
+                        <!-- Fecha o grupo de símbolo e rótulo da dificuldade fácil. -->
                         </div>
 
+                        <!-- Ponto de atualização do recorde fácil; o JavaScript substitui este valor inicial. -->
                         <strong id="easyRecord">
+                            <!-- Valor exibido antes da leitura do recorde salvo. -->
                             0
+                        <!-- Fecha o campo do recorde fácil; seu id é usado pelo JavaScript. -->
                         </strong>
 
+                    <!-- Fecha a linha que apresenta o recorde fácil. -->
                     </div>
 
+                    <!-- Linha que apresenta o recorde da dificuldade média. -->
                     <div class="record-row">
 
+                        <!-- Agrupa o ícone e o rótulo do nível médio. -->
                         <div>
+                            <!-- Ícone e classe de cor próprios da dificuldade média. -->
                             <span class="record-icon medium-color">
+                                <!-- Forma visual que identifica o nível médio. -->
                                 ◆
+                            <!-- Fecha o ícone médio. -->
                             </span>
 
+                            <!-- Nome visível da categoria média. -->
                             MÉDIO
+                        <!-- Fecha o grupo de ícone e rótulo médios. -->
                         </div>
 
+                        <!-- Elemento atualizado com o recorde médio salvo pelo JavaScript. -->
                         <strong id="mediumRecord">
+                            <!-- Valor de reserva mostrado antes da atualização. -->
                             0
+                        <!-- Fecha o campo numérico do recorde médio. -->
                         </strong>
 
+                    <!-- Fecha a linha do recorde médio. -->
                     </div>
 
+                    <!-- Linha que apresenta o recorde da dificuldade difícil. -->
                     <div class="record-row">
 
+                        <!-- Agrupa o símbolo e o rótulo do nível difícil. -->
                         <div>
+                            <!-- Ícone com classe de cor da dificuldade difícil. -->
                             <span class="record-icon hard-color">
+                                <!-- Forma visual que identifica a categoria difícil. -->
                                 ▲
+                            <!-- Fecha o símbolo do nível difícil. -->
                             </span>
 
+                            <!-- Nome visível da categoria difícil. -->
                             DIFÍCIL
+                        <!-- Fecha o grupo de ícone e rótulo difíceis. -->
                         </div>
 
+                        <!-- Campo em que o JavaScript mostra o melhor resultado difícil. -->
                         <strong id="hardRecord">
+                            <!-- Valor padrão temporário do recorde difícil. -->
                             0
+                        <!-- Fecha o campo do recorde difícil. -->
                         </strong>
 
+                    <!-- Fecha a linha da dificuldade difícil; novas categorias podem seguir este padrão. -->
                     </div>
 
+                <!-- Fecha a lista de resultados por dificuldade. -->
                 </div>
 
+                <!-- Botão de retorno; seu atributo de dados aponta para a tela inicial. -->
                 <button class="back-btn"
                         data-back="menuScreen">
 
+                    <!-- Texto mostrado no controle de retorno. -->
                     VOLTAR
 
+                <!-- Fecha o botão de retorno dos recordes. -->
                 </button>
 
+            <!-- Fecha o painel da tela de recordes. -->
             </div>
 
+            <!-- Inicia o rodapé desta tela. -->
             <footer class="section-footer">
+                <!-- Crédito do projeto; os pontos podem ser substituídos pelos dados do autor. -->
                 Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            <!-- Fecha o rodapé de recordes. -->
             </footer>
 
+        <!-- Fecha a tela de recordes. -->
         </section>
 
 
         <!-- ================= CONQUISTAS ================= -->
+        <!-- Tela que apresenta as metas desbloqueadas; o id a conecta à navegação do jogo. -->
         <section id="achievementsScreen" class="screen">
 
+            <!-- Painel principal de conquistas; a classe define um layout específico para a lista. -->
             <div class="panel achievement-panel">
 
+                <!-- Título da lista de objetivos; pode ser substituído por outro rótulo. -->
                 <div class="panel-title">
+                    <!-- Texto que nomeia esta tela. -->
                     CONQUISTAS
+                <!-- Fecha o título de conquistas. -->
                 </div>
 
+                <!-- Contêiner vazio preenchido com conquistas pelo JavaScript; novos itens são gerados dinamicamente. -->
                 <div
                     id="achievementsContainer"
                     class="achievement-container">
+                <!-- Fecha a área dinâmica das conquistas. -->
                 </div>
 
+                <!-- Botão que volta ao menu inicial conforme o valor de data-back. -->
                 <button class="back-btn"
                         data-back="menuScreen">
 
+                    <!-- Rótulo do botão de retorno. -->
                     VOLTAR
 
+                <!-- Fecha o botão de retorno das conquistas. -->
                 </button>
 
+            <!-- Fecha o painel de conquistas. -->
             </div>
 
+            <!-- Inicia o crédito no rodapé da tela de conquistas. -->
             <footer class="section-footer">
+                <!-- Texto de autoria; pode receber o nome e a turma corretos. -->
                 Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            <!-- Fecha o rodapé de conquistas. -->
             </footer>
 
+        <!-- Fecha a tela de conquistas. -->
         </section>
 
 
         <!-- ================= ACESSIBILIDADE ================= -->
+        <!-- Tela de preferências acessíveis; o id permite abri-la pelo menu. -->
         <section id="accessibilityScreen" class="screen">
 
+            <!-- Painel que agrupa as configurações e o comando de retorno. -->
             <div class="panel">
 
+                <!-- Título da área de configurações; pode ser adaptado ao produto. -->
                 <div class="panel-title">
+                    <!-- Nome visível da seção de preferências. -->
                     ACESSIBILIDADE
+                <!-- Fecha o cabeçalho de acessibilidade. -->
                 </div>
 
+                <!-- Grupo semântico de opções relacionadas à visão; novas preferências visuais podem ser adicionadas. -->
                 <fieldset class="accessibility-group">
+                    <!-- Legenda que nomeia o grupo de opções visuais. -->
                     <legend>VISÃO</legend>
 
+                    <!-- Rótulo clicável que associa a caixa de seleção ao seu texto. -->
                     <label class="option">
+                        <!-- Alterna o alto contraste; o id liga o controle às preferências no JavaScript. -->
                         <input type="checkbox" id="highContrast">
+                        <!-- Descreve a opção de contraste para a pessoa jogadora. -->
                         <span>Alto contraste</span>
+                    <!-- Fecha o rótulo completo da opção de alto contraste. -->
                     </label>
 
+                    <!-- Rótulo acessível da opção de identificação por formas e padrões. -->
                     <label class="option">
+                        <!-- Alterna as pistas visuais para daltonismo; seu id é consultado pelo JavaScript. -->
                         <input type="checkbox" id="colorBlindMode">
+                        <!-- Explica que formas e padrões complementam a identificação por cores. -->
                         <span>Identificação por formas e padrões</span>
+                    <!-- Fecha o rótulo da opção para daltonismo. -->
                     </label>
 
+                    <!-- Linha que combina um rótulo com uma lista de tamanho de texto. -->
                     <label class="option text-size-option">
+                        <!-- Identifica a preferência de tamanho da letra. -->
                         <span>Tamanho do texto</span>
+                        <!-- Lista os tamanhos disponíveis; outras opções exigem suporte correspondente no CSS. -->
                         <select id="fontSizeSelect" name="fontSize">
+                            <!-- Opção padrão de tamanho de texto; o valor é lido e salvo pelo JavaScript. -->
                             <option value="normal">Normal</option>
+                            <!-- Opção de texto ampliado; pode ser ajustada junto dos estilos de acessibilidade. -->
                             <option value="large">Grande</option>
+                            <!-- Maior opção de texto oferecida nesta lista. -->
                             <option value="xlarge">Muito grande</option>
+                        <!-- Fecha a lista de tamanhos. -->
                         </select>
+                    <!-- Fecha o rótulo e a linha do seletor de texto. -->
                     </label>
+                <!-- Fecha o grupo semântico de preferências visuais. -->
                 </fieldset>
 
+                <!-- Grupo de opções que reduzem dependência exclusiva de áudio; outras opções podem ser agrupadas aqui. -->
                 <fieldset class="accessibility-group">
+                    <!-- Legenda do grupo de opções auditivas. -->
                     <legend>AUDIÇÃO</legend>
 
+                    <!-- Rótulo clicável para a preferência de texto dos eventos. -->
                     <label class="option">
+                        <!-- Ativa mensagens escritas e legendas; o id conecta a opção ao JavaScript. -->
                         <input type="checkbox" id="eventText">
+                        <!-- Texto que descreve o efeito da caixa de seleção. -->
                         <span>Legendas e mensagens do jogo</span>
+                    <!-- Fecha a opção de mensagens textuais. -->
                     </label>
 
+                    <!-- Rótulo clicável para os alertas visuais. -->
                     <label class="option">
+                        <!-- Ativa sinais visuais de eventos; o id identifica esta preferência no código. -->
                         <input type="checkbox" id="visualAlerts">
+                        <!-- Explica a função dos alertas visuais. -->
                         <span>Sinais visuais de eventos</span>
+                    <!-- Fecha a opção de alertas visuais. -->
                     </label>
+                <!-- Fecha o grupo de preferências auditivas. -->
                 </fieldset>
 
+                <!-- Grupo de opções de interação; outras preferências de controle podem ser incluídas. -->
                 <fieldset class="accessibility-group">
+                    <!-- Legenda que identifica o grupo de controles. -->
                     <legend>CONTROLES</legend>
 
+                    <!-- Rótulo clicável para mostrar ou ocultar os comandos na tela. -->
                     <label class="option">
+                        <!-- Alterna os controles visíveis; seu id liga a opção ao JavaScript. -->
                         <input type="checkbox" id="onScreenControls">
+                        <!-- Descreve para que servem os controles na tela. -->
                         <span>Mostrar controles na tela</span>
+                    <!-- Fecha a opção de controles visíveis. -->
                     </label>
 
+                    <!-- Texto de ajuda sobre os métodos de entrada suportados; pode ser substituído por outra orientação. -->
                     <p class="accessibility-help">
+                        <!-- Explica que teclado e botões podem ser usados sem comandos de voz. -->
                         Jogue com botões ou teclado, sem depender de comandos de voz.
+                    <!-- Fecha a mensagem de ajuda dos controles. -->
                     </p>
+                <!-- Fecha o grupo de preferências de controle. -->
                 </fieldset>
 
+                <!-- Botão que retorna das preferências ao menu inicial. -->
                 <button class="back-btn"
                         data-back="menuScreen">
 
+                    <!-- Rótulo visível do comando de retorno. -->
                     VOLTAR
 
+                <!-- Fecha o botão de retorno da acessibilidade. -->
                 </button>
 
+            <!-- Fecha o painel de opções acessíveis. -->
             </div>
 
+            <!-- Inicia o rodapé da tela de acessibilidade. -->
             <footer class="section-footer">
+                <!-- Crédito do projeto; pode ser personalizado com nome e turma. -->
                 Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            <!-- Fecha o rodapé de acessibilidade. -->
             </footer>
 
+        <!-- Fecha a tela de preferências acessíveis. -->
         </section>
 
 
         <!-- ================= SOBRE O CRIADOR ================= -->
+        <!-- Tela institucional com informações do autor; o id a identifica na navegação. -->
         <section id="creatorScreen" class="screen">
 
+            <!-- Painel específico das informações do criador. -->
             <div class="panel creator-panel">
 
+                <!-- Título da tela sobre o criador. -->
                 <div class="panel-title">
+                    <!-- Nome visível desta seção; pode ser substituído por outro título. -->
                     SOBRE O CRIADOR
+                <!-- Fecha o título da seção institucional. -->
                 </div>
 
+                <!-- Parágrafo de apresentação; a classe controla sua aparência e o texto pode ser atualizado. -->
                 <p class="creator-copy">
-                    Pixel Speed Run foi desenvolvido por um aluno do 2º ano de Desenvolvimento de Sistemas do Colégio Estadual Barbosa Ferraz.
+                    <!-- Descrição do contexto de criação; pode receber autoria, instituição ou outras informações. -->
+                    Speed Run Parkour foi desenvolvido por Rafael Bento Luz de Camargo do 2º ano de Desenvolvimento de Sistemas do Colégio Estadual Barbosa Ferraz.
+                <!-- Fecha a apresentação do criador. -->
                 </p>
 
+                <!-- Botão para voltar ao menu; data-back informa a tela de destino. -->
                 <button class="back-btn"
                         data-back="menuScreen">
 
+                    <!-- Texto do botão de retorno. -->
                     VOLTAR
 
+                <!-- Fecha o botão de retorno institucional. -->
                 </button>
 
+            <!-- Fecha o painel sobre o criador. -->
             </div>
 
+            <!-- Inicia o rodapé da tela institucional. -->
             <footer class="section-footer">
+                <!-- Crédito que pode ser personalizado com os dados corretos do projeto. -->
                 Feito por: ..... — Aluno do 2° Desenvolvimento de Sistemas
+            <!-- Fecha o rodapé sobre o criador. -->
             </footer>
 
+        <!-- Fecha a tela sobre o criador. -->
         </section>
 
 
         <!-- ================= JOGO ================= -->
+        <!-- Tela que contém a partida; as duas classes definem sua identidade e seu layout especial. -->
         <section id="gameScreen"
                  class="screen game-screen">
 
+            <!-- Barra de informações exibidas durante a partida; outros indicadores podem ser adicionados aqui. -->
             <div class="hud">
 
+                <!-- Agrupa fase, pontuação e moedas em uma região da barra. -->
                 <div class="hud-group">
 
+                    <!-- Indicador do número da fase atual. -->
                     <div class="hud-item">
+                        <!-- Rótulo do valor que aparece abaixo. -->
                         FASE
+                        <!-- Campo atualizado pelo JavaScript com a fase atual; o número serve como valor inicial. -->
                         <b id="levelText">
+                            <!-- Fase exibida antes da atualização dinâmica. -->
                             1
+                        <!-- Fecha o número da fase. -->
                         </b>
+                    <!-- Fecha o indicador da fase. -->
                     </div>
 
+                    <!-- Indicador da pontuação acumulada durante a partida. -->
                     <div class="hud-item">
+                        <!-- Rótulo do valor de pontuação. -->
                         PONTOS
+                        <!-- Campo em que o JavaScript apresenta a pontuação atual. -->
                         <b id="scoreText">
+                            <!-- Pontuação inicial antes da partida atualizar o valor. -->
                             0
+                        <!-- Fecha o campo de pontuação. -->
                         </b>
+                    <!-- Fecha o indicador de pontos. -->
                     </div>
 
+                    <!-- Indicador de moedas coletadas nesta partida. -->
                     <div class="hud-item">
+                        <!-- Rótulo da quantidade de moedas. -->
                         MOEDAS
+                        <!-- Campo dinâmico atualizado com o total coletado na fase. -->
                         <b id="coinsText">
+                            <!-- Quantidade inicial de moedas coletadas. -->
                             0
+                        <!-- Fecha o campo de moedas. -->
                         </b>
+                    <!-- Fecha o indicador de moedas. -->
                     </div>
 
+                <!-- Fecha o grupo esquerdo de indicadores. -->
                 </div>
 
+                <!-- Agrupa o nome do mapa e o cronômetro da partida. -->
                 <div class="timer">
 
+                    <!-- Campo atualizado com o nome do cenário atual. -->
                     <span id="mapNameText">
+                        <!-- Nome inicial do cenário, antes da atualização do jogo. -->
                         FLORESTA
+                    <!-- Fecha o rótulo do mapa. -->
                     </span>
 
+                    <!-- Cronômetro atualizado pelo JavaScript; o texto define seu formato inicial. -->
                     <strong id="timerText">
+                        <!-- Tempo inicial mostrado antes de começar a contagem. -->
                         00:00.0
+                    <!-- Fecha o cronômetro visível. -->
                     </strong>
 
+                <!-- Fecha o agrupamento de nome do cenário e cronômetro. -->
                 </div>
 
+                <!-- Agrupa vidas e pausa no lado direito da barra. -->
                 <div class="hud-group right">
 
+                    <!-- Indicador das vidas restantes do jogador. -->
                     <div class="hud-item">
+                        <!-- Rótulo do contador de vidas. -->
                         VIDAS
+                        <!-- Campo que o JavaScript atualiza quando uma vida é perdida. -->
                         <b id="livesText">
+                            <!-- Quantidade inicial de vidas. -->
                             3
+                        <!-- Fecha o contador de vidas. -->
                         </b>
+                    <!-- Fecha o indicador de vidas. -->
                     </div>
 
+                    <!-- Botão que pausa a partida; o id permite registrar sua ação no JavaScript. -->
                     <button
                         id="pauseBtn"
                         class="pause-btn">
 
+                        <!-- Símbolo de pausa visível; pode ser substituído por outro ícone. -->
                         Ⅱ
 
+                    <!-- Fecha o botão de pausa. -->
                     </button>
 
+                <!-- Fecha o grupo direito do HUD. -->
                 </div>
 
+            <!-- Fecha a barra de informações da partida. -->
             </div>
 
 
             <!-- ÁREA DO JOGO -->
+            <!-- Reserva o espaço de renderização do cenário e do rodapé interno. -->
             <div class="game-area">
 
+                <!-- Canvas onde o JavaScript desenha o jogo; id identifica a superfície e width/height definem sua resolução lógica. -->
                 <canvas
                     id="gameCanvas"
                     width="1100"
                     height="600">
+                <!-- Fecha a área de desenho; o conteúdo alternativo pode ser inserido entre estas tags para navegadores sem canvas. -->
                 </canvas>
 
+                <!-- Rodapé próprio da área de jogo, separado dos rodapés das telas de menu. -->
                 <footer class="game-footer">
+                    <!-- Crédito exibido durante a partida; pode ser personalizado com autoria e instituição. -->
                     Feito por: ..... — Aluno 2° Desenvolvimento de Sistemas do Colégio Estadual Barbosa Ferraz
+                <!-- Fecha o rodapé interno do jogo. -->
                 </footer>
 
+            <!-- Fecha a área que contém canvas e crédito. -->
             </div>
 
 
             <!-- CONTROLES MOBILE -->
+            <!-- Agrupa botões de toque; CSS controla quando eles aparecem e novos comandos podem ser adicionados. -->
             <div class="mobile-controls">
 
+                <!-- Controle de movimento para a esquerda; aria-label descreve sua ação para tecnologias assistivas. -->
                 <button id="leftBtn" aria-label="Mover para a esquerda">
+                    <!-- Seta que indica movimento à esquerda; pode ser substituída por outro símbolo. -->
                     ◀
+                <!-- Fecha o botão de movimento para a esquerda. -->
                 </button>
 
+                <!-- Controle de pulo com nome acessível para leitores de tela. -->
                 <button id="jumpBtn" aria-label="Pular">
+                    <!-- Símbolo visual do comando de pulo. -->
                     ▲
+                <!-- Fecha o botão de pulo. -->
                 </button>
 
+                <!-- Controle de movimento para a direita com descrição acessível. -->
                 <button id="rightBtn" aria-label="Mover para a direita">
+                    <!-- Seta que indica movimento à direita. -->
                     ▶
+                <!-- Fecha o botão de movimento para a direita. -->
                 </button>
 
+            <!-- Fecha o conjunto de controles de toque. -->
             </div>
 
 
             <!-- ================= PAUSA ================= -->
 
+            <!-- Sobreposição exibida quando a partida é pausada; o id permite mostrar ou ocultar o painel. -->
             <div id="pauseOverlay"
                  class="overlay">
 
+                <!-- Caixa que agrupa o título e os comandos de pausa. -->
                 <div class="pause-box">
 
+                    <!-- Título do estado pausado; pode receber um texto equivalente. -->
                     <div class="panel-title">
+                        <!-- Informa ao jogador que a partida está interrompida. -->
                         JOGO PAUSADO
+                    <!-- Fecha o título da pausa. -->
                     </div>
 
+                    <!-- Comando para retomar; id conecta o botão à lógica do jogo. -->
                     <button
                         class="menu-btn"
                         id="resumeBtn">
 
+                        <!-- Rótulo que comunica a retomada da partida. -->
                         CONTINUAR
 
+                    <!-- Fecha o botão de retomada. -->
                     </button>
 
+                    <!-- Comando para reiniciar; id permite associar a ação no JavaScript. -->
                     <button
                         class="menu-btn"
                         id="restartBtn">
 
+                        <!-- Texto do comando que reinicia a fase. -->
                         RECOMEÇAR
 
+                    <!-- Fecha o botão de reinício. -->
                     </button>
 
+                    <!-- Comando para sair da partida; id identifica sua ação. -->
                     <button
                         class="menu-btn"
                         id="quitBtn">
 
+                        <!-- Rótulo do comando de saída. -->
                         SAIR
 
+                    <!-- Fecha o botão de saída. -->
                     </button>
 
+                <!-- Fecha a caixa de comandos da pausa. -->
                 </div>
 
+            <!-- Fecha a sobreposição de pausa. -->
             </div>
 
 
             <!-- ================= FINAL ================= -->
 
+            <!-- Sobreposição de conclusão de fase; seu conteúdo apresenta resultados e próximas ações. -->
             <div id="finishOverlay"
                  class="overlay">
 
+                <!-- Caixa que reúne resultado e comandos após concluir a fase. -->
                 <div class="pause-box">
 
+                    <!-- Cabeçalho de conclusão; o id permite trocar o texto dinamicamente. -->
                     <div
                         class="panel-title"
                         id="finishTitle">
 
+                        <!-- Mensagem padrão quando uma fase termina; o JavaScript pode atualizá-la. -->
                         FASE CONCLUÍDA!
 
+                    <!-- Fecha o título dinâmico do resultado. -->
                     </div>
 
+                    <!-- Grade com resumo de pontuação, tempo e moedas. -->
                     <div class="results">
 
+                        <!-- Linha de resultado referente à pontuação. -->
                         <div>
+                            <!-- Nome do dado apresentado nesta linha. -->
                             Pontuação
 
+                            <!-- Campo dinâmico do total de pontos da fase. -->
                             <strong id="finishScore">
+                                <!-- Valor inicial substituído pelo resultado final. -->
                                 0
+                            <!-- Fecha o campo de pontuação final. -->
                             </strong>
+                        <!-- Fecha a linha de pontuação. -->
                         </div>
 
+                        <!-- Linha de resultado referente ao tempo. -->
                         <div>
+                            <!-- Nome do dado de duração da partida. -->
                             Tempo
 
+                            <!-- Campo atualizado com o tempo final formatado. -->
                             <strong id="finishTime">
+                                <!-- Formato inicial do cronômetro final. -->
                                 00:00.0
+                            <!-- Fecha o campo de tempo final. -->
                             </strong>
+                        <!-- Fecha a linha de tempo. -->
                         </div>
 
+                        <!-- Linha de resultado referente às moedas coletadas. -->
                         <div>
+                            <!-- Nome da quantidade exibida. -->
                             Moedas
 
+                            <!-- Campo em que o JavaScript mostra as moedas obtidas na fase. -->
                             <strong id="finishCoins">
+                                <!-- Quantidade inicial antes de apresentar o resultado. -->
                                 0
+                            <!-- Fecha o campo de moedas finais. -->
                             </strong>
+                        <!-- Fecha a linha de moedas. -->
                         </div>
 
+                    <!-- Fecha a lista de resultados da fase. -->
                     </div>
 
+                    <!-- Ação principal para avançar; o id identifica o comando de próxima fase. -->
                     <button
                         class="menu-btn primary"
                         id="nextLevelBtn">
 
+                        <!-- Texto do comando de avanço. -->
                         PRÓXIMA FASE
 
+                    <!-- Fecha o botão de próxima fase. -->
                     </button>
 
+                    <!-- Ação para voltar ao menu depois de concluir a fase. -->
                     <button
                         class="menu-btn"
                         id="finishMenuBtn">
 
+                        <!-- Rótulo do comando que retorna ao menu. -->
                         MENU
 
+                    <!-- Fecha o botão de retorno ao menu após a conclusão. -->
                     </button>
 
+                <!-- Fecha o painel dos resultados. -->
                 </div>
 
+            <!-- Fecha a sobreposição de conclusão. -->
             </div>
 
 
             <!-- ================= GAME OVER ================= -->
 
+            <!-- Sobreposição mostrada quando as vidas acabam; o id permite controlá-la no JavaScript. -->
             <div id="gameOverOverlay"
                  class="overlay">
 
+                <!-- Caixa que agrupa a mensagem de fim e as opções seguintes. -->
                 <div class="pause-box">
 
+                    <!-- Título de encerramento com estilo de alerta. -->
                     <div class="panel-title danger-title">
+                        <!-- Mensagem de fim de jogo; pode ser localizada ou reformulada. -->
                         GAME OVER
+                    <!-- Fecha o título de encerramento. -->
                     </div>
 
+                    <!-- Explica por que a partida terminou; pode receber outra mensagem de estado. -->
                     <p class="game-over-text">
+                        <!-- Texto exibido ao perder todas as vidas. -->
                         Você ficou sem vidas.
+                    <!-- Fecha a mensagem de fim de jogo. -->
                     </p>
 
+                    <!-- Comando principal para tentar novamente; o id associa o botão à lógica de reinício. -->
                     <button
                         class="menu-btn primary"
                         id="tryAgainBtn">
 
+                        <!-- Texto do botão de nova tentativa. -->
                         TENTAR NOVAMENTE
 
+                    <!-- Fecha o comando de nova tentativa. -->
                     </button>
 
+                    <!-- Comando secundário para abandonar a partida e voltar ao menu. -->
                     <button
                         class="menu-btn"
                         id="gameOverMenuBtn">
 
+                        <!-- Texto do comando de retorno ao menu. -->
                         MENU
 
+                    <!-- Fecha o botão de retorno após o fim de jogo. -->
                     </button>
 
+                <!-- Fecha a caixa da mensagem de fim de jogo. -->
                 </div>
 
+            <!-- Fecha a sobreposição de fim de jogo. -->
             </div>
 
+        <!-- Fecha a tela da partida e seus painéis sobrepostos. -->
         </section>
 
+    <!-- Fecha a área principal que contém todas as telas da aplicação. -->
     </main>
 
 
+    <!-- Região visualmente oculta para anunciar atualizações a leitores de tela. -->
     <div
         id="liveStatus"
         class="sr-only"
         aria-live="polite">
+    <!-- Fecha a região acessível de status; mensagens dinâmicas podem ser inseridas pelo JavaScript. -->
     </div>
 
 
+    <!-- Carrega a lógica do jogo; o nome do arquivo precisa corresponder exatamente ao arquivo existente. -->
     <script src="Script.js"></script>
 
+<!-- Fecha o corpo da página; elementos visíveis devem ser adicionados antes deste ponto. -->
 </body>
+<!-- Fecha o documento HTML; nenhum conteúdo adicional deve vir depois da raiz. -->
 </html>
