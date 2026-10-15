@@ -2427,3 +2427,228 @@ body.high-contrast .accessibility-group legend { /* Ajusta título de cada grupo
     outline-offset: 3px; /* Afasta o contorno da borda do controle. */
 } /* Fecha o indicador de foco dos grupos acessíveis. */
 
+/* =========================================================
+   DECORAÇÃO LATERAL — SÓ NA TELA DIFICULDADE
+   ========================================================= */
+
+#difficultyScreen.active { /* Logo e curso nos cantos, painel no meio, só nesta tela. */
+    display: grid; /* Três colunas para encostar as laterais nos cantos. */
+    grid-template-columns: 1fr auto 1fr; /* Laterais flexíveis e painel central fixo. */
+    align-items: center; /* Alinha verticalmente. */
+    column-gap: 40px; /* Respiro maior entre painel e placas. */
+    padding-left: 36px; /* Mais pro canto esquerdo. */
+    padding-right: 36px; /* Mais pro canto direito. */
+} /* Fecha o layout da dificuldade. */
+
+#difficultyScreen .side-deco { /* Agrupa cada lateral (logo à esquerda, curso à direita). */
+    position: static; /* Fica no fluxo flex, sem sobrepor o painel. */
+    transform: none; /* Sem deslocamento vertical. */
+    top: auto; /* Ignora центраização absoluta anterior. */
+    z-index: 3; /* Mesma camada do painel. */
+    display: flex; /* Organiza moldura e legenda. */
+    flex-direction: column; /* Empilha imagem e texto. */
+    align-items: center; /* Centraliza na horizontal. */
+    gap: 14px; /* Espaça moldura e legenda. */
+    width: 250px; /* Largura fixa das laterais. */
+    flex-shrink: 0; /* Impede deformar quando a janela aperta. */
+    pointer-events: none; /* Não bloqueia cliques no painel central. */
+} /* Fecha a base das laterais. */
+
+#difficultyScreen .side-left { /* Logo com mesma posição e tamanho da placa do curso. */
+    order: 1; /* Primeira coluna. */
+    justify-self: start; /* Encosta no canto esquerdo. */
+    width: 493px; /* Mesma largura da lateral direita. */
+} /* Fecha a lateral esquerda. */
+
+#difficultyScreen .panel { /* Garante o painel no meio. */
+    order: 2; /* Segunda coluna. */
+    flex-shrink: 0; /* Mantém 560px sem esmagar. */
+    position: relative; /* Empilhamento próprio. */
+    z-index: 3; /* Acima do fundo. */
+} /* Fecha o painel central. */
+
+#difficultyScreen .side-right { /* Placa do curso 45% maior. */
+    order: 3; /* Terceira coluna. */
+    justify-self: end; /* Encosta no canto direito. */
+    width: 493px; /* 340px + 45%. */
+} /* Fecha a lateral direita. */
+
+#difficultyScreen .led-frame { /* Placa igual à segunda imagem: fundo escuro e borda azul clara. */
+    position: relative; /* Referência para os LEDs e a barra. */
+    isolation: isolate; /* Mantém brilhos contidos. */
+    padding: 12px; /* Respiro interno da moldura. */
+    border-radius: 12px; /* Cantos iguais aos da placa. */
+    background: linear-gradient(180deg, #27435f 0%, #1a3049 55%, #142639 100%); /* Azul escuro da placa. */
+    border: 3px solid #5cc6ff; /* Borda azul clara da placa. */
+    box-shadow: 0 0 18px rgba(92, 198, 255, 0.45), inset 0 0 0 2px rgba(7, 16, 26, 0.85), inset 0 0 18px rgba(0, 0, 0, 0.45), 0 25px 55px rgba(5, 18, 32, 0.42); /* Brilho externo e contorno interno. */
+} /* Fecha a placa com LEDs. */
+
+#difficultyScreen .led-frame::before { /* Desliga a faixa pontilhada antiga. */
+    display: none; /* Usa agora LEDs discretos iguais aos da placa. */
+} /* Fecha a faixa antiga. */
+
+#difficultyScreen .plaque-led { /* LED redondo igual ao da segunda imagem. */
+    position: absolute; /* Fica sobre a borda da placa. */
+    z-index: 2; /* Acima da borda. */
+    width: 12px; /* Tamanho do LED. */
+    height: 12px; /* Mantém círculo perfeito. */
+    border-radius: 50%; /* Formato redondo. */
+    background: radial-gradient(circle at 35% 30%, #ffffff 0 22%, #a5edff 42%, #3b91b8 74%, #16334d 100%); /* Miolo branco com borda tema. */
+    border: 1px solid rgba(234, 252, 255, 0.9); /* Contorno claro. */
+    box-shadow: 0 0 8px rgba(165, 237, 255, 0.95), 0 0 14px rgba(77, 183, 255, 0.6); /* Brilho do LED. */
+    animation: ledChase 1.2s linear infinite; /* LEDs se movimentando em sequência. */
+    pointer-events: none; /* Não bloqueia cliques. */
+} /* Fecha o LED da placa. */
+
+#difficultyScreen .led-tl { top: -7px; left: -7px; animation-delay: 0s; } /* LED canto superior esquerdo. */
+#difficultyScreen .led-tc { top: -7px; left: 50%; transform: translateX(-50%); animation-delay: 0.15s; } /* LED meio do topo. */
+#difficultyScreen .led-tr { top: -7px; right: -7px; animation-delay: 0.3s; } /* LED canto superior direito. */
+#difficultyScreen .led-ml { top: 50%; left: -7px; transform: translateY(-50%); animation-delay: 0.45s; } /* LED meio esquerdo. */
+#difficultyScreen .led-mr { top: 50%; right: -7px; transform: translateY(-50%); animation-delay: 0.6s; } /* LED meio direito. */
+#difficultyScreen .led-bl { bottom: -7px; left: -7px; animation-delay: 0.75s; } /* LED canto inferior esquerdo. */
+#difficultyScreen .led-bc { bottom: -7px; left: 50%; transform: translateX(-50%); animation-delay: 0.9s; } /* LED meio inferior. */
+#difficultyScreen .led-br { bottom: -7px; right: -7px; animation-delay: 1.05s; } /* LED canto inferior direito. */
+
+#difficultyScreen .led-frame::after { /* Linha luminosa interna para reforçar o destaque. */
+    content: ""; /* Cria o brilho interno sem texto. */
+    position: absolute; /* Contorna por dentro. */
+    inset: 5px; /* Recuo interno. */
+    border-radius: 8px; /* Acompanha a placa. */
+    border: 1px solid rgba(165, 237, 255, 0.28); /* Linha fina tema. */
+    pointer-events: none; /* Não interfere em cliques. */
+} /* Fecha o brilho interno. */
+
+@keyframes ledChase { /* Movimenta os LEDs em sequência ao redor da placa. */
+    0%, 100% { opacity: 1; filter: brightness(1.35); } /* LED aceso. */
+    50% { opacity: 0.35; filter: brightness(0.7); } /* LED apagado no meio do ciclo. */
+} /* Fecha a animação dos LEDs. */
+
+#difficultyScreen .logo-frame, /* Placa da logo com caixa idêntica à placa do curso. */
+#difficultyScreen .course-frame { /* Placa do curso com caixa idêntica à placa da logo. */
+    width: 100%; /* Mesma largura. */
+    height: 360px; /* Mesma altura fixa, sem depender do conteúdo. */
+    min-height: 0; /* Trava a altura igual nas duas. */
+    padding: 30px 38px; /* Mesmo respiro interno. */
+    border-width: 6px; /* Mesma borda grossa. */
+    animation: plaqueGlow 1.8s ease-in-out infinite; /* Mesmo LED em brilho. */
+} /* Fecha a caixa idêntica das placas. */
+
+#difficultyScreen .logo-frame { /* Só o alinhamento interno da logo. */
+    display: grid; /* Centraliza fallback e imagem. */
+    place-items: center; /* Centraliza nos dois eixos. */
+} /* Fecha o alinhamento da logo. */
+
+#difficultyScreen .logo-fallback { /* Reserva visível quando a imagem ainda não foi salva. */
+    position: absolute; /* Fica atrás da foto. */
+    width: 280px; /* Preenche a placa igual ao texto do curso. */
+    height: 280px; /* Círculo perfeito. */
+    display: flex; /* Centraliza o texto. */
+    flex-direction: column; /* Empilha número e rótulo. */
+    justify-content: center; /* Centraliza vertical. */
+    align-items: center; /* Centraliza horizontal. */
+    border-radius: 50%; /* Formato redondo. */
+    background: radial-gradient(circle at 50% 30%, #2f5b80, #13273c 70%); /* Fundo azul tema. */
+    border: 3px solid #07101a; /* Contorno escuro. */
+    color: #dff8ff; /* Texto claro. */
+    font-size: 80px; /* Número maior para a placa maior. */
+    font-weight: 900; /* Negrito. */
+    line-height: 1; /* Sem espaço extra. */
+    text-shadow: 0 0 16px rgba(160, 232, 255, 0.85); /* Brilho tema. */
+} /* Fecha a reserva da logo. */
+
+#difficultyScreen .logo-fallback small { /* Rótulo ANOS dentro da reserva. */
+    font-size: 22px; /* Maior para a placa maior. */
+    letter-spacing: 4px; /* Espaçamento. */
+} /* Fecha o rótulo da reserva. */
+
+#difficultyScreen .logo-frame img { /* Logo certa da escola dentro da placa. */
+    position: relative; /* Fica acima do fallback. */
+    display: block; /* Remove espaço de linha. */
+    width: 280px; /* Preenche a placa igual ao texto do curso. */
+    height: 280px; /* Mantém quadrado perfeito. */
+    aspect-ratio: 1 / 1; /* Trava proporção para não deformar. */
+    border-radius: 50%; /* Deixa a logo redonda como o original. */
+    object-fit: cover; /* Preenche sem distorcer. */
+    border: 3px solid #07101a; /* Contorno escuro igual aos botões. */
+    background: #0b1a2a; /* Fundo enquanto a imagem carrega. */
+} /* Fecha a logo da escola. */
+
+#difficultyScreen .course-frame { /* Só o alinhamento interno do curso, caixa igual à da logo. */
+    display: flex; /* Centraliza o texto. */
+    flex-direction: column; /* Empilha texto e barra. */
+    align-items: center; /* Centraliza horizontal. */
+    justify-content: center; /* Centraliza vertical. */
+    gap: 23px; /* Espaço interno. */
+    text-align: center; /* Centraliza o texto. */
+} /* Fecha o alinhamento do curso. */
+
+#difficultyScreen .course-frame .plaque-led { /* Garante sem bolinhas na placa do curso. */
+    display: none; /* Bolinhas removidas, fica só o LED em brilho. */
+} /* Fecha a remoção das bolinhas. */
+
+#difficultyScreen .course-text { /* Nome do curso 45% maior. */
+    color: #ffffff; /* Branco puro da placa. */
+    font-family: "Trebuchet MS", Arial, sans-serif; /* Fonte da placa. */
+    font-size: 49px; /* 34px + 45%. */
+    font-weight: 900; /* Peso forte. */
+    letter-spacing: 0.5px; /* Espaçamento da placa. */
+    line-height: 1.3; /* Altura das duas linhas. */
+    text-shadow: 3px 3px 0 #0a1a2b, -1px -1px 0 #0a1a2b, 1px -1px 0 #0a1a2b, -1px 1px 0 #0a1a2b, 0 0 22px rgba(160, 232, 255, 0.9); /* Contorno escuro + brilho mais forte. */
+} /* Fecha o texto do curso. */
+
+#difficultyScreen .plaque-underline { /* Barra 45% mais grossa. */
+    width: 94%; /* Largura da barra. */
+    height: 7px; /* 5px + 45%. */
+    border-radius: 4px; /* Cantos arredondados. */
+    background: linear-gradient(90deg, rgba(111, 210, 255, 0) 0%, #6fd2ff 12% 88%, rgba(111, 210, 255, 0) 100%); /* Barra com fade nas pontas. */
+    box-shadow: 0 0 18px rgba(111, 210, 255, 0.95); /* Brilho mais forte. */
+} /* Fecha a barra da placa. */
+
+@keyframes plaqueGlow { /* LED da placa em brilho pulsante, sem bolinhas. */
+    0%, 100% { border-color: #5cc6ff; box-shadow: 0 0 18px rgba(92, 198, 255, 0.45), inset 0 0 0 2px rgba(7, 16, 26, 0.85), inset 0 0 18px rgba(0, 0, 0, 0.45), 0 25px 55px rgba(5, 18, 32, 0.42); } /* Brilho normal. */
+    50% { border-color: #a5edff; box-shadow: 0 0 34px rgba(92, 198, 255, 0.75), inset 0 0 0 2px rgba(7, 16, 26, 0.85), inset 0 0 22px rgba(0, 0, 0, 0.45), 0 25px 55px rgba(5, 18, 32, 0.42); } /* Brilho forte no meio do ciclo. */
+} /* Fecha o brilho da placa. */
+
+#difficultyScreen .side-caption { /* Legenda abaixo de cada moldura. */
+    padding: 8px 14px; /* Respiro interno. */
+    background: rgba(11, 26, 42, 0.85); /* Fundo escuro semitransparente. */
+    border: 1px solid rgba(165, 237, 255, 0.45); /* Borda fina tema. */
+    border-radius: 8px; /* Cantos arredondados. */
+    color: #c1eaff; /* Azul claro do tema. */
+    font-size: 12px; /* Tamanho compacto. */
+    font-weight: 800; /* Negrito. */
+    letter-spacing: 2px; /* Espaçamento institucional. */
+    line-height: 1.5; /* Espaçamento vertical. */
+    text-align: center; /* Centraliza em duas linhas. */
+    text-shadow: 0 0 10px rgba(153, 226, 255, 0.5); /* Brilho sutil. */
+    box-shadow: 0 0 14px rgba(77, 183, 255, 0.22); /* Brilho externo. */
+    white-space: nowrap; /* Evita quebrar e deformar a legenda. */
+} /* Fecha a legenda lateral. */
+
+@media (max-width: 1550px) { /* Reduz as placas gigantes para caber em telas médias. */
+    #difficultyScreen.active { column-gap: 32px; padding-left: 28px; padding-right: 28px; } /* Mantém respiro e cantos. */
+    #difficultyScreen .side-right { width: 340px; } /* Igual à logo no médio. */
+    #difficultyScreen .side-left { width: 340px; } /* Logo igual ao curso no médio. */
+    #difficultyScreen .logo-frame,
+    #difficultyScreen .course-frame { height: 280px; min-height: 0; padding: 24px 26px; gap: 16px; border-width: 4px; } /* Caixa idêntica no médio. */
+    #difficultyScreen .course-text { font-size: 34px; } /* Tamanho anterior. */
+    #difficultyScreen .logo-frame img, #difficultyScreen .logo-fallback { width: 190px; height: 190px; } /* Foto igual no médio. */
+} /* Fecha o ajuste para telas médias. */
+
+@media (max-width: 1280px) { /* Compacta as laterais em telas médias. */
+    #difficultyScreen.active { column-gap: 28px; padding-left: 20px; padding-right: 20px; } /* Respiro menor. */
+    #difficultyScreen .side-deco { width: 240px; } /* Base igual. */
+    #difficultyScreen .side-right { width: 240px; } /* Curso igual à logo. */
+    #difficultyScreen .side-left { width: 240px; } /* Logo igual ao curso. */
+    #difficultyScreen .logo-frame,
+    #difficultyScreen .course-frame { height: 220px; min-height: 0; padding: 18px; gap: 12px; } /* Caixa idêntica compacta. */
+    #difficultyScreen .logo-frame img, #difficultyScreen .logo-fallback { width: 150px; height: 150px; } /* Foto compacta. */
+    #difficultyScreen .logo-fallback { font-size: 44px; } /* Número compacto. */
+    #difficultyScreen .course-text { font-size: 24px; } /* Mantém legível no médio. */
+} /* Fecha o ajuste médio. */
+
+@media (max-width: 1020px) { /* Esconde as laterais quando não há espaço vazio. */
+    #difficultyScreen.active { display: flex; justify-content: center; align-items: center; gap: 0; padding-left: 0; padding-right: 0; } /* Volta ao layout original centralizado. */
+    #difficultyScreen .side-deco { display: none; } /* Evita sobrepor o painel central. */
+} /* Fecha o ajuste móvel. */
+

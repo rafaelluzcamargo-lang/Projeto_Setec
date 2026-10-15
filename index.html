@@ -113,6 +113,30 @@
         <!-- Cria a tela de escolha da dificuldade; o id permite exibi-la pelo JavaScript e a classe aplica o estilo de tela. -->
         <section id="difficultyScreen" class="screen">
 
+            <!-- Decoração lateral esquerda com a logo da escola; só aparece nesta tela. -->
+            <aside class="side-deco side-left" aria-label="Colégio Estadual Barbosa Ferraz">
+                <!-- Placa da logo no mesmo padrão da placa do curso, sem bolinhas e sem frase. -->
+                <div class="led-frame logo-frame">
+                    <!-- Texto reserva que fica visível se a imagem ainda não foi salva. -->
+                    <div class="logo-fallback" aria-hidden="true">60<br><small>ANOS</small></div>
+                    <!-- Logo da escola; salve a imagem enviada como "img setec/logo-escola.png". -->
+                    <img src="img setec/logo-escola.png" alt="Colégio Estadual Barbosa Ferraz — 60 anos de história" onerror="this.remove()">
+                </div>
+            <!-- Fecha a decoração lateral esquerda. -->
+            </aside>
+
+            <!-- Decoração lateral direita com o nome do curso; só aparece nesta tela. -->
+            <aside class="side-deco side-right" aria-label="2º Desenvolvimento de Sistemas">
+                <!-- Placa igual à segunda imagem enviada, sem bolinhas, só com LED em brilho. -->
+                <div class="led-frame course-frame plaque">
+                    <!-- Nome do curso igual à placa de referência. -->
+                    <div class="course-text">2º DESENVOLVIMENTO<br>DE SISTEMAS</div>
+                    <!-- Barra inferior clara da placa. -->
+                    <div class="plaque-underline" aria-hidden="true"></div>
+                </div>
+            <!-- Fecha a decoração lateral direita. -->
+            </aside>
+
             <!-- Agrupa título, opções de dificuldade e comando para voltar; outros controles podem ser inseridos aqui. -->
             <div class="panel">
 
