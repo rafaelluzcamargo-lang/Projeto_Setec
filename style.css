@@ -210,12 +210,44 @@ button { /* Padroniza todos os botões da página. */
     bottom: 18px; /* Afasta a linha da base do painel. */
 } /* Fecha a posição inferior. */
 
+.menu-header { /* Alinha a logo do colégio e o título do jogo no topo do painel. */
+    display: flex; /* Coloca a logo e o título lado a lado. */
+
+    align-items: center; /* Centraliza verticalmente os dois blocos. */
+
+    justify-content: space-between; /* Encosta a logo à esquerda e o título à direita. */
+
+    gap: 16px; /* Mantém um respiro entre a logo e o título. */
+
+    margin-bottom: 28px; /* Preserva o espaço entre a marca e o primeiro botão. */
+} /* Fecha o cabeçalho do menu. */
+
+.menu-logo { /* Define a logo do colégio no lado superior esquerdo. */
+    width: 92px; /* Define a largura da logo; pode ser ajustada conforme o espaço. */
+
+    height: 92px; /* Mantém a altura igual para preservar as proporções. */
+
+    flex-shrink: 0; /* Impede que a logo seja comprimida pelo título. */
+
+    border-radius: 50%; /* Recorta o fundo quadrado e mantém o selo circular. */
+
+    object-fit: contain; /* Preserva as proporções da imagem. */
+
+    filter: drop-shadow(0 4px 10px rgba(5, 18, 32, 0.45)); /* Cria sombra para destacar a logo. */
+} /* Fecha o estilo da logo do menu. */
+
+.menu-title { /* Agrupa o título e o subtítulo no lado direito do cabeçalho. */
+    text-align: right; /* Alinha o texto à direita. */
+
+    min-width: 0; /* Permite que o bloco encolha em telas menores. */
+} /* Fecha o agrupamento do título. */
+
 .logo { /* Organiza as partes do logotipo. */
     display: flex; /* Ativa flexbox para agrupar linhas do nome. */
 
     flex-direction: column; /* Empilha as linhas verticalmente. */
 
-    align-items: center; /* Centraliza as duas linhas na horizontal. */
+    align-items: flex-end; /* Alinha as duas linhas à direita. */
 } /* Fecha o contêiner do logotipo. */
 
 .logo span { /* Estiliza a primeira parte do logotipo. */
@@ -244,9 +276,9 @@ button { /* Padroniza todos os botões da página. */
 
 .logo-sub { /* Estiliza o texto complementar abaixo da marca. */
     margin: /* Define margens superior, laterais e inferior em sequência. */
-        7px /* Espaço acima do subtítulo. */
+        4px /* Aproxima o subtítulo do título. */
         0 /* Remove margens laterais. */
-        28px; /* Espaço abaixo antes dos botões. */
+        0; /* O espaço até os botões agora pertence ao cabeçalho. */
 
     color: #a9c0d8; /* Usa tom secundário claro; pode ser substituído por outra cor legível. */
 
@@ -340,6 +372,33 @@ button { /* Padroniza todos os botões da página. */
 
     line-height: 1.7; /* Aumenta o espaço entre linhas para facilitar leitura. */
 } /* Fecha o estilo das instruções rápidas. */
+
+@media (max-width: 480px) { /* Compacta o cabeçalho da marca em telas estreitas. */
+
+    .menu-header { /* Ajusta o cabeçalho do menu ao espaço reduzido. */
+        gap: 10px; /* Aproxima a logo do título. */
+    } /* Fecha o ajuste do cabeçalho. */
+
+    .menu-logo { /* Reduz a logo para caber ao lado do título. */
+        width: 64px; /* Diminui a largura preservando o selo circular. */
+        height: 64px; /* Mantém a altura proporcional. */
+    } /* Fecha a logo compacta. */
+
+    .logo span { /* Reduz a primeira linha do nome do jogo. */
+        font-size: 26px; /* Diminui o tamanho para manter tudo em uma linha. */
+        letter-spacing: 2px; /* Reduz o espaçamento entre letras. */
+    } /* Fecha o ajuste da marca compacta. */
+
+    .logo strong { /* Reduz a segunda linha do nome do jogo. */
+        font-size: 20px; /* Diminui o tamanho destacado. */
+        letter-spacing: 2px; /* Reduz o espaçamento entre letras. */
+    } /* Fecha o ajuste do nome compacto. */
+
+    .logo-sub { /* Ajusta o subtítulo ao cabeçalho compacto. */
+        font-size: 9px; /* Reduz o texto complementar. */
+        letter-spacing: 2px; /* Aproxima as letras para caber. */
+    } /* Fecha o subtítulo compacto. */
+} /* Fecha a media query do cabeçalho compacto. */
 
 /* =========================================================
    PAINÉIS
@@ -551,61 +610,153 @@ button { /* Padroniza todos os botões da página. */
    ========================================================= */
 
 .skin-panel { /* Ajusta a largura do painel da loja de personagens. */
-    width: 830px; /* Reserva mais espaço para a grade de cartões; pode ser adaptado em telas menores. */
+    width: 960px; /* Reserva mais espaço para cartões maiores. */
+
+    max-width: 94vw; /* Impede que o painel estoure a largura da janela. */
 } /* Fecha o ajuste do painel de skins. */
 
-.points-display { /* Formata o saldo de moedas acima da loja. */
-    margin-bottom: 24px; /* Afasta o saldo da grade de personagens. */
+.skin-heading { /* Organiza título e saldo na mesma linha do cabeçalho. */
+    display: flex; /* Alinha os dois blocos lado a lado. */
+
+    align-items: center; /* Centraliza verticalmente título e saldo. */
+
+    justify-content: space-between; /* Coloca o título à esquerda e o saldo à direita. */
+
+    gap: 16px; /* Mantém um respiro entre os blocos. */
+
+    flex-wrap: wrap; /* Permite quebrar a linha em telas muito estreitas. */
+
+    margin-bottom: 6px; /* Aproxima o cabeçalho da frase de apoio. */
+} /* Fecha o cabeçalho da loja. */
+
+.skin-heading .panel-title { /* Ajusta apenas o título dentro da loja de skins. */
+    margin-bottom: 0; /* Remove o espaçamento grande usado nos demais painéis. */
+
+    text-align: left; /* Alinha o título com a borda esquerda do conteúdo. */
+} /* Fecha o título da loja. */
+
+.skin-subtitle { /* Apresenta a frase de apoio abaixo do cabeçalho. */
+    margin: 0 0 16px; /* Separa a frase da grade de personagens. */
+
+    color: #a9c2d8; /* Usa um tom secundário claro. */
+
+    font-size: 10.5px; /* Mantém a frase discreta. */
+
+    letter-spacing: 0.5px; /* Dá um leve acabamento tipográfico. */
+
+    text-align: left; /* Mantém a leitura alinhada ao título. */
+} /* Fecha a frase de apoio. */
+
+.points-display { /* Formata o saldo de moedas como uma cápsula de destaque. */
+    display: inline-flex; /* Mantém rótulo e valor na mesma linha. */
+
+    align-items: center; /* Centraliza verticalmente os elementos. */
+
+    gap: 9px; /* Separa a moeda, o rótulo e o número. */
+
+    margin-bottom: 0; /* Remove a margem usada na versão anterior. */
+
+    padding: 8px 16px; /* Cria o formato compacto de cápsula. */
+
+    border: 1px solid rgba(181, 232, 255, 0.35); /* Adiciona um contorno claro sutil. */
+
+    border-radius: 999px; /* Arredonda totalmente as extremidades. */
+
+    background: rgba(10, 25, 40, 0.5); /* Cria uma superfície escura translúcida. */
+
+    box-shadow: /* Combina brilho interno e externo. */
+        inset 0 1px 0 rgba(255, 255, 255, 0.08), /* Destaca a borda superior. */
+        0 0 18px rgba(80, 190, 245, 0.12); /* Espalha um brilho azulado discreto. */
 
     color: #bbcadb; /* Define a cor secundária do rótulo de saldo. */
 
-    font-size: 13px; /* Define o tamanho do texto do saldo. */
+    font-size: 10px; /* Define o tamanho compacto do rótulo. */
+
+    font-weight: 800; /* Destaca o rótulo em negrito. */
+
+    letter-spacing: 1px; /* Espaça as letras do rótulo. */
 } /* Fecha a apresentação do saldo. */
+
+.points-display::before { /* Desenha uma moeda antes do rótulo de saldo. */
+    content: ""; /* Cria o elemento decorativo sem texto. */
+
+    width: 13px; /* Define a largura da moeda. */
+
+    height: 13px; /* Mantém a moeda circular. */
+
+    border-radius: 50%; /* Arredonda completamente a moeda. */
+
+    background: radial-gradient(circle at 35% 30%, #fff4bd, #f2c14e 58%, #b97b22); /* Cria o volume dourado. */
+
+    box-shadow: 0 0 10px rgba(242, 193, 78, 0.55); /* Adiciona brilho à moeda. */
+} /* Fecha a moeda decorativa. */
 
 .points-display strong { /* Destaca o número de moedas do texto ao redor. */
     color: var(--gold); /* Usa a cor global de destaque; pode ser alterada no seletor :root. */
 
-    font-size: 18px; /* Aumenta o tamanho do saldo numérico. */
+    font-size: 16px; /* Aumenta o tamanho do saldo numérico. */
+
+    letter-spacing: 0; /* Mantém os algarismos compactos. */
 } /* Fecha o destaque do saldo. */
 
 .skins-container { /* Organiza os cartões de personagens em grade. */
     display: grid; /* Ativa layout bidimensional para os cartões. */
 
     grid-template-columns: /* Define quatro colunas com larguras iguais. */
-        repeat(4, 1fr); /* Repete quatro frações iguais; pode trocar o número de colunas. */
+        repeat(4, minmax(0, 1fr)); /* Repete quatro frações iguais; pode trocar o número de colunas. */
 
-    gap: 14px; /* Espaça os cartões nos dois eixos da grade. */
+    gap: 16px; /* Espaça os cartões nos dois eixos da grade. */
 } /* Fecha a grade de personagens. */
 
 .skin-card { /* Define a base visual e o layout de cada cartão de personagem. */
-    min-height: 278px; /* Garante espaço mínimo para a prévia e informações. */
+    min-height: 284px; /* Garante espaço para o enquadramento e as informações. */
 
-    padding: 12px; /* Cria margem interna ao redor do conteúdo. */
+    padding: 10px; /* Cria uma moldura interna ao redor da arte. */
 
     background: /* Cria fundo escuro em gradiente para o cartão. */
         linear-gradient( /* Inicia o gradiente diagonal do cartão. */
-            145deg, /* Inclina a transição diagonal. */
-            #27384c, /* Cor inicial do cartão. */
-            #172231 /* Cor final do cartão. */
+            160deg, /* Inclina a transição para dar profundidade. */
+            rgba(43, 70, 96, 0.96), /* Cor inicial do cartão. */
+            rgba(17, 31, 46, 0.98) /* Cor final do cartão. */
         ); /* Fecha o gradiente do cartão. */
 
     border: /* Define contorno padrão do cartão. */
-        3px solid #07101a; /* Espessura, estilo e cor da borda. */
+        2px solid rgba(177, 231, 255, 0.34); /* Usa um contorno claro semitransparente. */
+
+    border-radius: 12px; /* Arredonda os cantos para um acabamento mais moderno. */
 
     display: flex; /* Organiza as partes internas usando flexbox. */
 
-    flex-direction: column; /* Empilha prévia, nome e botão verticalmente. */
+    flex-direction: column; /* Empilha palco, nome e botão verticalmente. */
 
-    justify-content: space-between; /* Distribui o conteúdo ao longo da altura disponível. */
+    justify-content: flex-start; /* Mantém o conteúdo ancorado no topo. */
 
-    align-items: center; /* Centraliza os itens na horizontal. */
+    align-items: stretch; /* Faz o palco ocupar toda a largura interna. */
 
     position: relative; /* Cria referência para detalhes decorativos posicionados. */
 
     overflow: hidden; /* Recorta elementos que ultrapassem os limites do cartão. */
 
-    border-radius: 6px; /* Arredonda discretamente os cantos do cartão. */
+    box-shadow: /* Adiciona relevo interno e sombra de profundidade. */
+        inset 0 1px 0 rgba(255, 255, 255, 0.08), /* Destaca a borda superior. */
+        0 10px 22px rgba(4, 14, 24, 0.22); /* Projeta uma sombra suave abaixo. */
+
+    transition: /* Suaviza as mudanças visuais de interação. */
+        transform 0.16s ease, /* Anima a elevação do cartão. */
+        border-color 0.16s ease, /* Anima a cor do contorno. */
+        box-shadow 0.16s ease; /* Anima o brilho externo. */
 } /* Fecha o estilo base do cartão. */
+
+.skin-card:hover { /* Destaca o cartão sob o cursor. */
+    transform: translateY(-3px); /* Eleva levemente o cartão. */
+
+    border-color: var(--skin-accent); /* Aplica a cor temática da skin. */
+
+    box-shadow: /* Combina relevo, profundidade e brilho colorido. */
+        inset 0 1px 0 rgba(255, 255, 255, 0.1), /* Mantém o realce superior. */
+        0 14px 26px rgba(4, 14, 24, 0.32), /* Aumenta a sombra projetada. */
+        0 0 20px var(--skin-glow); /* Espalha o brilho da skin. */
+} /* Fecha o estado hover. */
 
 .skin-card::before { /* Adiciona uma linha luminosa decorativa no topo do cartão. */
     content: ""; /* Gera o pseudo-elemento sem conteúdo textual. */
@@ -637,12 +788,173 @@ button { /* Padroniza todos os botões da página. */
     text-transform: uppercase; /* Exibe o texto em letras maiúsculas. */
 } /* Fecha o estilo da etiqueta da skin. */
 
-.skin-card.selected { /* Destaca o cartão da skin atualmente selecionada. */
+.skin-stage { /* Cria o palco de enquadramento do personagem. */
+    position: relative; /* Permite posicionar brilhos e selos sobre a arte. */
+
+    width: 100%; /* Ocupa toda a largura interna do cartão. */
+
+    height: 164px; /* Reserva altura suficiente para o corpo inteiro. */
+
+    overflow: hidden; /* Mantém a arte dentro do enquadramento arredondado. */
+
+    border: 1px solid rgba(160, 224, 255, 0.22); /* Adiciona um contorno interno sutil. */
+
+    border-radius: 9px; /* Acompanha o arredondamento do cartão. */
+
+    background: /* Combina luz temática e profundidade vertical. */
+        radial-gradient(ellipse at 50% 84%, var(--skin-glow, rgba(91, 178, 213, 0.16)), transparent 68%), /* Ilumina a base com a cor da skin. */
+        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(2, 10, 18, 0.18)); /* Escurece suavemente a parte inferior. */
+
+    isolation: isolate; /* Mantém as camadas decorativas separadas. */
+} /* Fecha o palco do personagem. */
+
+.skin-stage::before { /* Cria uma grade tecnológica discreta no fundo. */
+    content: ""; /* Gera o padrão sem conteúdo textual. */
+
+    position: absolute; /* Cobre toda a área do palco. */
+
+    inset: 0; /* Encosta nas quatro bordas. */
+
+    z-index: 0; /* Mantém a grade atrás do personagem. */
+
+    background-image: /* Desenha linhas horizontais e verticais. */
+        linear-gradient(rgba(160, 224, 255, 0.07) 1px, transparent 1px), /* Cria as linhas horizontais. */
+        linear-gradient(90deg, rgba(160, 224, 255, 0.07) 1px, transparent 1px); /* Cria as linhas verticais. */
+
+    background-size: 22px 22px; /* Define o tamanho das células da grade. */
+
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 82%); /* Esvanece a grade no navegador WebKit. */
+
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 82%); /* Esvanece a grade em direção à base. */
+} /* Fecha a grade decorativa. */
+
+.skin-stage::after { /* Desenha uma linha luminosa de chão sob os pés. */
+    content: ""; /* Cria a linha sem texto. */
+
+    position: absolute; /* Posiciona a linha dentro do palco. */
+
+    left: 12%; /* Recua a linha da borda esquerda. */
+
+    right: 12%; /* Recua a linha da borda direita. */
+
+    bottom: 12px; /* Aproxima a linha da base do palco. */
+
+    height: 1px; /* Define uma linha fina e elegante. */
+
+    z-index: 1; /* Coloca a linha atrás do personagem. */
+
+    border-radius: 2px; /* Arredonda as pontas da linha. */
+
+    background: linear-gradient(90deg, transparent, var(--skin-accent), transparent); /* Faz a cor desaparecer nas extremidades. */
+
+    box-shadow: 0 0 14px var(--skin-accent); /* Adiciona brilho à linha. */
+
+    opacity: 0.55; /* Mantém o efeito discreto. */
+} /* Fecha a linha de chão. */
+
+.skin-avatar { /* Exibe o personagem real do jogo dentro do palco. */
+    position: relative; /* Fica acima das camadas decorativas. */
+
+    z-index: 2; /* Sobrepõe grade e linha de chão. */
+
+    display: block; /* Remove o espaço residual de elementos inline. */
+
+    width: 100%; /* Ocupa a largura do palco. */
+
+    height: 100%; /* Ocupa a altura do palco. */
+
+    object-fit: contain; /* Preserva as proporções do desenho em qualquer cartão. */
+} /* Fecha o enquadramento do personagem. */
+
+.skin-flag { /* Identifica o estado do personagem sobre a arte. */
+    position: absolute; /* Fixa o selo no canto do palco. */
+
+    top: 8px; /* Afasta o selo do topo. */
+
+    right: 8px; /* Encosta o selo ao lado direito. */
+
+    z-index: 3; /* Mantém o selo acima do personagem. */
+
+    padding: 3px 7px; /* Cria uma etiqueta compacta. */
+
+    border: 1px solid var(--skin-accent); /* Usa a cor temática como contorno. */
+
+    border-radius: 999px; /* Arredonda totalmente a etiqueta. */
+
+    background: rgba(6, 19, 32, 0.86); /* Escurece o fundo para garantir leitura. */
+
+    color: var(--skin-accent); /* Colore o texto com o destaque da skin. */
+
+    font-size: 7px; /* Mantém o selo pequeno e discreto. */
+
+    font-weight: 900; /* Destaca o texto do selo. */
+
+    letter-spacing: 0.8px; /* Espaça as letras do estado. */
+
+    box-shadow: 0 0 10px var(--skin-glow); /* Adiciona um brilho temático. */
+} /* Fecha o selo de estado. */
+
+.skin-flag.locked { /* Suaviza o selo de personagem bloqueado. */
+    border-color: rgba(196, 220, 238, 0.35); /* Usa um contorno neutro. */
+
+    color: #c8d8e6; /* Mantém o texto legível em tom claro. */
+
+    box-shadow: none; /* Remove o brilho colorido. */
+} /* Fecha o selo de bloqueio. */
+
+.skin-info { /* Agrupa as informações textuais sob o palco. */
+    display: flex; /* Organiza os textos em coluna. */
+
+    flex-direction: column; /* Empilha etiqueta, nome, preço e botão. */
+
+    align-items: center; /* Centraliza o conteúdo horizontalmente. */
+
+    width: 100%; /* Ocupa a largura total do cartão. */
+
+    padding: 8px 4px 2px; /* Cria um respiro interno compacto. */
+} /* Fecha o bloco de informações. */
+
+.skin-price { /* Apresenta o custo ou o estado de desbloqueio. */
+    display: inline-flex; /* Mantém o símbolo e o texto alinhados. */
+
+    align-items: center; /* Centraliza verticalmente os elementos. */
+
+    justify-content: center; /* Centraliza o conjunto na horizontal. */
+
+    gap: 5px; /* Separa o símbolo do texto. */
+
+    min-height: 18px; /* Reserva altura fixa para alinhar os botões. */
+
+    margin: 3px 0 6px; /* Separa o preço do nome e do botão. */
+
+    color: #c3d6e6; /* Usa um tom claro para o texto. */
+
+    font-size: 9.5px; /* Mantém o preço compacto. */
+
+    font-weight: 700; /* Dá ênfase moderada ao valor. */
+
+    letter-spacing: 0.3px; /* Ajusta o espaçamento das letras. */
+} /* Fecha a linha de preço. */
+
+.skin-price.is-locked::before { /* Adiciona o símbolo de moeda apenas em skins bloqueadas. */
+    content: "◆"; /* Usa o losango já presente na identidade do jogo. */
+
+    color: var(--skin-accent); /* Colore o símbolo com o destaque da skin. */
+
+    font-size: 7px; /* Mantém o símbolo discreto. */
+} /* Fecha o símbolo de moeda. */
+
+.skin-price.is-owned { /* Destaca o estado de uma skin já disponível. */
+    color: var(--skin-accent); /* Usa a cor temática do personagem. */
+} /* Fecha o estado de skin disponível. */
+
+.skins-container .skin-card.selected { /* Destaca o cartão da skin atualmente selecionada. */
     border-color: var(--skin-accent); /* Usa a cor de destaque definida pelo modelo. */
 
-    box-shadow: /* Adiciona contorno e brilho ao cartão selecionado. */
-        0 0 0 2px var(--skin-glow), /* Cria uma moldura translúcida próxima à borda. */
-        0 0 22px var(--skin-glow); /* Espalha brilho externo com a mesma cor. */
+    box-shadow: /* Combina contorno, brilho e profundidade. */
+        0 0 0 1px var(--skin-accent), /* Cria uma linha externa nítida. */
+        0 0 24px var(--skin-glow), /* Espalha brilho com a cor da skin. */
+        0 12px 24px rgba(3, 12, 22, 0.3); /* Mantém a sombra de profundidade. */
 } /* Fecha o estado selecionado. */
 
 .skin-preview { /* Define a área de montagem do personagem desenhado em CSS. */
@@ -1425,9 +1737,21 @@ button { /* Padroniza todos os botões da página. */
 } /* Fecha a sigla do leitor. */
 
 .skin-card h3 { /* Formata o nome do personagem no cartão. */
-    font-size: 12px; /* Define o tamanho compacto do nome. */
+    display: flex; /* Permite alinhar nomes de uma ou duas linhas. */
 
-    margin-top: 3px; /* Separa o nome do elemento anterior. */
+    align-items: center; /* Centraliza verticalmente o texto. */
+
+    justify-content: center; /* Centraliza o nome na horizontal. */
+
+    min-height: 31px; /* Reserva altura para manter os cartões alinhados. */
+
+    margin-top: 3px; /* Separa o nome da etiqueta. */
+
+    font-size: 13px; /* Define o tamanho compacto do nome. */
+
+    line-height: 1.16; /* Aproxima as linhas de nomes longos. */
+
+    text-align: center; /* Centraliza nomes com duas linhas. */
 } /* Fecha o nome do cartão. */
 
 .skin-card p { /* Formata o custo ou estado de desbloqueio da skin. */
@@ -1457,6 +1781,64 @@ button { /* Padroniza todos os botões da página. */
 
     font-weight: 900; /* Destaca o comando em negrito. */
 } /* Fecha o botão do cartão. */
+
+.skin-card .skin-cta { /* Refina o botão de compra/equipar. */
+    width: 100%; /* Ocupa toda a largura disponível. */
+
+    padding: 9px 8px; /* Aumenta levemente a área de clique. */
+
+    border: 2px solid rgba(184, 233, 255, 0.62); /* Usa um contorno claro semitransparente. */
+
+    border-radius: 7px; /* Acompanha o arredondamento do cartão. */
+
+    background: linear-gradient(145deg, #527fa3, #315572); /* Aplica gradiente azul ao comando. */
+
+    color: #f5fbff; /* Define o rótulo quase branco. */
+
+    font-size: 9.5px; /* Mantém o texto compacto. */
+
+    font-weight: 900; /* Destaca o comando. */
+
+    letter-spacing: 0.9px; /* Espaça as letras do rótulo. */
+
+    box-shadow: /* Combina relevo e brilho discreto. */
+        inset 0 -3px rgba(12, 37, 58, 0.25), /* Cria profundidade na base. */
+        0 0 14px rgba(77, 183, 255, 0.16); /* Espalha um brilho azulado. */
+
+    cursor: pointer; /* Indica que o elemento é acionável. */
+
+    transition: /* Suaviza os estados interativos. */
+        filter 0.15s ease, /* Anima o brilho do botão. */
+        transform 0.1s ease; /* Anima o toque do botão. */
+} /* Fecha o botão refinado. */
+
+.skin-card .skin-cta:hover:not(:disabled) { /* Clareia o botão sob o cursor. */
+    filter: brightness(1.18); /* Aumenta o brilho sem trocar as cores. */
+} /* Fecha o hover do botão. */
+
+.skin-card .skin-cta:active:not(:disabled) { /* Responde ao pressionamento. */
+    transform: translateY(1px); /* Move levemente o botão para baixo. */
+} /* Fecha o estado pressionado. */
+
+.skin-card .skin-cta:disabled { /* Comunica que a compra ainda não está disponível. */
+    opacity: 0.5; /* Reduz a presença visual do comando. */
+
+    cursor: not-allowed; /* Indica que o botão está inativo. */
+
+    filter: grayscale(0.25); /* Remove parte da saturação. */
+} /* Fecha o botão desabilitado. */
+
+.skins-container .skin-card.selected .skin-cta { /* Destaca o comando da skin em uso. */
+    background: var(--skin-accent); /* Usa a cor temática como fundo sólido. */
+
+    border-color: #e1f8ff; /* Clareia o contorno do botão ativo. */
+
+    color: #062337; /* Usa texto escuro para contraste sobre o destaque. */
+
+    box-shadow: /* Combina relevo e brilho temático. */
+        inset 0 -3px rgba(15, 45, 66, 0.2), /* Cria profundidade na base. */
+        0 0 16px var(--skin-glow); /* Espalha o brilho da skin. */
+} /* Fecha o botão da skin equipada. */
 
 /* =========================================================
    RECORDES
@@ -1630,98 +2012,209 @@ button { /* Padroniza todos os botões da página. */
 } /* Fecha a tela ativa do jogo. */
 
 .hud { /* Formata a barra superior com os dados da partida. */
+    position: relative; /* Permite posicionar a linha luminosa decorativa. */
+
     width: 100%; /* Faz o HUD ocupar toda a largura da janela. */
 
     height: 67px; /* Define a altura fixa da barra superior. */
 
     flex-shrink: 0; /* Impede que o HUD seja comprimido pelo restante do layout. */
 
-    display: flex; /* Alinha os grupos de informações em uma linha. */
-
-    justify-content: /* Distribui os grupos ao longo da barra. */
-        space-between; /* Mantém grupos nas extremidades e o cronômetro no centro. */
+    display: grid; /* Mantém estatísticas, centro e ações em colunas equilibradas. */
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); /* Reserva os lados e centraliza mapa e tempo. */
 
     align-items: center; /* Centraliza os elementos verticalmente. */
 
-    padding: /* Define preenchimento vertical e horizontal. */
-        0 18px; /* Remove espaço vertical e reserva 18 pixels nas laterais. */
+    gap: 12px; /* Separa os três blocos do cabeçalho. */
 
-    background: /* Define gradiente vertical para o HUD. */
-        linear-gradient( /* Inicia o fundo gradiente da barra superior. */
-            to bottom, /* Direciona a transição de cima para baixo. */
-            #26384c, /* Cor superior da barra. */
-            #182435 /* Cor inferior da barra. */
-        ); /* Fecha o fundo do HUD. */
+    padding: 0 16px; /* Reserva espaço nas laterais do HUD. */
 
-    border-bottom: /* Separa o HUD da área de jogo. */
-        4px solid #060c13; /* Define largura, estilo e cor do divisor. */
+    background: /* Cria um gradiente azul profundo para o HUD. */
+        linear-gradient(180deg, #2b4e6c 0%, #183049 58%, #122538 100%);
+
+    border-bottom: 3px solid #07131f; /* Separa o HUD da área de jogo. */
+
+    box-shadow: /* Combina brilho interno e sombra sobre o cenário. */
+        inset 0 1px 0 rgba(216, 246, 255, 0.13),
+        0 6px 20px rgba(3, 10, 18, 0.35);
 
     z-index: 10; /* Mantém a barra acima do cenário quando há sobreposição. */
 } /* Fecha o estilo do HUD. */
 
+.hud::after { /* Desenha uma linha luminosa fina na base do cabeçalho. */
+    content: ""; /* Cria o elemento decorativo. */
+    position: absolute; /* Posiciona a linha em relação ao HUD. */
+    left: 0; /* Encosta à borda esquerda. */
+    right: 0; /* Encosta à borda direita. */
+    bottom: 0; /* Mantém a linha na base visível. */
+    height: 1px; /* Define espessura mínima. */
+    background: linear-gradient(90deg, transparent, rgba(126, 224, 255, 0.7), transparent); /* Cria um brilho centralizado. */
+    pointer-events: none; /* Evita interferência nos controles. */
+} /* Fecha a linha decorativa do HUD. */
+
 .hud-group { /* Agrupa indicadores que ficam juntos no HUD. */
     display: flex; /* Alinha os indicadores em uma linha. */
-
     align-items: center; /* Centraliza os indicadores verticalmente. */
-
-    gap: 18px; /* Define espaço entre os indicadores do grupo. */
+    gap: 9px; /* Define espaço entre os indicadores do grupo. */
+    min-width: 0; /* Permite que o grupo se ajuste em telas menores. */
 } /* Fecha o grupo de HUD. */
 
-.hud-item { /* Define aparência base dos rótulos do HUD. */
-    color: #adc0d5; /* Usa cor secundária para rótulos. */
+.hud-group-left { /* Posiciona as estatísticas no início da barra. */
+    justify-self: start; /* Encosta o grupo à esquerda. */
+} /* Fecha o alinhamento do grupo esquerdo. */
 
-    font-size: 10px; /* Mantém os rótulos compactos. */
+.hud-group-right { /* Posiciona vidas e menu no fim da barra. */
+    justify-self: end; /* Encosta o grupo à direita. */
+} /* Fecha o alinhamento do grupo direito. */
 
-    font-weight: 800; /* Destaca os rótulos em negrito. */
+.hud-item { /* Transforma cada estatística em uma cápsula legível. */
+    display: flex; /* Coloca ícone, rótulo e valor na mesma linha. */
+    align-items: center; /* Centraliza os três elementos verticalmente. */
+    gap: 6px; /* Separa ícone, rótulo e valor. */
+
+    min-height: 38px; /* Define altura confortável para leitura. */
+    padding: 0 11px; /* Reserva espaço interno nas laterais. */
+
+    border: 1px solid rgba(161, 226, 255, 0.2); /* Cria um contorno azul discreto. */
+    border-radius: 9px; /* Suaviza os cantos da cápsula. */
+
+    background: linear-gradient(180deg, rgba(10, 32, 50, 0.58), rgba(6, 22, 36, 0.4)); /* Dá profundidade ao indicador. */
+    box-shadow: inset 0 1px 0 rgba(224, 248, 255, 0.06); /* Adiciona um brilho superior sutil. */
+
+    color: #c3dcec; /* Define a cor-base do indicador. */
+    font-size: 10px; /* Mantém o conjunto compacto. */
+    font-weight: 800; /* Reforça a leitura do rótulo. */
+    white-space: nowrap; /* Impede quebra de linha dentro da cápsula. */
 } /* Fecha o indicador do HUD. */
 
+.hud-icon { /* Estiliza os símbolos que identificam cada informação. */
+    color: #84e6ff; /* Usa azul luminoso nos ícones. */
+    font-family: "Segoe UI Symbol", "Arial Unicode MS", sans-serif; /* Prioriza símbolos monocromáticos. */
+    font-size: 13px; /* Mantém os ícones proporcionais ao texto. */
+    line-height: 1; /* Remove espaço vertical extra. */
+    text-shadow: 0 0 10px rgba(86, 206, 255, 0.42); /* Cria um brilho suave ao redor. */
+} /* Fecha os ícones do HUD. */
+
+.hud-coin { /* Desenha a moeda do contador sem depender de emoji. */
+    width: 12px; /* Define a largura da moeda. */
+    height: 12px; /* Mantém a forma circular. */
+    flex-shrink: 0; /* Impede que a moeda seja comprimida. */
+    border: 1px solid #ffe5a3; /* Cria o contorno dourado. */
+    border-radius: 50%; /* Arredonda completamente o elemento. */
+    background: radial-gradient(circle at 34% 28%, #fff5c8, #f5c64f 48%, #b87b16); /* Simula o brilho metálico. */
+    box-shadow: 0 0 8px rgba(255, 205, 90, 0.42); /* Adiciona um brilho dourado. */
+} /* Fecha o ícone de moeda. */
+
+.hud-label { /* Formata o nome de cada informação. */
+    color: #9fc6db; /* Usa tom azul-acinzentado para o rótulo. */
+    font-size: 9px; /* Mantém o rótulo compacto. */
+    font-weight: 900; /* Destaca o nome da estatística. */
+    letter-spacing: 0.8px; /* Facilita a leitura em maiúsculas. */
+    text-transform: uppercase; /* Uniformiza os rótulos. */
+} /* Fecha o rótulo do HUD. */
+
 .hud-item b { /* Formata o valor numérico dentro de cada indicador. */
-    display: block; /* Coloca o valor abaixo do rótulo. */
-
-    margin-top: 3px; /* Separa o número do rótulo. */
-
-    color: white; /* Destaca os valores em branco. */
-
-    font-size: 16px; /* Amplia os números em relação aos rótulos. */
+    display: inline; /* Mantém o valor ao lado do rótulo. */
+    margin: 0; /* Remove o afastamento vertical usado no layout antigo. */
+    color: #f7fdff; /* Destaca os valores em branco. */
+    font-size: 15px; /* Amplia os números em relação aos rótulos. */
+    font-variant-numeric: tabular-nums; /* Mantém a largura estável dos números. */
+    line-height: 1; /* Alinha o valor ao centro da cápsula. */
 } /* Fecha o valor do HUD. */
 
-.timer { /* Organiza o nome do mapa e o cronômetro. */
-    display: flex; /* Ativa alinhamento flexível. */
+.hud-center { /* Agrupa mapa e cronômetro no centro do cabeçalho. */
+    display: flex; /* Coloca os dois indicadores lado a lado. */
+    align-items: center; /* Centraliza os indicadores verticalmente. */
+    gap: 8px; /* Separa mapa e tempo. */
+} /* Fecha o centro do HUD. */
 
-    flex-direction: column; /* Empilha nome do mapa e tempo. */
+.hud-map, /* Seleciona a cápsula do mapa. */
+.hud-timer { /* Seleciona a cápsula do cronômetro. */
+    display: flex; /* Alinha ícone, rótulo e valor em uma linha. */
+    align-items: center; /* Centraliza os elementos verticalmente. */
+    gap: 6px; /* Separa os elementos internos. */
 
-    align-items: center; /* Centraliza os dois elementos na horizontal. */
-} /* Fecha o contêiner do cronômetro. */
+    min-height: 38px; /* Mantém a mesma altura das demais cápsulas. */
+    padding: 0 12px; /* Reserva espaço interno nas laterais. */
 
-.timer span { /* Estiliza o nome do mapa no centro do HUD. */
-    color: #82d2ff; /* Usa azul claro para o nome do cenário. */
+    border: 1px solid rgba(161, 226, 255, 0.22); /* Contorna as cápsulas centrais. */
+    border-radius: 9px; /* Suaviza os cantos. */
 
-    font-size: 9px; /* Mantém o rótulo do mapa compacto. */
+    background: linear-gradient(180deg, rgba(16, 47, 69, 0.72), rgba(9, 28, 44, 0.54)); /* Destaca o centro do HUD. */
+    box-shadow: inset 0 1px 0 rgba(224, 248, 255, 0.07); /* Cria um brilho superior discreto. */
+    white-space: nowrap; /* Mantém os valores em uma só linha. */
+} /* Fecha as cápsulas centrais. */
 
-    letter-spacing: 2px; /* Espaça as letras do nome do cenário. */
-} /* Fecha o rótulo do mapa. */
+.hud-timer { /* Reforça a importância do cronômetro. */
+    border-color: rgba(142, 230, 255, 0.34); /* Clareia a borda do tempo. */
+    box-shadow: /* Adiciona brilho interno e externo. */
+        inset 0 1px 0 rgba(224, 248, 255, 0.09),
+        0 0 16px rgba(80, 200, 255, 0.12);
+} /* Fecha o destaque do cronômetro. */
 
-.timer strong { /* Formata o valor do cronômetro. */
-    margin-top: 1px; /* Cria pequena separação do nome do mapa. */
+.hud-map-name { /* Formata o nome do cenário. */
+    color: #e9fbff; /* Usa branco azulado para o nome. */
+    font-size: 10px; /* Mantém o nome compacto. */
+    font-weight: 900; /* Destaca o cenário. */
+    letter-spacing: 1px; /* Espaça as letras do nome. */
+} /* Fecha o nome do cenário. */
 
-    color: white; /* Destaca o tempo em branco. */
-
-    font-size: 22px; /* Amplia o cronômetro para facilitar leitura. */
+.hud-timer strong { /* Formata o valor do cronômetro. */
+    color: #fff; /* Destaca o tempo em branco. */
+    font-size: 20px; /* Amplia o cronômetro para facilitar a leitura. */
+    font-variant-numeric: tabular-nums; /* Mantém os dígitos alinhados. */
+    line-height: 1; /* Remove espaço vertical extra. */
+    text-shadow: 0 0 12px rgba(120, 220, 255, 0.32); /* Cria um brilho suave. */
 } /* Fecha o valor do cronômetro. */
 
-.pause-btn { /* Define dimensões e aparência do comando de pausa. */
-    width: 39px; /* Define largura fixa do botão. */
-    height: 35px; /* Define altura fixa do botão. */
+.pause-btn { /* Define o botão de menu como uma ação clara e rotulada. */
+    display: inline-flex; /* Alinha símbolo e texto na horizontal. */
+    align-items: center; /* Centraliza os elementos verticalmente. */
+    justify-content: center; /* Centraliza o conteúdo do botão. */
+    gap: 7px; /* Separa o símbolo do rótulo. */
 
-    border: /* Contorna o botão. */
-        3px solid #07101a; /* Define espessura, estilo e cor da borda. */
+    width: auto; /* Permite que o texto defina a largura. */
+    min-width: 92px; /* Garante uma área de clique confortável. */
+    height: 38px; /* Mantém a altura alinhada às cápsulas. */
+    padding: 0 12px; /* Reserva espaço interno nas laterais. */
 
-    background: #465e78; /* Define o fundo base do botão de pausa. */
+    border: 1px solid rgba(184, 233, 255, 0.48); /* Contorna o botão com azul claro. */
+    border-radius: 9px; /* Suaviza os cantos. */
 
-    color: white; /* Define cor do símbolo de pausa. */
+    background: linear-gradient(180deg, #467493, #2b4e6b); /* Cria um botão azul com profundidade. */
+    color: #f7fdff; /* Define a cor do conteúdo. */
 
-    font-weight: 900; /* Destaca o símbolo. */
+    font-size: 10px; /* Mantém o rótulo legível e compacto. */
+    font-weight: 900; /* Reforça o texto do botão. */
+    letter-spacing: 0.8px; /* Espaça as letras de MENU. */
+
+    box-shadow: /* Combina relevo e brilho externo. */
+        inset 0 1px 0 rgba(232, 250, 255, 0.18),
+        0 0 14px rgba(70, 180, 235, 0.16);
+
+    cursor: pointer; /* Indica que o elemento é clicável. */
+    transition: background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease; /* Suaviza a resposta visual. */
 } /* Fecha o botão de pausa. */
+
+.pause-btn:hover { /* Destaca o botão ao passar o mouse. */
+    background: linear-gradient(180deg, #5688aa, #355d7d); /* Clareia o gradiente do botão. */
+    box-shadow: /* Aumenta o brilho externo no estado hover. */
+        inset 0 1px 0 rgba(232, 250, 255, 0.22),
+        0 0 18px rgba(94, 207, 255, 0.28);
+} /* Fecha o estado hover do menu. */
+
+.pause-btn:active { /* Dá resposta física ao pressionar o botão. */
+    transform: translateY(1px); /* Move levemente o botão para baixo. */
+} /* Fecha o estado pressionado do menu. */
+
+.pause-symbol { /* Ajusta o ícone de pausa dentro do botão. */
+    font-size: 15px; /* Destaca o símbolo em relação ao rótulo. */
+    line-height: 1; /* Remove espaço vertical adicional. */
+} /* Fecha o símbolo de pausa. */
+
+.pause-label { /* Formata o texto que identifica o botão. */
+    line-height: 1; /* Alinha o texto ao centro do botão. */
+} /* Fecha o rótulo do botão de pausa. */
 
 /* =========================================================
    ÁREA DO JOGO
@@ -1734,12 +2227,12 @@ button { /* Padroniza todos os botões da página. */
     ); /* Fecha o cálculo responsivo da largura. */
 
     height: calc( /* Calcula a altura restante da janela. */
-        100vh - 109px /* Subtrai HUD e espaço dos controles/rodapé. */
+        100vh - 109px /* Subtrai HUD e espaço reservado aos controles/rodapé. */
     ); /* Fecha o cálculo responsivo da altura. */
 
-    display: flex; /* Organiza canvas e rodapé com flexbox. */
+    display: flex; /* Organiza canvas, rodapé e tutorial com flexbox. */
 
-    flex-direction: column; /* Coloca o rodapé abaixo do canvas. */
+    flex-direction: column; /* Coloca o rodapé e o tutorial abaixo do canvas. */
 
     align-items: center; /* Centraliza os filhos horizontalmente. */
 
@@ -1769,8 +2262,8 @@ button { /* Padroniza todos os botões da página. */
 
     height: auto; /* Mantém proporção da altura conforme a largura exibida. */
 
-    max-height: calc( /* Limita altura considerando os demais controles. */
-        100vh - 150px /* Reserva espaço para HUD, rodapé e controles. */
+    max-height: calc( /* Limita altura considerando os demais elementos. */
+        100vh - 283px /* Reserva HUD, rodapé, tutorial e faixa dos controles. */
     ); /* Fecha o cálculo de altura máxima. */
 
     aspect-ratio: /* Define a proporção original do espaço de desenho. */
@@ -1844,6 +2337,349 @@ button { /* Padroniza todos os botões da página. */
 } /* Fecha o rodapé da partida. */
 
 /* =========================================================
+   TUTORIAL DO JOGO
+   ========================================================= */
+
+.game-tutorial { /* Cria a faixa de instruções abaixo da área desenhada. */
+    width: 100%; /* Acompanha a largura do canvas e do rodapé. */
+
+    height: 70px; /* Mantém o tutorial compacto dentro da tela. */
+    min-height: 70px; /* Impede a compressão da faixa pelo flexbox. */
+    flex-shrink: 0; /* Preserva a altura reservada ao tutorial. */
+
+    display: flex; /* Organiza o único controle no centro da faixa. */
+    align-items: center; /* Centraliza o conteúdo verticalmente. */
+    justify-content: center; /* Centraliza o cartão de acessibilidade na largura disponível. */
+    gap: 0; /* Remove a separação usada pela antiga introdução. */
+
+    margin-bottom: 64px; /* Reserva a faixa dos controles acessíveis abaixo do tutorial. */
+
+    padding: 8px 18px; /* Cria espaço interno sem aumentar a altura total. */
+
+    background: linear-gradient(180deg, #1c3852 0%, #11283d 100%); /* Usa um azul profundo alinhado ao HUD. */
+    border-top: 1px solid rgba(158, 230, 255, 0.32); /* Separa o tutorial do rodapé do jogo. */
+    border-bottom: 1px solid rgba(5, 15, 25, 0.7); /* Fecha visualmente a faixa. */
+    box-shadow: inset 0 1px 0 rgba(224, 248, 255, 0.08); /* Adiciona um brilho superior sutil. */
+
+    color: #d8eef9; /* Define a cor-base do texto. */
+    position: relative; /* Mantém a faixa acima do fundo da área de jogo. */
+    z-index: 5; /* Evita sobreposição indevida do cenário. */
+} /* Fecha a faixa de tutorial. */
+
+.tutorial-intro { /* Agrupa o título e o objetivo da corrida. */
+    flex: 0 0 176px; /* Reserva uma coluna estável para a introdução. */
+    align-self: stretch; /* Ocupa a altura disponível da faixa. */
+
+    display: flex; /* Empilha os textos da introdução. */
+    flex-direction: column; /* Coloca o objetivo abaixo do título. */
+    justify-content: center; /* Centraliza o conjunto verticalmente. */
+    gap: 2px; /* Aproxima as linhas da introdução. */
+
+    padding-right: 16px; /* Afasta o texto da linha divisória. */
+    border-right: 1px solid rgba(158, 230, 255, 0.2); /* Separa a introdução dos comandos. */
+} /* Fecha a introdução do tutorial. */
+
+.tutorial-kicker { /* Rotula a faixa como tutorial. */
+    color: #7fe3ff; /* Usa azul luminoso para o selo. */
+    font-size: 8px; /* Mantém o selo discreto. */
+    font-weight: 900; /* Reforça a leitura. */
+    letter-spacing: 2.2px; /* Espaça as letras do selo. */
+    line-height: 1; /* Remove espaço vertical extra. */
+} /* Fecha o selo do tutorial. */
+
+.tutorial-intro strong { /* Destaca o título COMO JOGAR. */
+    color: #fff; /* Usa branco para o título. */
+    font-size: 14px; /* Dá hierarquia ao título da faixa. */
+    font-weight: 900; /* Aplica peso forte. */
+    letter-spacing: 1.4px; /* Espaça as letras do título. */
+    line-height: 1; /* Mantém o título compacto. */
+} /* Fecha o título do tutorial. */
+
+.tutorial-goal { /* Explica o objetivo principal da fase. */
+    color: #9fc4d8; /* Usa tom secundário para a orientação. */
+    font-size: 9px; /* Mantém o texto compacto. */
+    line-height: 1.2; /* Evita linhas muito apertadas. */
+} /* Fecha o objetivo do tutorial. */
+
+.tutorial-controls { /* Distribui os comandos pelo espaço restante. */
+    flex: 1; /* Ocupa toda a largura disponível após a introdução. */
+
+    display: flex; /* Alinha os comandos em uma única linha. */
+    align-items: center; /* Centraliza os comandos verticalmente. */
+    justify-content: space-between; /* Distribui os itens uniformemente. */
+    gap: 10px; /* Define uma separação mínima entre os comandos. */
+
+    min-width: 0; /* Permite que o conjunto encolha em telas menores. */
+} /* Fecha a linha de comandos do tutorial. */
+
+.tutorial-item { /* Agrupa teclas e explicação de um comando. */
+    display: flex; /* Coloca as teclas ao lado do texto. */
+    align-items: center; /* Centraliza os elementos verticalmente. */
+    gap: 6px; /* Separa teclas e descrição. */
+    min-width: 0; /* Permite ajuste em larguras menores. */
+} /* Fecha um comando do tutorial. */
+
+.tutorial-key { /* Desenha uma tecla física do teclado. */
+    display: inline-flex; /* Centraliza o rótulo dentro da tecla. */
+    align-items: center; /* Centraliza verticalmente. */
+    justify-content: center; /* Centraliza horizontalmente. */
+
+    min-width: 26px; /* Reserva largura mínima para teclas curtas. */
+    height: 25px; /* Define a altura da tecla. */
+    padding: 0 6px; /* Cria espaço interno para rótulos maiores. */
+
+    border: 1px solid rgba(190, 238, 255, 0.34); /* Contorna a tecla em azul claro. */
+    border-radius: 5px; /* Suaviza os cantos. */
+
+    background: linear-gradient(180deg, #2f5573, #18334b); /* Dá relevo à tecla. */
+    color: #f7fdff; /* Destaca o rótulo. */
+
+    font-size: 8px; /* Mantém as teclas compactas. */
+    font-weight: 900; /* Reforça o texto. */
+    letter-spacing: 0.4px; /* Facilita a leitura. */
+    white-space: nowrap; /* Impede quebra de linha dentro da tecla. */
+
+    box-shadow: /* Combina brilho interno e profundidade inferior. */
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 2px 0 rgba(4, 13, 23, 0.55);
+} /* Fecha a tecla do tutorial. */
+
+.tutorial-key.wide { /* Ajusta a tecla larga ESPAÇO. */
+    font-size: 7px; /* Reduz o texto para caber na tecla. */
+    letter-spacing: 0.3px; /* Mantém o rótulo compacto. */
+} /* Fecha a tecla larga. */
+
+.tutorial-menu-icon { /* Reproduz visualmente o botão de menu. */
+    width: 25px; /* Define a largura do ícone. */
+    height: 25px; /* Mantém o formato quadrado. */
+    flex-shrink: 0; /* Evita compressão em telas menores. */
+
+    display: grid; /* Centraliza o símbolo no espaço. */
+    place-items: center; /* Alinha o conteúdo ao centro. */
+
+    border: 1px solid rgba(190, 238, 255, 0.34); /* Contorna o botão ilustrado. */
+    border-radius: 6px; /* Suaviza os cantos. */
+
+    background: linear-gradient(180deg, #2f5573, #18334b); /* Usa o mesmo relevo das teclas. */
+    color: #b9f0ff; /* Destaca o símbolo de pausa. */
+
+    font-size: 12px; /* Mantém o símbolo visível. */
+    box-shadow: /* Combina brilho interno e profundidade. */
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 2px 0 rgba(4, 13, 23, 0.55);
+} /* Fecha o ícone de menu do tutorial. */
+
+.tutorial-icon { /* Cria um ícone compacto para identificar os controles na tela. */
+    width: 38px; /* Reserva um quadrado bem visível. */
+    height: 38px; /* Mantém a proporção do ícone. */
+    flex-shrink: 0; /* Impede a compressão em telas estreitas. */
+
+    display: grid; /* Centraliza o símbolo no quadro. */
+    place-items: center; /* Alinha o conteúdo nos dois eixos. */
+
+    border: 1px solid rgba(151, 232, 255, 0.4); /* Contorna o ícone em azul claro. */
+    border-radius: 10px; /* Suaviza os cantos. */
+
+    background: linear-gradient(180deg, rgba(60, 132, 167, 0.55), rgba(20, 62, 88, 0.6)); /* Cria relevo azul premium. */
+    color: #c8f5ff; /* Destaca as setas do ícone. */
+
+    font-size: 11px; /* Mantém o símbolo legível sem dominar o cartão. */
+    font-weight: 900; /* Reforça o desenho das setas. */
+    letter-spacing: -1px; /* Aproxima as setas em um único símbolo. */
+    box-shadow: inset 0 1px 0 rgba(232, 251, 255, 0.16); /* Adiciona brilho interno. */
+} /* Fecha o ícone da opção. */
+
+.tutorial-copy { /* Organiza nome e explicação da opção. */
+    flex: 1 1 auto; /* Ocupa o espaço central do cartão. */
+
+    display: flex; /* Empilha nome e descrição. */
+    flex-direction: column; /* Coloca a explicação abaixo do nome. */
+    gap: 3px; /* Aproxima as duas linhas. */
+    min-width: 0; /* Permite ajuste em larguras menores. */
+} /* Fecha o texto da opção. */
+
+.tutorial-copy b { /* Formata o nome da opção. */
+    color: #f4fcff; /* Usa branco para o nome. */
+    font-size: 14px; /* Dá destaque ao comando. */
+    font-weight: 900; /* Aplica peso forte. */
+    letter-spacing: 1px; /* Espaça as letras do nome. */
+    line-height: 1; /* Mantém o nome compacto. */
+    white-space: nowrap; /* Impede quebra de linha. */
+} /* Fecha o nome da opção. */
+
+.tutorial-copy small { /* Formata a explicação da opção. */
+    color: #b4d5e4; /* Usa tom secundário para a descrição. */
+    font-size: 10.5px; /* Mantém a explicação legível. */
+    line-height: 1.2; /* Evita linhas muito apertadas. */
+    white-space: nowrap; /* Mantém a explicação em uma linha. */
+} /* Fecha a descrição da opção. */
+
+.tutorial-a11y-mobile { /* Mantém a mensagem móvel oculta no desktop. */
+    display: none; /* Exibe apenas a referência à tela de acessibilidade em telas maiores. */
+} /* Fecha a mensagem móvel oculta. */
+
+.tutorial-toggle { /* Transforma a opção de acessibilidade em um cartão central. */
+    display: flex; /* Alinha ícone, texto e interruptor. */
+    align-items: center; /* Centraliza os elementos verticalmente. */
+    justify-content: space-between; /* Distribui o conteúdo com o interruptor à direita. */
+    gap: 14px; /* Separa ícone, texto e interruptor. */
+    flex-shrink: 0; /* Evita compressão em telas menores. */
+
+    width: min(460px, 100%); /* Dá presença ao controle sem ocupar a faixa inteira. */
+    min-height: 54px; /* Garante uma área clicável confortável. */
+    padding: 8px 16px; /* Cria espaço interno equilibrado. */
+
+    border: 1px solid rgba(255, 214, 122, 0.42); /* Destaca a opção com tom dourado. */
+    border-radius: 12px; /* Suaviza os cantos do cartão. */
+
+    background: linear-gradient(135deg, rgba(255, 204, 92, 0.15), rgba(255, 190, 60, 0.05) 55%, rgba(46, 104, 136, 0.28)); /* Cria profundidade alinhada ao tema premium. */
+    box-shadow: /* Combina brilho interno e sombra curta. */
+        inset 0 1px 0 rgba(255, 248, 222, 0.14),
+        0 6px 18px rgba(2, 12, 22, 0.22);
+    cursor: pointer; /* Indica que a área inteira é clicável. */
+    transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease; /* Suaviza a resposta visual. */
+} /* Fecha a área da opção de controles. */
+
+.tutorial-toggle:hover { /* Destaca a opção ao passar o mouse. */
+    border-color: rgba(255, 224, 150, 0.72); /* Clareia a borda. */
+    background: rgba(255, 204, 92, 0.14); /* Intensifica levemente o fundo. */
+    transform: translateY(-1px); /* Cria uma resposta sutil de elevação. */
+} /* Fecha o estado hover da opção. */
+
+.tutorial-toggle input { /* Esconde a caixa nativa sem removê-la da acessibilidade. */
+    position: absolute; /* Retira a caixa do fluxo visual. */
+    width: 1px; /* Mantém uma área mínima. */
+    height: 1px; /* Mantém uma área mínima. */
+    overflow: hidden; /* Evita vazamento visual. */
+    opacity: 0; /* Torna a caixa invisível. */
+    pointer-events: none; /* Deixa o clique com o rótulo. */
+} /* Fecha a caixa nativa oculta. */
+
+.toggle-track { /* Desenha o interruptor da opção. */
+    position: relative; /* Permite posicionar o botão interno. */
+    width: 48px; /* Define uma largura confortável para o trilho. */
+    height: 26px; /* Acompanha a altura maior do cartão. */
+    flex-shrink: 0; /* Impede que o trilho encolha. */
+
+    border: 1px solid rgba(160, 226, 255, 0.34); /* Contorna o trilho. */
+    border-radius: 999px; /* Deixa o trilho arredondado. */
+
+    background: #0d2233; /* Usa fundo escuro no estado desligado. */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5); /* Cria profundidade interna. */
+
+    transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; /* Suaviza a mudança de estado. */
+} /* Fecha o trilho do interruptor. */
+
+.toggle-track::after { /* Desenha o botão deslizante do interruptor. */
+    content: ""; /* Cria o botão interno. */
+    position: absolute; /* Posiciona o botão dentro do trilho. */
+    top: 2px; /* Afasta o botão da borda superior. */
+    left: 2px; /* Afasta o botão da borda esquerda. */
+
+    width: 20px; /* Define a largura do botão. */
+    height: 20px; /* Define a altura do botão. */
+    border-radius: 50%; /* Torna o botão circular. */
+
+    background: #8fb7cc; /* Usa tom neutro no estado desligado. */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); /* Cria uma sombra curta. */
+
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease; /* Anima o deslocamento. */
+} /* Fecha o botão do interruptor. */
+
+.tutorial-toggle input:checked + .toggle-track { /* Estiliza o trilho quando a opção está ativa. */
+    border-color: #8ce7ff; /* Usa borda azul luminosa. */
+    background: rgba(56, 184, 234, 0.34); /* Acende o fundo do trilho. */
+    box-shadow: /* Combina brilho externo e profundidade interna. */
+        0 0 12px rgba(87, 208, 255, 0.28),
+        inset 0 1px 3px rgba(0, 0, 0, 0.35);
+} /* Fecha o trilho ativo. */
+
+.tutorial-toggle input:checked + .toggle-track::after { /* Move o botão para a posição ativa. */
+    transform: translateX(22px); /* Desloca o botão até o lado direito. */
+    background: #eaffff; /* Clareia o botão ativo. */
+    box-shadow: 0 0 8px rgba(172, 244, 255, 0.7); /* Adiciona brilho ao botão. */
+} /* Fecha o botão ativo do interruptor. */
+
+.tutorial-toggle input:focus-visible + .toggle-track { /* Torna o foco de teclado visível. */
+    outline: 2px solid #e5f8ff; /* Desenha um contorno claro. */
+    outline-offset: 3px; /* Afasta o contorno do trilho. */
+} /* Fecha o foco do interruptor. */
+
+.tutorial-toggle .tutorial-copy b { /* Destaca o nome da opção de acessibilidade. */
+    color: #ffe3a0; /* Usa tom dourado para diferenciar a ação. */
+} /* Fecha o título da opção. */
+
+.tutorial-toggle .tutorial-copy small { /* Ajusta a referência à tela de acessibilidade. */
+    color: #c4b78f; /* Usa um tom quente secundário. */
+} /* Fecha a descrição da opção. */
+
+@media (max-width: 1100px) and (min-width: 821px) { /* Compacta o tutorial em larguras intermediárias. */
+
+    .game-tutorial { /* Reduz o espaçamento horizontal da faixa. */
+        gap: 10px; /* Aproxima introdução e comandos. */
+        padding: 8px 12px; /* Diminui as laterais para ganhar espaço. */
+    } /* Fecha o ajuste da faixa. */
+
+    .tutorial-intro { /* Diminui a coluna de introdução. */
+        flex-basis: 140px; /* Reserva menos largura para o texto. */
+        padding-right: 10px; /* Aproxima o texto da divisória. */
+    } /* Fecha o ajuste da introdução. */
+
+    .tutorial-intro strong { /* Reduz o título da introdução. */
+        font-size: 12px; /* Mantém o título proporcionar ao espaço. */
+        letter-spacing: 1px; /* Diminui o espaçamento das letras. */
+    } /* Fecha o título compacto. */
+
+    .tutorial-goal { /* Reduz a orientação de objetivo. */
+        font-size: 8px; /* Mantém o texto legível em espaço menor. */
+    } /* Fecha o objetivo compacto. */
+
+    .tutorial-controls { /* Aproxima os comandos. */
+        gap: 8px; /* Reduz o espaço entre os itens. */
+    } /* Fecha os comandos compactos. */
+
+    .tutorial-copy b { /* Reduz o nome dos comandos. */
+        font-size: 9px; /* Adapta o texto à largura menor. */
+        letter-spacing: 0.5px; /* Diminui o espaçamento. */
+    } /* Fecha o nome compacto. */
+
+    .tutorial-copy small { /* Reduz a descrição dos comandos. */
+        font-size: 8px; /* Mantém a explicação em uma linha. */
+    } /* Fecha a descrição compacta. */
+
+    .tutorial-key { /* Diminui as teclas. */
+        min-width: 22px; /* Reduz a largura mínima. */
+        height: 23px; /* Reduz a altura. */
+        padding: 0 4px; /* Diminui o espaço interno. */
+        font-size: 7px; /* Ajusta o rótulo. */
+    } /* Fecha as teclas compactas. */
+
+    .tutorial-key.wide { /* Ajusta a tecla larga no modo compacto. */
+        font-size: 6.5px; /* Reduz o texto ao espaço disponível. */
+    } /* Fecha a tecla larga compacta. */
+
+    .tutorial-menu-icon { /* Diminui o ícone de menu. */
+        width: 23px; /* Reduz a largura. */
+        height: 23px; /* Reduz a altura. */
+        font-size: 10px; /* Ajusta o símbolo. */
+    } /* Fecha o ícone compacto. */
+
+    .tutorial-toggle { /* Ajusta a área de acessibilidade em larguras intermediárias. */
+        width: min(440px, 100%); /* Mantém o cartão centralizado e confortável. */
+        gap: 12px; /* Aproxima levemente os elementos. */
+        padding: 8px 14px; /* Preserva uma área interna confortável. */
+    } /* Fecha a opção intermediária. */
+
+    .tutorial-copy b { /* Mantém o título legível no cartão. */
+        font-size: 13px; /* Reduz apenas o necessário. */
+    } /* Fecha o título intermediário. */
+
+    .tutorial-copy small { /* Mantém a descrição legível no cartão. */
+        font-size: 10px; /* Acompanha a largura intermediária. */
+    } /* Fecha a descrição intermediária. */
+} /* Fecha a adaptação intermediária do tutorial. */
+
+/* =========================================================
    OVERLAYS
    ========================================================= */
 
@@ -1876,6 +2712,16 @@ button { /* Padroniza todos os botões da página. */
 .overlay.visible { /* Seleciona uma sobreposição que deve estar aberta. */
     display: flex; /* Exibe a caixa usando alinhamento flexível. */
 } /* Fecha o estado visível do overlay. */
+
+.exit-overlay { /* Ajusta o aviso de saída para cobrir a tela inteira. */
+    inset: 0; /* Encosta nas quatro bordas, sem reservar espaço para o HUD. */
+
+    z-index: 200; /* Fica acima do rodapé e dos demais elementos do menu. */
+} /* Fecha o posicionamento do aviso de saída. */
+
+.exit-overlay .pause-box { /* Mantém a caixa do aviso dentro da tela em celulares. */
+    width: min(410px, calc(100vw - 32px)); /* Limita a largura ao espaço disponível. */
+} /* Fecha o tamanho responsivo do aviso. */
 
 .pause-box { /* Estiliza a caixa interna dos overlays. */
     width: 410px; /* Define largura base do painel de pausa/resultado. */
@@ -1951,6 +2797,66 @@ button { /* Padroniza todos os botões da página. */
     display: none; /* Mantém os botões ocultos em telas grandes. */
 } /* Fecha o estado padrão dos controles móveis. */
 
+@media (max-width: 980px) { /* Compacta o HUD antes do layout móvel completo. */
+
+    .hud { /* Reduz o espaçamento do cabeçalho. */
+        gap: 5px; /* Aproxima os três blocos. */
+        padding: 0 8px; /* Diminui as laterais. */
+    } /* Fecha o HUD compacto. */
+
+    .hud-group { /* Aproxima os indicadores. */
+        gap: 5px; /* Reduz o espaço entre cápsulas. */
+    } /* Fecha os grupos compactos. */
+
+    .hud-item, /* Seleciona as estatísticas. */
+    .hud-map, /* Seleciona o mapa. */
+    .hud-timer { /* Seleciona o cronômetro. */
+        min-height: 34px; /* Reduz a altura das cápsulas. */
+        padding: 0 7px; /* Diminui o espaço interno. */
+        gap: 4px; /* Aproxima os elementos. */
+        border-radius: 7px; /* Suaviza os cantos menores. */
+    } /* Fecha as cápsulas compactas. */
+
+    .hud-icon { /* Reduz os ícones. */
+        font-size: 10px; /* Adapta os símbolos ao espaço. */
+    } /* Fecha os ícones compactos. */
+
+    .hud-coin { /* Reduz a moeda do contador. */
+        width: 10px; /* Diminui a largura. */
+        height: 10px; /* Mantém a forma circular. */
+    } /* Fecha a moeda compacta. */
+
+    .hud-label { /* Reduz os rótulos. */
+        font-size: 7px; /* Economiza largura. */
+        letter-spacing: 0.4px; /* Diminui o espaçamento. */
+    } /* Fecha os rótulos compactos. */
+
+    .hud-item b { /* Reduz os valores numéricos. */
+        font-size: 12px; /* Mantém os números legíveis. */
+    } /* Fecha os valores compactos. */
+
+    .hud-map-name { /* Reduz o nome do cenário. */
+        font-size: 7px; /* Ajusta o mapa ao espaço. */
+        letter-spacing: 0.5px; /* Diminui o espaçamento. */
+    } /* Fecha o mapa compacto. */
+
+    .hud-timer strong { /* Reduz o cronômetro. */
+        font-size: 15px; /* Preserva a leitura do tempo. */
+    } /* Fecha o cronômetro compacto. */
+
+    .pause-btn { /* Compacta o botão de menu. */
+        min-width: 64px; /* Reduz a largura mínima. */
+        height: 34px; /* Alinha às cápsulas menores. */
+        padding: 0 8px; /* Diminui o espaço interno. */
+        gap: 5px; /* Aproxima símbolo e texto. */
+        font-size: 8px; /* Reduz o rótulo. */
+    } /* Fecha o botão compacto. */
+
+    .pause-symbol { /* Reduz o símbolo de pausa. */
+        font-size: 12px; /* Ajusta o ícone ao botão. */
+    } /* Fecha o símbolo compacto. */
+} /* Fecha a compactação intermediária do HUD. */
+
 @media (max-width: 820px) { /* Aplica ajustes quando a janela tem até 820 pixels de largura. */
 
     .screen { /* Ajusta as telas gerais em dispositivos estreitos. */
@@ -1966,32 +2872,166 @@ button { /* Padroniza todos os botões da página. */
 
     .skins-container { /* Ajusta a grade de personagens em telas estreitas. */
         grid-template-columns: /* Define a distribuição de colunas da grade. */
-            repeat(2, 1fr); /* Usa duas colunas de largura igual. */
+            repeat(2, minmax(0, 1fr)); /* Usa duas colunas de largura igual. */
     } /* Fecha a grade móvel de skins. */
+
+    .skin-heading { /* Centraliza o cabeçalho da loja em telas estreitas. */
+        justify-content: center; /* Agrupa título e saldo no centro. */
+    } /* Fecha o cabeçalho móvel da loja. */
+
+    .skin-heading .panel-title, /* Seleciona o título dentro da loja. */
+    .skin-subtitle { /* Seleciona a frase de apoio da loja. */
+        text-align: center; /* Centraliza os textos no layout móvel. */
+    } /* Fecha o alinhamento móvel dos textos. */
 
     .achievement-container { /* Adapta a lista de conquistas ao espaço estreito. */
         grid-template-columns: 1fr; /* Empilha itens em uma única coluna. */
     } /* Fecha a grade móvel de conquistas. */
 
+    .hud { /* Compacta o cabeçalho em telas menores. */
+        gap: 5px; /* Aproxima os três blocos do HUD. */
+        padding: 0 8px; /* Diminui as laterais para ganhar espaço. */
+    } /* Fecha o ajuste móvel do HUD. */
+
     .hud-group { /* Compacta os grupos do HUD em telas menores. */
-        gap: 8px; /* Reduz o espaço entre indicadores. */
+        gap: 5px; /* Reduz o espaço entre indicadores. */
     } /* Fecha o espaçamento móvel do HUD. */
 
-    .hud-item { /* Reduz os rótulos dos indicadores em dispositivos estreitos. */
-        font-size: 8px; /* Diminui o tamanho para caber na barra. */
-    } /* Fecha o ajuste dos rótulos móveis. */
+    .hud-item, /* Seleciona as cápsulas de estatísticas. */
+    .hud-map, /* Seleciona a cápsula do mapa. */
+    .hud-timer { /* Seleciona a cápsula do cronômetro. */
+        min-height: 34px; /* Reduz a altura das cápsulas. */
+        padding: 0 7px; /* Diminui o espaço interno. */
+        gap: 4px; /* Aproxima ícone, rótulo e valor. */
+        border-radius: 7px; /* Suaviza os cantos no tamanho menor. */
+    } /* Fecha as cápsulas compactas. */
+
+    .hud-icon { /* Reduz os ícones do HUD. */
+        font-size: 10px; /* Adapta os símbolos ao espaço menor. */
+    } /* Fecha os ícones compactos. */
+
+    .hud-coin { /* Reduz a moeda do contador. */
+        width: 10px; /* Diminui a largura. */
+        height: 10px; /* Mantém a forma circular. */
+    } /* Fecha a moeda compacta. */
+
+    .hud-label { /* Reduz os rótulos do HUD. */
+        font-size: 7px; /* Economiza largura na barra superior. */
+        letter-spacing: 0.4px; /* Diminui o espaçamento das letras. */
+    } /* Fecha os rótulos compactos. */
 
     .hud-item b { /* Ajusta números do HUD para telas menores. */
         font-size: 12px; /* Reduz os valores sem ocultá-los. */
     } /* Fecha o ajuste dos valores móveis. */
 
-    .timer strong { /* Reduz o tamanho do cronômetro no celular. */
-        font-size: 16px; /* Mantém o tempo legível dentro do HUD estreito. */
+    .hud-map-name { /* Reduz o nome do cenário no celular. */
+        font-size: 7px; /* Mantém o mapa legível no espaço estreito. */
+        letter-spacing: 0.5px; /* Diminui o espaçamento das letras. */
+    } /* Fecha o nome de cenário móvel. */
+
+    .hud-timer strong { /* Reduz o tamanho do cronômetro no celular. */
+        font-size: 15px; /* Mantém o tempo legível dentro do HUD estreito. */
     } /* Fecha o cronômetro móvel. */
 
-    .timer span { /* Reduz o rótulo do cenário no celular. */
-        font-size: 7px; /* Economiza largura na barra superior. */
-    } /* Fecha o nome de cenário móvel. */
+    .pause-btn { /* Compacta o botão de menu. */
+        min-width: 64px; /* Reduz a largura mínima. */
+        height: 34px; /* Alinha o botão às cápsulas menores. */
+        padding: 0 8px; /* Diminui o espaço interno. */
+        gap: 5px; /* Aproxima símbolo e texto. */
+        font-size: 8px; /* Reduz o rótulo do botão. */
+    } /* Fecha o botão de menu compacto. */
+
+    .pause-symbol { /* Reduz o símbolo de pausa. */
+        font-size: 12px; /* Adapta o ícone ao botão menor. */
+    } /* Fecha o símbolo compacto. */
+
+    .game-tutorial { /* Mantém a faixa compacta com apenas a opção de acessibilidade. */
+        flex: 0 0 70px; /* Preserva a altura já reservada no layout. */
+        height: 70px; /* Mantém a faixa alinhada ao restante da interface. */
+        min-height: 70px; /* Impede a compressão do cartão. */
+        max-height: 70px; /* Evita crescimento inesperado no celular. */
+
+        flex-direction: row; /* Mantém o cartão em uma única linha. */
+        align-items: center; /* Centraliza o cartão verticalmente. */
+        justify-content: center; /* Centraliza o cartão na largura da tela. */
+        gap: 0; /* Remove espaçamentos da antiga grade. */
+
+        padding: 8px 12px; /* Preserva margens laterais confortáveis. */
+        overflow: visible; /* Evita barras de rolagem desnecessárias. */
+    } /* Fecha a faixa móvel do tutorial. */
+
+    .tutorial-intro { /* Adapta a introdução ao formato empilhado. */
+        flex: 0 0 auto; /* Impede que a introdução cresça. */
+        padding: 0 0 10px; /* Separa o texto da grade de comandos. */
+        border-right: 0; /* Remove a divisória lateral. */
+        border-bottom: 1px solid rgba(158, 230, 255, 0.2); /* Cria uma divisória horizontal. */
+        gap: 3px; /* Aproxima as linhas da introdução. */
+    } /* Fecha a introdução móvel. */
+
+    .tutorial-intro strong { /* Mantém o título legível no celular. */
+        font-size: 15px; /* Dá destaque ao COMO JOGAR. */
+    } /* Fecha o título móvel. */
+
+    .tutorial-goal { /* Ajusta a orientação de objetivo no celular. */
+        font-size: 10px; /* Melhora a leitura em telas de toque. */
+    } /* Fecha o objetivo móvel. */
+
+    .tutorial-controls { /* Cria uma grade de comandos no celular. */
+        flex: 0 0 auto; /* Impede o crescimento vertical da grade. */
+        display: grid; /* Organiza os comandos em duas colunas. */
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* Divide a largura igualmente. */
+        gap: 10px 12px; /* Separa linhas e colunas. */
+        width: 100%; /* Ocupa toda a largura do painel. */
+    } /* Fecha a grade móvel de comandos. */
+
+    .tutorial-item { /* Mantém cada comando compacto na grade. */
+        min-width: 0; /* Permite encolher dentro da coluna. */
+        gap: 6px; /* Separa teclas e texto. */
+    } /* Fecha os comandos móveis. */
+
+    .tutorial-copy b { /* Mantém o título legível no celular. */
+        font-size: 13px; /* Preserva o destaque da opção. */
+        white-space: normal; /* Permite ajuste em telas muito estreitas. */
+    } /* Fecha o título móvel. */
+
+    .tutorial-copy small { /* Permite que a descrição quebre linha no celular. */
+        font-size: 10px; /* Mantém a explicação legível. */
+        white-space: normal; /* Evita estouro horizontal na grade. */
+    } /* Fecha a descrição móvel. */
+
+    .tutorial-toggle { /* Centraliza o cartão informativo no celular. */
+        grid-column: auto; /* Remove a divisão em colunas da antiga grade. */
+        justify-content: center; /* Agrupa ícone e texto no centro. */
+        width: min(340px, 100%); /* Mantém o cartão com boa presença visual. */
+        min-height: 54px; /* Preserva a área de leitura confortável. */
+        padding: 8px 12px; /* Ajusta o espaço interno à tela estreita. */
+        gap: 10px; /* Separa ícone e texto. */
+        cursor: default; /* Indica que o cartão é apenas informativo no celular. */
+        pointer-events: none; /* Evita interação com uma opção já ativa. */
+    } /* Fecha a opção móvel de controles. */
+
+    .tutorial-icon { /* Ajusta o ícone ao cartão móvel. */
+        width: 34px; /* Diminui levemente o quadro. */
+        height: 34px; /* Mantém a proporção quadrada. */
+    } /* Fecha o ícone móvel. */
+
+    .tutorial-toggle .tutorial-copy { /* Mantém o texto agrupado ao ícone. */
+        flex: 0 1 auto; /* Impede que o texto se afaste do ícone. */
+        text-align: left; /* Preserva a leitura natural do rótulo. */
+    } /* Fecha o texto móvel do cartão. */
+
+    .tutorial-toggle input, /* Seleciona a caixa da opção no celular. */
+    .tutorial-toggle .toggle-track { /* Seleciona o interruptor no celular. */
+        display: none; /* Remove o controle, pois os botões já aparecem no toque. */
+    } /* Fecha a remoção do interruptor móvel. */
+
+    .tutorial-a11y-desktop { /* Oculta a referência de desktop no celular. */
+        display: none; /* Evita instruções que não se aplicam ao toque. */
+    } /* Fecha a referência de desktop oculta. */
+
+    .tutorial-a11y-mobile { /* Exibe a mensagem adequada ao celular. */
+        display: inline; /* Informa que os controles já estão ativos. */
+    } /* Fecha a mensagem móvel visível. */
 
     .game-area { /* Recalcula a área do jogo para a altura menor do HUD móvel. */
         height: calc( /* Calcula altura baseada na janela. */
@@ -2054,6 +3094,48 @@ button { /* Padroniza todos os botões da página. */
         font-weight: 900; /* Exibe os símbolos com traço forte. */
     } /* Fecha os estilos dos botões móveis. */
 } /* Fecha a media query para telas menores. */
+
+@media (max-width: 620px) { /* Simplifica o HUD em celulares estreitos. */
+
+    .hud { /* Distribui os indicadores essenciais na largura disponível. */
+        gap: 4px; /* Aproxima os grupos ao máximo. */
+        padding: 0 6px; /* Reduz as margens laterais. */
+    } /* Fecha o ajuste do HUD estreito. */
+
+    .hud-group { /* Compacta os grupos de indicadores. */
+        gap: 4px; /* Diminui a separação entre cápsulas. */
+    } /* Fecha o espaçamento estreito. */
+
+    .hud-item, /* Seleciona as cápsulas de estatísticas. */
+    .hud-timer { /* Seleciona o cronômetro. */
+        padding: 0 6px; /* Diminui o espaço interno. */
+    } /* Fecha as cápsulas estreitas. */
+
+    .hud-label { /* Oculta os rótulos para preservar os valores. */
+        display: none; /* Mantém o HUD legível em telas muito estreitas. */
+    } /* Fecha a simplificação dos rótulos. */
+
+    .hud-map { /* Remove o mapa da barra em telas muito estreitas. */
+        display: none; /* Prioriza fase, pontos, moedas, vidas e tempo. */
+    } /* Fecha a simplificação do mapa. */
+
+    .hud-timer strong { /* Ajusta o cronômetro ao HUD simplificado. */
+        font-size: 14px; /* Mantém o tempo legível. */
+    } /* Fecha o cronômetro estreito. */
+
+    .pause-btn { /* Reduz o botão à ação essencial. */
+        min-width: 38px; /* Mantém uma área de toque mínima. */
+        padding: 0 8px; /* Ajusta o espaço interno. */
+    } /* Fecha o botão estreito. */
+
+    .pause-label { /* Oculta o texto do botão em telas muito estreitas. */
+        display: none; /* Mantém apenas o símbolo de pausa. */
+    } /* Fecha o rótulo estreito. */
+
+    .pause-symbol { /* Amplia o símbolo no botão compacto. */
+        font-size: 14px; /* Facilita a identificação do menu. */
+    } /* Fecha o símbolo estreito. */
+} /* Fecha a simplificação do HUD estreito. */
 
 /* =========================================================
    ACESSIBILIDADE VISUAL
@@ -2127,7 +3209,6 @@ body.high-contrast button { /* Ajusta botões no modo de alto contraste. */
 .menu-btn, /* Seleciona botões do menu. */
 .back-btn, /* Seleciona controles de retorno. */
 .skin-card button, /* Seleciona comandos da loja. */
-.pause-btn, /* Seleciona o botão de pausa. */
 .mobile-controls button { /* Seleciona comandos táteis. */
     color: #f5fbff; /* Uniformiza a cor clara dos rótulos. */
     background: linear-gradient(145deg, #4b7799, #315572); /* Aplica gradiente azul aos botões. */
@@ -2200,17 +3281,18 @@ body.high-contrast button { /* Ajusta botões no modo de alto contraste. */
 } /* Fecha os fundos de jogo. */
 
 .hud { /* Aplica acabamento premium à barra superior. */
-    background: linear-gradient(110deg, #355a79, #203e5b 58%, #315674); /* Combina três áreas de cor azul. */
-    border-color: #8bcff0; /* Clareia a borda inferior do HUD. */
-    box-shadow: 0 4px 18px rgba(7, 24, 42, 0.28); /* Projeta uma sombra discreta sobre o jogo. */
+    background: linear-gradient(180deg, #2d5273 0%, #19334d 58%, #112437 100%); /* Mantém o azul profundo do tema. */
+    border-color: #07131f; /* Escurece a borda inferior para destacar a barra. */
+    box-shadow: /* Combina brilho interno e sombra sobre o cenário. */
+        inset 0 1px 0 rgba(216, 246, 255, 0.15),
+        0 6px 22px rgba(3, 10, 18, 0.38);
 } /* Fecha o acabamento do HUD. */
 
-.hud-item, /* Seleciona rótulos de indicadores. */
-.timer span { /* Seleciona o nome do mapa. */
-    color: #c1eaff; /* Aumenta o contraste dos textos no tema. */
+.hud-label { /* Seleciona os rótulos dos indicadores. */
+    color: #b5dcec; /* Aumenta o contraste dos textos no tema. */
 } /* Fecha a cor dos rótulos do HUD. */
 
-.timer strong { /* Adiciona destaque ao cronômetro. */
+.hud-timer strong { /* Adiciona destaque ao cronômetro. */
     text-shadow: 0 0 14px rgba(153, 226, 255, 0.45); /* Cria brilho claro ao redor do tempo. */
 } /* Fecha o brilho do cronômetro. */
 
@@ -2269,7 +3351,6 @@ body:is(.font-large, .font-xlarge) .logo strong { /* Ajusta a segunda linha da m
 body:is(.font-large, .font-xlarge) :is( /* Restringe esta regra aos dois modos de fonte ampliada e aos seletores listados. */
     .menu-btn, /* Amplia rótulos dos botões principais. */
     .back-btn, /* Amplia rótulos de retorno. */
-    .pause-btn, /* Amplia o controle de pausa. */
     .option, /* Amplia opções acessíveis. */
     .record-row, /* Amplia linhas de recordes. */
     .results div /* Amplia linhas de resultado. */
@@ -2290,7 +3371,7 @@ body:is(.font-large, .font-xlarge) :is( /* Seleciona textos compactos nos modos 
     .skin-card p, /* Amplia preço e estado das skins. */
     .skin-card button, /* Amplia comandos da loja. */
     .achievement p, /* Amplia descrições de conquistas. */
-    .timer span /* Amplia nome do mapa no HUD. */
+    .hud-map-name /* Amplia nome do mapa no HUD. */
 ) { /* Abre o conjunto de textos compactos. */
     font-size: calc(10px * var(--accessibility-scale)); /* Aplica fator de aumento sobre a base de 10 pixels. */
 } /* Fecha o ajuste dos textos compactos. */
@@ -2323,7 +3404,7 @@ body:is(.font-large, .font-xlarge) .hud-item b { /* Amplia valores numéricos do
     font-size: calc(16px * var(--accessibility-scale)); /* Multiplica o tamanho do valor pelo fator selecionado. */
 } /* Fecha os valores ampliados do HUD. */
 
-body:is(.font-large, .font-xlarge) .timer strong { /* Amplia o cronômetro no HUD. */
+body:is(.font-large, .font-xlarge) .hud-timer strong { /* Amplia o cronômetro no HUD. */
     font-size: calc(22px * var(--accessibility-scale)); /* Aplica o fator de acessibilidade ao tempo. */
 } /* Fecha o ajuste do cronômetro. */
 

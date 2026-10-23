@@ -28,20 +28,35 @@
             <!-- Reúne o logotipo e os comandos do menu; opções adicionais podem ser colocadas neste painel. -->
             <div class="menu-box">
 
-                <!-- Agrupa as partes tipográficas do logotipo; outras linhas de marca podem ser acrescentadas aqui. -->
-                <div class="logo">
-                    <!-- Exibe a primeira parte do nome do jogo; pode ser substituída por outro texto de marca. -->
-                    <span>Speed Run</span>
-                    <!-- Destaca a segunda parte do nome do jogo; pode receber o subtítulo principal da marca. -->
-                    <strong>Parkour</strong>
-                <!-- Fecha o agrupamento do logotipo; mais elementos da marca podem ser inseridos antes. -->
-                </div>
+                <!-- Cabeçalho do menu: logo do colégio à esquerda e marca do jogo à direita. -->
+                <div class="menu-header">
 
-                <!-- Apresenta uma descrição curta sob o logotipo; pode receber outra frase de apresentação. -->
-                <div class="logo-sub">
-                    <!-- Texto complementar do menu; pode ser trocado por uma descrição curta do jogo. -->
-                    PARKOUR ADVENTURE
-                <!-- Fecha o subtítulo do logotipo; conteúdo complementar pode ser inserido antes. -->
+                    <!-- Exibe a logo do colégio no lado superior esquerdo; o caminho pode ser trocado se a imagem mudar. -->
+                    <img class="menu-logo" src="img setec/Logo Colégio.png" alt="Colégio Estadual Barbosa Ferraz">
+
+                    <!-- Agrupa o título e o subtítulo do jogo no lado direito do cabeçalho. -->
+                    <div class="menu-title">
+
+                        <!-- Agrupa as partes tipográficas do logotipo; outras linhas de marca podem ser acrescentadas aqui. -->
+                        <div class="logo">
+                            <!-- Exibe a primeira parte do nome do jogo; pode ser substituída por outro texto de marca. -->
+                            <span>Speed Run</span>
+                            <!-- Destaca a segunda parte do nome do jogo; pode receber o subtítulo principal da marca. -->
+                            <strong>Parkour</strong>
+                        <!-- Fecha o agrupamento do logotipo; mais elementos da marca podem ser inseridos antes. -->
+                        </div>
+
+                        <!-- Apresenta uma descrição curta sob o logotipo; pode receber outra frase de apresentação. -->
+                        <div class="logo-sub">
+                            <!-- Texto complementar do menu; pode ser trocado por uma descrição curta do jogo. -->
+                            PARKOUR ADVENTURE
+                        <!-- Fecha o subtítulo do logotipo; conteúdo complementar pode ser inserido antes. -->
+                        </div>
+
+                    <!-- Fecha o agrupamento do título do jogo. -->
+                    </div>
+
+                <!-- Fecha o cabeçalho do menu. -->
                 </div>
 
                 <!-- Botão que inicia o fluxo de jogo; classes definem estilo e id permite associar a ação no JavaScript. -->
@@ -86,14 +101,12 @@
                 <!-- Fecha o botão de informações; mais links institucionais podem ser adicionados ao menu. -->
                 </button>
 
-                <!-- Agrupa instruções rápidas de teclado; outras dicas de controles podem ser listadas neste bloco. -->
-                <div class="small-info">
-                    <!-- Mostra as teclas de movimento horizontal; pode ser atualizado se os controles mudarem. -->
-                    A / D ou ← / → para correr<br>
-                    <!-- Mostra as teclas de pulo; novas instruções podem ser acrescentadas em outra linha. -->
-                    Espaço / W / ↑ para pular
-                <!-- Fecha as instruções rápidas; informações adicionais podem ser incluídas dentro deste bloco. -->
-                </div>
+                <!-- Botão que salva o progresso e encerra o jogo; o id conecta o controle ao JavaScript. -->
+                <button class="menu-btn" id="exitBtn">
+                    <!-- Símbolo de desligar e rótulo do comando; pode ser trocado por outro ícone de saída. -->
+                    <span>⏻</span> SAIR DO JOGO
+                <!-- Fecha o botão de saída; outros comandos de encerramento podem ser colocados perto dele. -->
+                </button>
 
             <!-- Fecha o painel principal do menu; outros elementos do menu devem ser inseridos antes. -->
             </div>
@@ -104,6 +117,37 @@
                 Feito por: Rafael Bento Luz de Camargo — Aluno do 2° Desenvolvimento de Sistemas
             <!-- Fecha o rodapé do menu; outros créditos podem ser adicionados antes. -->
             </footer>
+
+            <!-- Aviso exibido quando o navegador impede o fechamento automático da aba após salvar o progresso. -->
+            <div id="exitOverlay"
+                 class="overlay exit-overlay"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="exitTitle">
+
+                <!-- Caixa com a confirmação de salvamento e o caminho de volta ao menu. -->
+                <div class="pause-box">
+
+                    <!-- Título do aviso de saída; o id permite associá-lo ao diálogo acessível. -->
+                    <div class="panel-title" id="exitTitle">
+                        PROGRESSO SALVO
+                    </div>
+
+                    <!-- Explica que o progresso foi salvo e como encerrar quando o fechamento é bloqueado. -->
+                    <p class="game-over-text">
+                        Seu progresso foi salvo com sucesso. Feche esta aba ou janela para sair do jogo.
+                    </p>
+
+                    <!-- Permite retornar ao menu sem sair, caso o jogador tenha clicado por engano. -->
+                    <button class="menu-btn primary" id="exitBackBtn">
+                        VOLTAR AO MENU
+                    </button>
+
+                <!-- Fecha a caixa do aviso de saída. -->
+                </div>
+
+            <!-- Fecha o aviso de saída. -->
+            </div>
 
         <!-- Fecha a tela inicial; novas áreas do menu devem ficar dentro desta seção. -->
         </section>
@@ -260,25 +304,36 @@
             <!-- Painel da loja de personagens; a classe adicional permite layout próprio para esta tela. -->
             <div class="panel skin-panel">
 
-                <!-- Título da lista de personagens; pode ser renomeado conforme o tema da loja. -->
-                <div class="panel-title">
-                    <!-- Rótulo principal visível da área de personagens. -->
-                    PERSONAGENS
-                <!-- Fecha o título da tela de personagens. -->
+                <!-- Cabeçalho da loja: título à esquerda e saldo de moedas à direita. -->
+                <div class="skin-heading">
+
+                    <!-- Título da lista de personagens; pode ser renomeado conforme o tema da loja. -->
+                    <div class="panel-title">
+                        <!-- Rótulo principal visível da área de personagens. -->
+                        PERSONAGENS
+                    <!-- Fecha o título da tela de personagens. -->
+                    </div>
+
+                    <!-- Mostra o saldo atual de moedas; este bloco pode incluir outras informações de compra. -->
+                    <div class="points-display">
+                        <!-- Rótulo que explica o valor exibido logo ao lado. -->
+                        MOEDAS
+                        <!-- Identificador do número atualizado pelo JavaScript; o conteúdo inicial funciona como reserva. -->
+                        <strong id="totalPointsDisplay">
+                            <!-- Valor inicial até o saldo salvo ser carregado pelo jogo. -->
+                            0
+                        <!-- Fecha o campo de saldo; o JavaScript substitui seu conteúdo pelo total atual. -->
+                        </strong>
+                    <!-- Fecha a área que apresenta as moedas disponíveis. -->
+                    </div>
+
+                <!-- Fecha o cabeçalho da loja. -->
                 </div>
 
-                <!-- Mostra o saldo atual de moedas; este bloco pode incluir outras informações de compra. -->
-                <div class="points-display">
-                    <!-- Rótulo que explica o valor exibido logo abaixo. -->
-                    MOEDAS DISPONÍVEIS:
-                    <!-- Identificador do número atualizado pelo JavaScript; o conteúdo inicial funciona como reserva. -->
-                    <strong id="totalPointsDisplay">
-                        <!-- Valor inicial até o saldo salvo ser carregado pelo jogo. -->
-                        0
-                    <!-- Fecha o campo de saldo; o JavaScript substitui seu conteúdo pelo total atual. -->
-                    </strong>
-                <!-- Fecha a área que apresenta as moedas disponíveis. -->
-                </div>
+                <!-- Apresenta a proposta da loja e ajuda a orientar a escolha do jogador. -->
+                <p class="skin-subtitle">
+                    Escolha seu visual e corra com estilo.
+                </p>
 
                 <!-- Área vazia preenchida dinamicamente com cartões de personagens; outras entradas são geradas pelo JavaScript. -->
                 <div
@@ -659,48 +714,42 @@
         <section id="gameScreen"
                  class="screen game-screen">
 
-            <!-- Barra de informações exibidas durante a partida; outros indicadores podem ser adicionados aqui. -->
+            <!-- Barra de informações exibidas durante a partida; os rótulos ficam ao lado dos valores. -->
             <div class="hud">
 
                 <!-- Agrupa fase, pontuação e moedas em uma região da barra. -->
-                <div class="hud-group">
+                <div class="hud-group hud-group-left">
 
                     <!-- Indicador do número da fase atual. -->
                     <div class="hud-item">
-                        <!-- Rótulo do valor que aparece abaixo. -->
-                        FASE
-                        <!-- Campo atualizado pelo JavaScript com a fase atual; o número serve como valor inicial. -->
-                        <b id="levelText">
-                            <!-- Fase exibida antes da atualização dinâmica. -->
-                            1
-                        <!-- Fecha o número da fase. -->
-                        </b>
+                        <!-- Ícone decorativo que ajuda a identificar a fase. -->
+                        <span class="hud-icon" aria-hidden="true">⚑</span>
+                        <!-- Rótulo exibido ao lado do valor. -->
+                        <span class="hud-label">FASE</span>
+                        <!-- Campo atualizado pelo JavaScript com a fase atual. -->
+                        <b id="levelText">1</b>
                     <!-- Fecha o indicador da fase. -->
                     </div>
 
                     <!-- Indicador da pontuação acumulada durante a partida. -->
                     <div class="hud-item">
-                        <!-- Rótulo do valor de pontuação. -->
-                        PONTOS
+                        <!-- Estrela que representa a pontuação. -->
+                        <span class="hud-icon" aria-hidden="true">★</span>
+                        <!-- Rótulo exibido ao lado da pontuação. -->
+                        <span class="hud-label">PONTOS</span>
                         <!-- Campo em que o JavaScript apresenta a pontuação atual. -->
-                        <b id="scoreText">
-                            <!-- Pontuação inicial antes da partida atualizar o valor. -->
-                            0
-                        <!-- Fecha o campo de pontuação. -->
-                        </b>
+                        <b id="scoreText">0</b>
                     <!-- Fecha o indicador de pontos. -->
                     </div>
 
                     <!-- Indicador de moedas coletadas nesta partida. -->
                     <div class="hud-item">
-                        <!-- Rótulo da quantidade de moedas. -->
-                        MOEDAS
+                        <!-- Pequena moeda desenhada em CSS para identificar o contador. -->
+                        <span class="hud-coin" aria-hidden="true"></span>
+                        <!-- Rótulo exibido ao lado das moedas. -->
+                        <span class="hud-label">MOEDAS</span>
                         <!-- Campo dinâmico atualizado com o total coletado na fase. -->
-                        <b id="coinsText">
-                            <!-- Quantidade inicial de moedas coletadas. -->
-                            0
-                        <!-- Fecha o campo de moedas. -->
-                        </b>
+                        <b id="coinsText">0</b>
                     <!-- Fecha o indicador de moedas. -->
                     </div>
 
@@ -708,48 +757,54 @@
                 </div>
 
                 <!-- Agrupa o nome do mapa e o cronômetro da partida. -->
-                <div class="timer">
+                <div class="hud-center">
 
-                    <!-- Campo atualizado com o nome do cenário atual. -->
-                    <span id="mapNameText">
-                        <!-- Nome inicial do cenário, antes da atualização do jogo. -->
-                        FLORESTA
-                    <!-- Fecha o rótulo do mapa. -->
-                    </span>
+                    <!-- Identifica o cenário atual com rótulo e valor na mesma linha. -->
+                    <div class="hud-map">
+                        <!-- Marcador que representa a localização do mapa. -->
+                        <span class="hud-icon" aria-hidden="true">⌖</span>
+                        <!-- Rótulo do nome do cenário. -->
+                        <span class="hud-label">MAPA</span>
+                        <!-- Campo atualizado com o nome do cenário atual. -->
+                        <span class="hud-map-name" id="mapNameText">FLORESTA</span>
+                    </div>
 
-                    <!-- Cronômetro atualizado pelo JavaScript; o texto define seu formato inicial. -->
-                    <strong id="timerText">
-                        <!-- Tempo inicial mostrado antes de começar a contagem. -->
-                        00:00.0
-                    <!-- Fecha o cronômetro visível. -->
-                    </strong>
+                    <!-- Mostra o tempo decorrido com destaque maior. -->
+                    <div class="hud-timer">
+                        <!-- Relógio que identifica o cronômetro. -->
+                        <span class="hud-icon" aria-hidden="true">◷</span>
+                        <!-- Rótulo do tempo de corrida. -->
+                        <span class="hud-label">TEMPO</span>
+                        <!-- Cronômetro atualizado pelo JavaScript. -->
+                        <strong id="timerText">00:00.0</strong>
+                    </div>
 
-                <!-- Fecha o agrupamento de nome do cenário e cronômetro. -->
+                <!-- Fecha o agrupamento central do HUD. -->
                 </div>
 
                 <!-- Agrupa vidas e pausa no lado direito da barra. -->
-                <div class="hud-group right">
+                <div class="hud-group hud-group-right">
 
                     <!-- Indicador das vidas restantes do jogador. -->
                     <div class="hud-item">
+                        <!-- Coração que representa as vidas. -->
+                        <span class="hud-icon" aria-hidden="true">♥</span>
                         <!-- Rótulo do contador de vidas. -->
-                        VIDAS
+                        <span class="hud-label">VIDAS</span>
                         <!-- Campo que o JavaScript atualiza quando uma vida é perdida. -->
-                        <b id="livesText">
-                            <!-- Quantidade inicial de vidas. -->
-                            3
-                        <!-- Fecha o contador de vidas. -->
-                        </b>
+                        <b id="livesText">3</b>
                     <!-- Fecha o indicador de vidas. -->
                     </div>
 
-                    <!-- Botão que pausa a partida; o id permite registrar sua ação no JavaScript. -->
+                    <!-- Botão que pausa a partida e abre o menu da corrida. -->
                     <button
                         id="pauseBtn"
-                        class="pause-btn">
+                        class="pause-btn"
+                        aria-label="Pausar a corrida e abrir o menu">
 
-                        <!-- Símbolo de pausa visível; pode ser substituído por outro ícone. -->
-                        Ⅱ
+                        <!-- Símbolo de pausa seguido do rótulo textual. -->
+                        <span class="pause-symbol" aria-hidden="true">Ⅱ</span>
+                        <span class="pause-label">MENU</span>
 
                     <!-- Fecha o botão de pausa. -->
                     </button>
@@ -780,7 +835,25 @@
                 <!-- Fecha o rodapé interno do jogo. -->
                 </footer>
 
-            <!-- Fecha a área que contém canvas e crédito. -->
+                <!-- Faixa de acessibilidade exibida logo abaixo da área desenhada. -->
+                <section class="game-tutorial" aria-label="Controles na tela">
+
+                    <!-- Centraliza a única opção da faixa: ativar ou desativar os controles acessíveis. -->
+                    <label class="tutorial-toggle">
+                        <span class="tutorial-icon" aria-hidden="true">◀▶</span>
+                        <span class="tutorial-copy">
+                            <b>CONTROLES NA TELA</b>
+                            <small class="tutorial-a11y-desktop">Ative para exibir os controles na tela</small>
+                            <small class="tutorial-a11y-mobile">Já ativos no celular</small>
+                        </span>
+                        <input type="checkbox" id="tutorialOnScreenControls">
+                        <span class="toggle-track" aria-hidden="true"></span>
+                    </label>
+
+                <!-- Fecha a faixa de acessibilidade. -->
+                </section>
+
+            <!-- Fecha a área que contém canvas, crédito e tutorial. -->
             </div>
 
 
