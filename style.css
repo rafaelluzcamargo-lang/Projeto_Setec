@@ -4137,3 +4137,836 @@ body.high-contrast #menuScreen .menu-btn.primary::after { /* Remove o reflexo co
     animation: none; /* Mantém a interface estática no alto contraste. */
 } /* Fecha a desativação de animações no alto contraste. */
 
+
+/* =========================================================
+   TELA DE ABERTURA — CAPA DE PARKOUR
+   ========================================================= */
+
+#startScreen { /* Concentra a paleta e o cenário da capa. */
+    --start-cyan: #a5edff; /* Azul claro usado nos detalhes luminosos. */
+    --start-ice: #e8fcff; /* Branco azulado dos textos de destaque. */
+    --start-deep: #071320; /* Azul quase preto das silhuetas. */
+    --start-gold: #ffd97a; /* Dourado retirado da logo do colégio. */
+
+    isolation: isolate; /* Mantém as camadas decorativas presas à tela. */
+    overflow: hidden; /* Impede que o cenário crie rolagem. */
+
+    background: /* Céu em gradiente do azul profundo ao horizonte iluminado. */
+        radial-gradient( /* Foco de luz próximo ao horizonte. */
+            circle at 50% 104%, /* Posiciona o clarão no centro inferior. */
+            #3d749b 0%, /* Cor mais clara do horizonte. */
+            #1d3a55 32%, /* Transição azul média. */
+            #0e1e2f 62%, /* Azul profundo intermediário. */
+            #07121d 100% /* Noite escura no topo. */
+        ); /* Fecha o gradiente do céu. */
+} /* Fecha as variáveis da capa. */
+
+/* ---------- CENÁRIO DECORATIVO ---------- */
+
+#startScreen .start-stage { /* Agrupa todas as camadas do cenário. */
+    position: absolute; /* Fica atrás do conteúdo, sem ocupar espaço. */
+    inset: 0; /* Cobre a tela inteira. */
+    z-index: 0; /* Mantém o cenário abaixo dos textos. */
+    overflow: hidden; /* Recorta o que ultrapassa a tela. */
+    pointer-events: none; /* Não interfere no clique em qualquer lugar. */
+} /* Fecha o agrupamento do cenário. */
+
+#startScreen .start-stage > span, /* Seleciona as camadas simples do cenário. */
+#startScreen .start-stage > div { /* Seleciona os blocos e contêineres do cenário. */
+    position: absolute; /* Empilha as camadas no mesmo espaço. */
+} /* Fecha o posicionamento das camadas. */
+
+#startScreen .start-stars { /* Desenha o céu estrelado da cidade. */
+    inset: 0; /* Cobre toda a tela. */
+
+    background-image: /* Distribui pontos de luz com tamanhos diferentes. */
+        radial-gradient(circle at 14% 22%, rgba(235, 253, 255, 0.9) 0 1.4px, transparent 2.4px), /* Estrela mais forte. */
+        radial-gradient(circle at 32% 9%, rgba(190, 240, 255, 0.7) 0 1.1px, transparent 2px), /* Estrela média. */
+        radial-gradient(circle at 68% 16%, rgba(226, 252, 255, 0.8) 0 1.2px, transparent 2.2px), /* Estrela média. */
+        radial-gradient(circle at 86% 32%, rgba(170, 235, 255, 0.6) 0 1px, transparent 1.8px); /* Estrela discreta. */
+
+    background-size: /* Repete cada camada em ladrilhos diferentes. */
+        420px 420px, /* Ladrilho da primeira estrela. */
+        330px 330px, /* Ladrilho da segunda estrela. */
+        280px 280px, /* Ladrilho da terceira estrela. */
+        510px 510px; /* Ladrilho da quarta estrela. */
+
+    opacity: 0.5; /* Mantém as estrelas discretas. */
+    animation: startStarTwinkle 9s ease-in-out infinite alternate; /* Faz o céu piscar lentamente. */
+} /* Fecha o céu estrelado. */
+
+#startScreen .start-glow { /* Cria as auroras azuis que iluminam a cidade. */
+    inset: -12%; /* Usa uma área maior para o movimento não revelar bordas. */
+
+    background: /* Mistura três focos de luz. */
+        radial-gradient(38% 34% at 22% 18%, rgba(96, 210, 255, 0.3), transparent 70%), /* Aurora superior esquerda. */
+        radial-gradient(34% 30% at 80% 26%, rgba(120, 180, 255, 0.22), transparent 72%), /* Aurora superior direita. */
+        radial-gradient(54% 42% at 50% 102%, rgba(150, 232, 255, 0.28), transparent 72%); /* Clarão do horizonte. */
+
+    animation: startGlowDrift 18s ease-in-out infinite alternate; /* Desloca as luzes devagar. */
+    will-change: transform, opacity; /* Prepara a camada para animação. */
+} /* Fecha as auroras. */
+
+#startScreen .start-city { /* Prepara as silhuetas de prédios do fundo. */
+    left: -10%; /* Sobra lateral para o movimento de paralaxe. */
+    right: -10%; /* Mantém a simetria da sobra. */
+    bottom: 0; /* Encosta os prédios na base da tela. */
+} /* Fecha a preparação das silhuetas. */
+
+#startScreen .start-city > span { /* Desenha cada camada de prédios. */
+    display: block; /* Garante dimensão própria para o recorte. */
+    width: 100%; /* Ocupa toda a largura da camada. */
+    height: 100%; /* Ocupa toda a altura da camada. */
+
+    background-color: #0b1a29; /* Cor base da silhueta distante. */
+
+    background-image: /* Acende janelas em pontos alinhados. */
+        radial-gradient(circle at 7px 9px, rgba(160, 240, 255, 0.5) 0 2px, transparent 3px), /* Janelas mais visíveis. */
+        radial-gradient(circle at 19px 27px, rgba(120, 200, 240, 0.28) 0 1.6px, transparent 2.6px); /* Janelas de preenchimento. */
+
+    background-size: 32px 38px, 46px 52px; /* Define o espaçamento da grade de janelas. */
+} /* Fecha o desenho das camadas de prédios. */
+
+#startScreen .start-city-far { /* Posiciona a cidade mais distante. */
+    height: 42%; /* Ocupa menos altura, ficando atrás. */
+    opacity: 0.82; /* Suaviza a camada distante. */
+    animation: startCityDrift 48s ease-in-out infinite alternate; /* Move a camada bem devagar. */
+} /* Fecha a cidade distante. */
+
+#startScreen .start-city-far > span { /* Recorta o telhado irregular da cidade distante. */
+    clip-path: polygon( /* Desenha o contorno dos prédios. */
+        0% 72%, 5% 72%, 5% 58%, 10% 58%, 10% 66%, 15% 66%, 15% 46%, 20% 46%, /* Trecho esquerdo. */
+        20% 62%, 25% 62%, 25% 38%, 28% 38%, 28% 32%, 33% 32%, 33% 60%, 38% 60%, /* Prédio mais alto. */
+        38% 50%, 43% 50%, 43% 66%, 48% 66%, 48% 42%, 54% 42%, 54% 56%, 60% 56%, /* Trecho central. */
+        60% 48%, 65% 48%, 65% 64%, 71% 64%, 71% 36%, 77% 36%, 77% 54%, 82% 54%, /* Segunda torre. */
+        82% 44%, 87% 44%, 87% 62%, 92% 62%, 92% 50%, 97% 50%, 97% 68%, 100% 68%, /* Trecho direito. */
+        100% 100%, 0% 100% /* Fecha a base da silhueta. */
+    ); /* Fecha o recorte da cidade distante. */
+} /* Fecha o contorno distante. */
+
+#startScreen .start-city-near { /* Posiciona a cidade mais próxima. */
+    height: 27%; /* Aparece maior e mais escura que a distante. */
+    animation: startCityDrift 30s ease-in-out infinite alternate-reverse; /* Move no sentido contrário. */
+} /* Fecha a cidade próxima. */
+
+#startScreen .start-city-near > span { /* Recorta os prédios grandes em primeiro plano. */
+    background-color: #06111c; /* Escurece a camada da frente. */
+
+    background-image: /* Reduz o brilho das janelas desta camada. */
+        radial-gradient(circle at 9px 11px, rgba(140, 225, 255, 0.42) 0 2px, transparent 3px), /* Janela próxima. */
+        radial-gradient(circle at 24px 30px, rgba(110, 190, 235, 0.22) 0 1.6px, transparent 2.6px); /* Janela discreta. */
+
+    background-size: 40px 46px, 56px 62px; /* Espaça mais as janelas desta camada. */
+
+    clip-path: polygon( /* Desenha prédios maiores. */
+        0% 56%, 7% 56%, 7% 30%, 13% 30%, 13% 44%, 21% 44%, 21% 18%, 24% 18%, /* Bloco esquerdo com torre. */
+        24% 12%, 30% 12%, 30% 40%, 36% 40%, 36% 26%, 44% 26%, 44% 46%, 50% 46%, /* Topo escalonado. */
+        50% 20%, 56% 20%, 56% 36%, 63% 36%, 63% 48%, 70% 48%, 70% 16%, 76% 16%, /* Torre central. */
+        76% 34%, 83% 34%, 83% 24%, 90% 24%, 90% 44%, 96% 44%, 96% 34%, 100% 34%, /* Trecho direito. */
+        100% 100%, 0% 100% /* Fecha a base. */
+    ); /* Fecha o recorte da cidade próxima. */
+} /* Fecha o contorno próximo. */
+
+#startScreen .start-streaks { /* Agrupa os riscos de velocidade. */
+    inset: 0; /* Cobre a tela toda. */
+    overflow: hidden; /* Impede que os riscos apareçam fora da tela. */
+
+    -webkit-mask-image: radial-gradient(ellipse 58% 56% at 50% 48%, transparent 30%, #000 82%); /* Limpa a área central para não competir com os textos. */
+    mask-image: radial-gradient(ellipse 58% 56% at 50% 48%, transparent 30%, #000 82%); /* Versão padrão da mesma máscara. */
+} /* Fecha o contêiner dos riscos. */
+
+#startScreen .start-streaks span { /* Desenha cada risco luminoso. */
+    position: absolute; /* Posiciona os riscos livremente. */
+    left: -32%; /* Começam fora da tela, à esquerda. */
+    width: 30%; /* Definem o comprimento do risco. */
+    height: 2px; /* Mantêm o risco fino. */
+
+    background: /* Cria um traço que nasce e morre suave. */
+        linear-gradient( /* Gradiente horizontal do risco. */
+            90deg, /* Direção do traço. */
+            transparent, /* Entrada invisível. */
+            rgba(200, 246, 255, 0.85), /* Corpo do risco. */
+            transparent /* Saída invisível. */
+        ); /* Fecha o gradiente do risco. */
+
+    box-shadow: 0 0 10px rgba(150, 235, 255, 0.45); /* Suaviza o risco com um leve halo. */
+
+    animation: startStreak 3.8s linear infinite; /* Faz o risco cruzar a tela. */
+} /* Fecha o desenho dos riscos. */
+
+#startScreen .start-streaks span:nth-child(1) { /* Ajusta o primeiro risco. */
+    top: 21%; /* Altura própria. */
+    animation-duration: 3.4s; /* Velocidade própria. */
+} /* Fecha o primeiro risco. */
+
+#startScreen .start-streaks span:nth-child(2) { /* Ajusta o segundo risco. */
+    top: 47%; /* Altura própria. */
+    width: 18%; /* Comprimento menor. */
+    animation-duration: 2.7s; /* Passa mais rápido. */
+    animation-delay: 1.2s; /* Entra defasado. */
+} /* Fecha o segundo risco. */
+
+#startScreen .start-streaks span:nth-child(3) { /* Ajusta o terceiro risco. */
+    top: 68%; /* Altura própria. */
+    width: 24%; /* Comprimento intermediário. */
+    animation-duration: 4.4s; /* Passa mais devagar. */
+    animation-delay: 2.1s; /* Entra defasado. */
+} /* Fecha o terceiro risco. */
+
+/* ---------- PERCURSO DE PARKOUR ---------- */
+
+#startScreen .start-course { /* Cria o palco dos telhados. */
+    left: 0; /* Encosta à esquerda. */
+    right: 0; /* Encosta à direita. */
+    bottom: 0; /* Fica na base da tela. */
+    height: 32%; /* Define a altura do percurso. */
+    z-index: 2; /* Coloca os telhados à frente das silhuetas. */
+} /* Fecha o palco dos telhados. */
+
+#startScreen .course-roof { /* Desenha cada telhado. */
+    position: absolute; /* Posiciona os telhados no palco. */
+    bottom: 0; /* Apoia todos na base. */
+
+    background: /* Dá volume ao bloco do prédio. */
+        linear-gradient( /* Gradiente vertical do telhado. */
+            180deg, /* Direção da luz. */
+            #17334c 0%, /* Topo iluminado. */
+            #0d1f31 58%, /* Corpo intermediário. */
+            #071320 100% /* Base escura. */
+        ); /* Fecha o gradiente dos telhados. */
+
+    border-top: 2px solid rgba(160, 240, 255, 0.55); /* Marca a laje com luz. */
+
+    box-shadow: /* Cria brilho acima da laje e sombra interna. */
+        0 -8px 26px rgba(80, 200, 255, 0.2), /* Halo sobre o telhado. */
+        inset 0 16px 26px -18px rgba(160, 240, 255, 0.55); /* Luz entrando pelo topo. */
+} /* Fecha o desenho dos telhados. */
+
+#startScreen .course-roof .roof-unit { /* Cria a caixa de ar-condicionado do telhado. */
+    position: absolute; /* Posiciona o detalhe sobre a laje. */
+    top: -13px; /* Apoia a caixa na borda superior. */
+    right: 16%; /* Encosta o detalhe à direita. */
+    width: 42px; /* Define a largura da caixa. */
+    height: 13px; /* Define a altura da caixa. */
+
+    background: #10273b; /* Cor da caixa. */
+    border: 1px solid rgba(160, 240, 255, 0.35); /* Contorna a caixa com luz. */
+    border-bottom: 0; /* Remove a borda que encosta na laje. */
+} /* Fecha a caixa do telhado. */
+
+#startScreen .roof-1 { /* Posiciona o primeiro telhado. */
+    left: 4%; /* Distância da esquerda. */
+    width: 26%; /* Largura do bloco. */
+    height: 30%; /* Altura do bloco. */
+} /* Fecha o primeiro telhado. */
+
+#startScreen .roof-2 { /* Posiciona o telhado central. */
+    left: 40%; /* Distância da esquerda. */
+    width: 26%; /* Largura do bloco. */
+    height: 58%; /* É o telhado mais alto. */
+} /* Fecha o telhado central. */
+
+#startScreen .roof-3 { /* Posiciona o terceiro telhado. */
+    left: 76%; /* Distância da esquerda. */
+    width: 24%; /* Largura do bloco. */
+    height: 42%; /* Altura intermediária. */
+} /* Fecha o terceiro telhado. */
+
+#startScreen .course-runner, /* Seleciona o corredor luminoso. */
+#startScreen .course-trail { /* Seleciona os rastros deixados por ele. */
+    position: absolute; /* Permite que o percurso posicione a luz. */
+    width: 12px; /* Define o tamanho da luz. */
+    height: 12px; /* Mantém a luz circular. */
+    border-radius: 50%; /* Arredonda o ponto luminoso. */
+    animation: startCourseRun 11s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite; /* Percorre o trajeto. */
+    will-change: left, bottom; /* Prepara a animação do percurso. */
+} /* Fecha a preparação do corredor. */
+
+#startScreen .course-runner { /* Estiliza o ponto principal. */
+    background: #eafcff; /* Cor quase branca do núcleo. */
+    box-shadow: /* Cria o halo da luz. */
+        0 0 10px #7de1ff, /* Brilho próximo. */
+        0 0 26px rgba(96, 210, 255, 0.72), /* Brilho amplo. */
+        0 0 54px rgba(96, 210, 255, 0.35); /* Halo distante. */
+} /* Fecha o ponto principal. */
+
+#startScreen .course-trail { /* Estiliza os rastros do corredor. */
+    background: rgba(125, 225, 255, 0.5); /* Usa azul translúcido. */
+    box-shadow: 0 0 10px rgba(96, 210, 255, 0.45); /* Mantém o rastro luminoso. */
+} /* Fecha os rastros. */
+
+#startScreen .course-trail:nth-of-type(1) { /* Ajusta o primeiro rastro. */
+    width: 7px; /* Diminui o ponto. */
+    height: 7px; /* Mantém o formato circular. */
+    animation-delay: -0.14s; /* Faz o rastro seguir logo atrás. */
+} /* Fecha o primeiro rastro. */
+
+#startScreen .course-trail:nth-of-type(2) { /* Ajusta o segundo rastro. */
+    width: 4px; /* Diminui ainda mais o ponto. */
+    height: 4px; /* Mantém o formato circular. */
+    animation-delay: -0.28s; /* Afasta mais o rastro. */
+} /* Fecha o segundo rastro. */
+
+#startScreen .start-dust { /* Cria a poeira luminosa da cena. */
+    inset: 0; /* Cobre a tela toda. */
+
+    background-image: /* Desenha partículas de tamanhos variados. */
+        radial-gradient(circle at 18% 30%, rgba(235, 253, 255, 0.95) 0 1.8px, rgba(150, 235, 255, 0.3) 2.4px, transparent 4px), /* Partícula com halo. */
+        radial-gradient(circle at 64% 12%, rgba(178, 243, 255, 0.85) 0 1.3px, transparent 3px), /* Partícula média. */
+        radial-gradient(circle at 42% 74%, rgba(226, 252, 255, 0.9) 0 1.9px, rgba(150, 235, 255, 0.24) 2.6px, transparent 4.2px), /* Partícula grande. */
+        radial-gradient(circle at 86% 60%, rgba(146, 231, 255, 0.8) 0 1.2px, transparent 2.8px); /* Partícula azulada. */
+
+    background-size: 300px 300px; /* Repete as partículas em um ladrilho. */
+    animation: startDustRise 34s linear infinite; /* Faz a poeira subir devagar. */
+} /* Fecha a poeira luminosa. */
+
+#startScreen .start-vignette { /* Escurece as bordas da cena. */
+    inset: 0; /* Cobre a tela toda. */
+
+    background: /* Fecha a luz nas extremidades. */
+        radial-gradient( /* Gradiente radial de escurecimento. */
+            ellipse 78% 68% at 50% 46%, /* Área central preservada. */
+            transparent 38%, /* Centro livre. */
+            rgba(4, 12, 20, 0.55) 78%, /* Transição escura. */
+            rgba(3, 9, 15, 0.92) 100% /* Bordas quase pretas. */
+        ); /* Fecha o gradiente de vinheta. */
+} /* Fecha a vinheta. */
+
+/* ---------- CONTEÚDO CENTRAL ---------- */
+
+#startScreen .start-content { /* Agrupa os textos e o comando de início. */
+    position: relative; /* Permite ficar acima do cenário. */
+    z-index: 3; /* Coloca o conteúdo à frente de tudo que é decorativo. */
+
+    width: min(940px, 92vw); /* Limita a largura em telas grandes. */
+
+    display: flex; /* Organiza os elementos em coluna. */
+    flex-direction: column; /* Empilha os blocos verticalmente. */
+    align-items: center; /* Centraliza tudo na horizontal. */
+
+    text-align: center; /* Centraliza os textos. */
+} /* Fecha o conteúdo central. */
+
+#startScreen .start-school { /* Alinha a logo do colégio e o nome da escola. */
+    display: flex; /* Coloca a marca e os textos lado a lado. */
+    align-items: center; /* Centraliza os itens verticalmente. */
+    gap: 16px; /* Separa a logo dos textos. */
+    max-width: 100%; /* Impede que a marca ultrapasse a largura da tela. */
+    margin-bottom: 26px; /* Afasta a marca do restante da capa. */
+
+    animation: startRise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; /* Entra subindo. */
+} /* Fecha a marca do colégio. */
+
+#startScreen .start-school-mark { /* Cria a referência do anel da logo. */
+    position: relative; /* Permite posicionar o anel ao redor da logo. */
+    width: 76px; /* Define a largura da área da logo. */
+    height: 76px; /* Define a altura da área da logo. */
+    flex-shrink: 0; /* Impede que a logo seja esmagada. */
+} /* Fecha a área da logo. */
+
+#startScreen .start-school-mark::before { /* Desenha o anel que pulsa ao redor da logo. */
+    content: ""; /* Necessário para renderizar o anel. */
+    position: absolute; /* Sobrepõe o anel à logo. */
+    inset: -7px; /* Deixa o anel um pouco maior que a imagem. */
+    border-radius: 50%; /* Mantém o anel circular. */
+    border: 1px solid rgba(160, 240, 255, 0.6); /* Desenha a linha luminosa. */
+    box-shadow: /* Cria brilho externo e interno. */
+        0 0 18px rgba(96, 210, 255, 0.45), /* Halo externo. */
+        inset 0 0 18px rgba(96, 210, 255, 0.25); /* Luz interna. */
+    animation: startLogoRing 3.4s ease-out infinite; /* Expande o anel como um sonar. */
+    pointer-events: none; /* Não interfere no clique. */
+} /* Fecha o anel da logo. */
+
+#startScreen .start-school-logo { /* Apresenta a logo do colégio. */
+    width: 76px; /* Define a largura da logo. */
+    height: 76px; /* Mantém a proporção quadrada. */
+    object-fit: contain; /* Preserva o formato original do selo. */
+    border-radius: 50%; /* Recorta o selo em círculo. */
+
+    filter: /* Aplica sombra e brilho à imagem. */
+        drop-shadow(0 6px 14px rgba(4, 16, 26, 0.55)) /* Sombra de profundidade. */
+        drop-shadow(0 0 14px rgba(110, 220, 255, 0.35)); /* Halo azul. */
+
+    animation: startLogoFloat 6s ease-in-out infinite; /* Faz a logo flutuar. */
+} /* Fecha a logo do colégio. */
+
+#startScreen .start-school-text { /* Organiza o nome da escola e do curso. */
+    min-width: 0; /* Permite que o texto encolha em telas estreitas. */
+    text-align: left; /* Alinha os textos à esquerda da logo. */
+} /* Fecha os textos da escola. */
+
+#startScreen .start-school-text strong { /* Destaca o nome da escola. */
+    display: block; /* Ocupa uma linha própria. */
+    font-size: 14px; /* Define o tamanho do nome. */
+    font-weight: 900; /* Aplica peso forte. */
+    letter-spacing: 2.6px; /* Abre o espaçamento entre letras. */
+    color: var(--start-ice); /* Usa o branco azulado da capa. */
+    text-shadow: 0 0 16px rgba(130, 225, 255, 0.5); /* Cria brilho no texto. */
+} /* Fecha o nome da escola. */
+
+#startScreen .start-school-text span { /* Descreve o curso abaixo do nome. */
+    display: block; /* Ocupa uma linha própria. */
+    margin-top: 5px; /* Afasta o curso do nome da escola. */
+    font-size: 9.5px; /* Mantém o texto compacto. */
+    font-weight: 700; /* Deixa o texto legível. */
+    letter-spacing: 2.8px; /* Alinha o espaçamento ao nome. */
+    color: #9fc4dc; /* Usa um azul acinzentado discreto. */
+} /* Fecha a descrição do curso. */
+
+#startScreen .start-kicker { /* Apresenta a chamada do gênero do jogo. */
+    display: flex; /* Alinha as linhas e o texto. */
+    align-items: center; /* Centraliza verticalmente. */
+    gap: 16px; /* Separa as linhas do texto. */
+    margin-bottom: 12px; /* Afasta a chamada do título. */
+
+    color: var(--start-cyan); /* Aplica o azul claro da paleta. */
+    font-size: 11px; /* Mantém a chamada discreta. */
+    font-weight: 800; /* Deixa a chamada firme. */
+    letter-spacing: 6px; /* Espaça bem as letras. */
+
+    animation: startRise 0.8s 0.1s cubic-bezier(0.2, 0.8, 0.2, 1) both; /* Entra logo após a marca. */
+} /* Fecha a chamada do gênero. */
+
+#startScreen .start-kicker::before, /* Desenha a linha à esquerda da chamada. */
+#startScreen .start-kicker::after { /* Desenha a linha à direita da chamada. */
+    content: ""; /* Necessário para renderizar as linhas. */
+    width: clamp(36px, 9vw, 88px); /* Adapta o comprimento à largura da tela. */
+    height: 1px; /* Mantém a linha fina. */
+    background: linear-gradient(90deg, transparent, rgba(165, 237, 255, 0.85)); /* Esvanece a linha para fora. */
+} /* Fecha as linhas da chamada. */
+
+#startScreen .start-kicker::after { /* Inverte a linha da direita. */
+    transform: scaleX(-1); /* Espelha o gradiente. */
+} /* Fecha a linha direita. */
+
+#startScreen .start-title { /* Agrupa as duas linhas do nome do jogo. */
+    display: flex; /* Organiza as linhas em coluna. */
+    flex-direction: column; /* Empilha as linhas. */
+    align-items: center; /* Centraliza as linhas. */
+    line-height: 0.86; /* Aproxima as linhas do título. */
+} /* Fecha o agrupamento do título. */
+
+#startScreen .start-title-top { /* Apresenta a primeira linha do nome. */
+    display: block; /* Ocupa uma linha própria. */
+    margin-bottom: 10px; /* Separa a linha da palavra principal. */
+
+    color: #cdf2ff; /* Usa branco azulado. */
+    font-size: clamp(18px, 2.6vw, 30px); /* Acompanha a largura da tela. */
+    font-weight: 900; /* Aplica peso máximo. */
+    letter-spacing: clamp(8px, 1.4vw, 20px); /* Abre o espaçamento em telas largas. */
+    text-indent: clamp(8px, 1.4vw, 20px); /* Compensa o espaçamento final das letras. */
+
+    text-shadow: /* Cria brilho azul ao redor do texto. */
+        0 0 18px rgba(120, 225, 255, 0.8), /* Brilho próximo. */
+        0 0 46px rgba(60, 160, 220, 0.45); /* Brilho amplo. */
+
+    animation: startRise 0.9s 0.16s cubic-bezier(0.2, 0.8, 0.2, 1) both; /* Entra subindo. */
+} /* Fecha a primeira linha do nome. */
+
+#startScreen .start-title-main { /* Apresenta a palavra principal do título. */
+    display: block; /* Ocupa uma linha própria. */
+    padding: 0 0.08em; /* Evita que o itálico seja cortado nas pontas. */
+
+    color: var(--start-ice); /* Cor de segurança caso o gradiente não seja aplicado. */
+
+    font-size: clamp(58px, 11vw, 146px); /* Cresce junto com a tela. */
+    font-weight: 900; /* Usa o peso mais forte disponível. */
+    font-style: italic; /* Inclina a palavra para dar sensação de velocidade. */
+    letter-spacing: -0.02em; /* Aproxima as letras. */
+
+    text-shadow: 0 16px 34px rgba(3, 14, 24, 0.6); /* Cria profundidade sob as letras. */
+
+    animation: startTitleIn 1.1s 0.24s cubic-bezier(0.2, 0.85, 0.25, 1) both; /* Entra crescendo. */
+} /* Fecha a palavra principal. */
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) { /* Aplica o texto em gradiente apenas onde há suporte. */
+
+    #startScreen .start-title-main { /* Colore as letras com o gradiente metálico. */
+        background: /* Cria o gradiente do branco ao azul profundo. */
+            linear-gradient( /* Gradiente vertical aplicado às letras. */
+                178deg, /* Quase vertical, com leve inclinação. */
+                #ffffff 0%, /* Branco no topo das letras. */
+                #e6fbff 30%, /* Branco azulado. */
+                #a8e8ff 52%, /* Azul claro no meio. */
+                #4bb0dd 74%, /* Azul médio. */
+                #1f6f9d 100% /* Azul profundo na base. */
+            ); /* Fecha o gradiente do título. */
+
+        -webkit-background-clip: text; /* Recorta o gradiente no formato das letras. */
+        background-clip: text; /* Versão padrão da mesma propriedade. */
+
+        color: transparent; /* Deixa o gradiente aparecer no lugar da cor sólida. */
+        -webkit-text-fill-color: transparent; /* Remove o preenchimento no navegador WebKit. */
+
+        text-shadow: /* Simula a aberração de cores de um objeto em alta velocidade. */
+            -3px 2px 0 rgba(111, 228, 255, 0.55), /* Cópia ciano deslocada. */
+            3px -2px 0 rgba(255, 214, 140, 0.14), /* Cópia dourada deslocada. */
+            0 18px 38px rgba(3, 14, 24, 0.7); /* Sombra de profundidade. */
+
+        animation: /* Combina a entrada do título com o clarão periódico. */
+            startTitleIn 1.1s 0.24s cubic-bezier(0.2, 0.85, 0.25, 1) both, /* Entrada do título. */
+            startTitleGlitch 6.5s 2s ease-in-out infinite; /* Falhas rápidas de velocidade. */
+    } /* Fecha o título em gradiente. */
+} /* Fecha o bloco de suporte ao gradiente. */
+
+#startScreen .start-tagline { /* Apresenta a frase de introdução do jogo. */
+    max-width: 30em; /* Limita o comprimento das linhas. */
+    margin-top: 18px; /* Afasta a frase do título. */
+
+    color: #b9d8ea; /* Usa um azul claro para leitura confortável. */
+    font-size: 14px; /* Define o tamanho do texto. */
+    line-height: 1.75; /* Aumenta o respiro entre linhas. */
+
+    animation: startRise 0.9s 0.36s cubic-bezier(0.2, 0.8, 0.2, 1) both; /* Entra subindo. */
+} /* Fecha a frase de introdução. */
+
+#startScreen .start-cta { /* Destaca o comando que abre o menu. */
+    position: relative; /* Permite posicionar o brilho interno. */
+    overflow: hidden; /* Recorta o brilho nos limites do botão. */
+
+    display: inline-flex; /* Alinha rótulo e ícone na mesma linha. */
+    align-items: center; /* Centraliza os itens verticalmente. */
+    gap: 14px; /* Separa o texto do ícone. */
+
+    margin-top: 30px; /* Afasta o botão da frase. */
+    padding: 17px 40px; /* Dá corpo ao botão. */
+
+    border: 3px solid #07101a; /* Usa o contorno grosso padrão dos botões do jogo. */
+
+    background: /* Aplica o gradiente cheio de energia. */
+        linear-gradient( /* Gradiente vertical do botão. */
+            180deg, /* Da luz para a sombra. */
+            #86e5ff 0%, /* Azul claro no topo. */
+            #46a5d2 52%, /* Azul médio. */
+            #2f81ad 100% /* Azul profundo na base. */
+        ); /* Fecha o gradiente do botão. */
+
+    color: #04212f; /* Usa texto escuro para alto contraste. */
+    font: inherit; /* Herda a família tipográfica do projeto. */
+    font-size: 17px; /* Dá presença ao rótulo. */
+    font-weight: 900; /* Aplica peso forte. */
+    letter-spacing: 2.4px; /* Espaça as letras do comando. */
+    cursor: pointer; /* Indica que o elemento é clicável. */
+
+    box-shadow: /* Monta moldura, profundidade e brilho. */
+        inset 0 -7px rgba(4, 24, 36, 0.22), /* Sombra interna na base. */
+        0 3px 0 #0c1520, /* Borda inferior com volume. */
+        0 0 0 3px rgba(82, 107, 134, 0.95), /* Moldura externa discreta. */
+        0 18px 40px rgba(3, 14, 24, 0.55), /* Sombra projetada. */
+        0 0 34px rgba(96, 210, 255, 0.35); /* Brilho azul ao redor. */
+
+    animation: /* Entra com impacto e depois pulsa continuamente. */
+        startCtaIn 0.7s 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) backwards, /* Entrada do botão. */
+        startCtaPulse 3.4s 1.3s ease-in-out infinite; /* Pulso contínuo. */
+
+    transition: /* Suaviza as reações ao mouse. */
+        transform 0.14s ease, /* Movimento do botão. */
+        filter 0.14s ease; /* Brilho do botão. */
+} /* Fecha o comando principal. */
+
+#startScreen .start-cta::before { /* Cria o reflexo que atravessa o botão. */
+    content: ""; /* Necessário para renderizar o reflexo. */
+    position: absolute; /* Posiciona o reflexo sobre o fundo. */
+    top: -60%; /* Estende o reflexo acima do botão. */
+    bottom: -60%; /* Estende o reflexo abaixo do botão. */
+    left: -45%; /* Começa fora da área visível. */
+    width: 34%; /* Define a largura do reflexo. */
+
+    background: /* Monta a faixa clara do reflexo. */
+        linear-gradient( /* Gradiente horizontal do reflexo. */
+            90deg, /* Direção do brilho. */
+            transparent, /* Entrada invisível. */
+            rgba(255, 255, 255, 0.75), /* Centro brilhante. */
+            transparent /* Saída invisível. */
+        ); /* Fecha o gradiente do reflexo. */
+
+    transform: rotate(14deg); /* Inclina o reflexo. */
+    animation: startCtaSheen 4.6s cubic-bezier(0.5, 0, 0.2, 1) 1.6s infinite; /* Faz o reflexo passar periodicamente. */
+    pointer-events: none; /* Não interfere no clique. */
+} /* Fecha o reflexo do botão. */
+
+#startScreen .start-cta:hover, /* Reage ao passar o mouse. */
+#startScreen .start-cta:focus-visible { /* Reage também ao foco por teclado. */
+    filter: brightness(1.08); /* Clareia levemente o botão. */
+    transform: translateY(-2px); /* Levanta o botão. */
+} /* Fecha o destaque do botão. */
+
+#startScreen .start-cta:active { /* Responde ao clique. */
+    transform: translateY(2px); /* Afunda o botão como se fosse pressionado. */
+} /* Fecha o estado pressionado. */
+
+#startScreen .start-cta:focus-visible { /* Garante foco visível para teclado. */
+    outline: 3px solid #ffffff; /* Desenha um contorno claro. */
+    outline-offset: 5px; /* Afasta o contorno do botão. */
+} /* Fecha o contorno de foco. */
+
+#startScreen .start-cta-icon { /* Posiciona o ícone de início. */
+    font-size: 14px; /* Reduz o tamanho do símbolo. */
+    transition: transform 0.24s ease; /* Suaviza o movimento do ícone. */
+} /* Fecha o ícone do botão. */
+
+#startScreen .start-cta:hover .start-cta-icon { /* Move o ícone junto do mouse. */
+    transform: translateX(4px); /* Empurra o ícone no sentido da corrida. */
+} /* Fecha o movimento do ícone. */
+
+#startScreen .start-hint { /* Explica as formas de iniciar a partida. */
+    display: flex; /* Alinha a tecla e o texto. */
+    align-items: center; /* Centraliza verticalmente. */
+    gap: 9px; /* Separa a tecla do texto. */
+    margin-top: 20px; /* Afasta a dica do botão. */
+
+    color: #8fb6cd; /* Usa um azul discreto. */
+    font-size: 10.5px; /* Mantém a dica pequena. */
+    letter-spacing: 2.4px; /* Espaça as letras da dica. */
+    text-transform: uppercase; /* Deixa a dica uniforme. */
+
+    animation: startRise 0.9s 0.66s cubic-bezier(0.2, 0.8, 0.2, 1) both; /* Entra por último. */
+} /* Fecha a dica de início. */
+
+#startScreen .start-hint kbd { /* Desenha a tecla de atalho. */
+    padding: 3px 8px; /* Dá corpo à tecla. */
+    border: 1px solid rgba(165, 237, 255, 0.5); /* Contorna a tecla com luz. */
+    background: rgba(10, 26, 40, 0.85); /* Escurece o fundo da tecla. */
+
+    color: #d8f5ff; /* Clareia a legenda da tecla. */
+    font: inherit; /* Mantém a tipografia do projeto. */
+    font-size: 10px; /* Mantém a tecla compacta. */
+    letter-spacing: 1.4px; /* Aproxima as letras da tecla. */
+
+    box-shadow: 0 0 14px rgba(96, 210, 255, 0.25); /* Cria brilho ao redor da tecla. */
+    animation: startHintBlink 2.8s ease-in-out infinite; /* Faz a tecla pulsar. */
+} /* Fecha a tecla de atalho. */
+
+/* ---------- TRANSIÇÃO PARA O MENU ---------- */
+
+#startScreen.start-leaving { /* Anima a saída da capa. */
+    animation: startScreenExit 0.62s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* Some, crescendo e desfocando. */
+    pointer-events: none; /* Impede cliques durante a saída. */
+} /* Fecha a saída da capa. */
+
+#startScreen.start-leaving .start-content { /* Seleciona o conteúdo central na saída. */
+    animation: startContentOut 0.5s ease forwards; /* Some subindo. */
+} /* Fecha a saída do conteúdo. */
+
+#menuScreen.menu-fade-in { /* Suaviza a chegada ao menu. */
+    animation: menuScreenEnter 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both; /* Aparece crescendo. */
+} /* Fecha a entrada do menu. */
+
+/* ---------- ANIMAÇÕES DA CAPA ---------- */
+
+@keyframes startStarTwinkle { /* Cintilação discreta do céu. */
+    0% { opacity: 0.35; } /* Céu mais apagado. */
+    100% { opacity: 0.65; } /* Céu mais aceso. */
+} /* Fecha a cintilação do céu. */
+
+@keyframes startGlowDrift { /* Movimento das auroras. */
+    0% { transform: translate3d(0, -2%, 0) scale(1); opacity: 0.8; } /* Posição e brilho iniciais. */
+    100% { transform: translate3d(0, 2%, 0) scale(1.07); opacity: 1; } /* Desce e intensifica a luz. */
+} /* Fecha o movimento das auroras. */
+
+@keyframes startCityDrift { /* Paralaxe das silhuetas de prédios. */
+    0% { transform: translate3d(-1.4%, 0, 0); } /* Camada começa à esquerda. */
+    100% { transform: translate3d(1.4%, 0, 0); } /* Camada termina à direita. */
+} /* Fecha a paralaxe dos prédios. */
+
+@keyframes startStreak { /* Travessia dos riscos de velocidade. */
+    0% { transform: translate3d(-30%, 0, 0); opacity: 0; } /* Risco nasce fora da tela. */
+    12% { opacity: 0.9; } /* Risco acende ao entrar. */
+    72% { opacity: 0.55; } /* Risco perde intensidade. */
+    100% { transform: translate3d(470%, 0, 0); opacity: 0; } /* Risco atravessa e apaga. */
+} /* Fecha a travessia dos riscos. */
+
+@keyframes startDustRise { /* Subida contínua das partículas. */
+    0% { background-position: 0 0; } /* Começa no início do ladrilho. */
+    100% { background-position: -300px -600px; } /* Sobe dois ladrilhos sem emenda visível. */
+} /* Fecha a subida das partículas. */
+
+@keyframes startCourseRun { /* Trajeto do corredor entre os telhados. */
+    0%, 4% { left: 10%; bottom: 31.5%; opacity: 0; } /* Espera invisível no primeiro telhado. */
+    8% { opacity: 1; } /* Aparece no telhado. */
+    12% { left: 24%; bottom: 31.5%; opacity: 1; } /* Corre até a borda. */
+    19% { left: 33%; bottom: 46%; opacity: 1; } /* Inicia o salto. */
+    26% { left: 42%; bottom: 70%; opacity: 1; } /* Atinge o ponto mais alto. */
+    33% { left: 52%; bottom: 59.5%; opacity: 1; } /* Aterrissa no telhado central. */
+    37% { left: 54%; bottom: 59.5%; opacity: 1; } /* Recupera o equilíbrio. */
+    44% { left: 60%; bottom: 60%; opacity: 1; } /* Corre até a outra borda. */
+    52% { left: 68%; bottom: 70%; opacity: 1; } /* Sobe no segundo salto. */
+    60% { left: 76%; bottom: 72%; opacity: 1; } /* Cruza o ponto mais alto. */
+    68% { left: 84%; bottom: 43.5%; opacity: 1; } /* Aterrissa no último telhado. */
+    74% { left: 86%; bottom: 43.5%; opacity: 1; } /* Desacelera após o salto. */
+    82%, 100% { left: 88%; bottom: 43.5%; opacity: 0; } /* Some antes de reiniciar o ciclo. */
+} /* Fecha o trajeto do corredor. */
+
+@keyframes startRise { /* Entrada suave dos blocos de texto. */
+    0% { opacity: 0; transform: translate3d(0, 22px, 0); } /* Começa abaixo e invisível. */
+    100% { opacity: 1; transform: translate3d(0, 0, 0); } /* Termina na posição final. */
+} /* Fecha a entrada dos textos. */
+
+@keyframes startTitleIn { /* Entrada do nome principal. */
+    0% { opacity: 0; transform: translate3d(0, 26px, 0) scale(0.94); } /* Começa menor e abaixo. */
+    100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } /* Termina no tamanho real. */
+} /* Fecha a entrada do título. */
+
+@keyframes startTitleGlitch { /* Falhas rápidas que lembram velocidade. */
+    0%, 86%, 100% { text-shadow: -3px 2px 0 rgba(111, 228, 255, 0.55), 3px -2px 0 rgba(255, 214, 140, 0.14), 0 18px 38px rgba(3, 14, 24, 0.7); } /* Estado de repouso. */
+    88% { text-shadow: -8px 1px 0 rgba(111, 228, 255, 0.75), 3px -1px 0 rgba(255, 214, 140, 0.42), 0 18px 38px rgba(3, 14, 24, 0.7); } /* Deslocamento brusco. */
+    90% { text-shadow: 4px 4px 0 rgba(111, 228, 255, 0.6), -7px -2px 0 rgba(255, 214, 140, 0.28), 0 18px 38px rgba(3, 14, 24, 0.7); } /* Deslocamento contrário. */
+    92% { text-shadow: -3px 2px 0 rgba(111, 228, 255, 0.55), 3px -2px 0 rgba(255, 214, 140, 0.14), 0 18px 38px rgba(3, 14, 24, 0.7); } /* Volta ao repouso. */
+} /* Fecha as falhas do título. */
+
+@keyframes startLogoRing { /* Ondas ao redor da logo do colégio. */
+    0% { transform: scale(0.94); opacity: 0.75; } /* Nasce junto à logo. */
+    60% { opacity: 0.2; } /* Perde intensidade ao crescer. */
+    100% { transform: scale(1.3); opacity: 0; } /* Dissolve-se no ar. */
+} /* Fecha as ondas da logo. */
+
+@keyframes startLogoFloat { /* Flutuação da logo do colégio. */
+    0%, 100% { transform: translateY(0) rotate(0deg); } /* Posição de repouso. */
+    50% { transform: translateY(-4px) rotate(-1.5deg); } /* Ponto alto da flutuação. */
+} /* Fecha a flutuação da logo. */
+
+@keyframes startCtaIn { /* Entrada do comando principal. */
+    0% { opacity: 0; transform: translateY(18px) scale(0.96); } /* Começa escondido e menor. */
+    100% { opacity: 1; transform: translateY(0) scale(1); } /* Termina no lugar. */
+} /* Fecha a entrada do botão. */
+
+@keyframes startCtaPulse { /* Brilho pulsante do comando principal. */
+    0%, 100% { box-shadow: inset 0 -7px rgba(4, 24, 36, 0.22), 0 3px 0 #0c1520, 0 0 0 3px rgba(82, 107, 134, 0.95), 0 14px 34px rgba(3, 14, 24, 0.5), 0 0 28px rgba(96, 210, 255, 0.35); } /* Brilho de repouso. */
+    50% { box-shadow: inset 0 -7px rgba(4, 24, 36, 0.22), 0 3px 0 #0c1520, 0 0 0 3px rgba(144, 231, 255, 0.95), 0 18px 40px rgba(3, 14, 24, 0.55), 0 0 62px rgba(96, 210, 255, 0.6); } /* Brilho ampliado no meio do ciclo. */
+} /* Fecha o pulso do botão. */
+
+@keyframes startCtaSheen { /* Reflexo que atravessa o botão principal. */
+    0% { transform: rotate(14deg) translateX(-40%); opacity: 0; } /* Espera fora da vista. */
+    10% { opacity: 1; } /* Surge ao entrar no botão. */
+    62%, 100% { transform: rotate(14deg) translateX(520%); opacity: 0; } /* Atravessa e desaparece. */
+} /* Fecha o reflexo do botão. */
+
+@keyframes startHintBlink { /* Pulso da tecla de atalho. */
+    0%, 100% { opacity: 0.6; } /* Fica mais apagada. */
+    50% { opacity: 1; } /* Fica totalmente visível. */
+} /* Fecha o pulso da tecla. */
+
+@keyframes startScreenExit { /* Saída da capa ao iniciar. */
+    0% { opacity: 1; transform: scale(1); } /* Começa inteira. */
+    100% { opacity: 0; transform: scale(1.05); } /* Some crescendo. */
+} /* Fecha a saída da capa. */
+
+@keyframes startContentOut { /* Saída dos textos da capa. */
+    0% { opacity: 1; transform: translateY(0); } /* Começa no lugar. */
+    100% { opacity: 0; transform: translateY(-18px); } /* Soa subindo. */
+} /* Fecha a saída dos textos. */
+
+@keyframes menuScreenEnter { /* Entrada do menu após a capa. */
+    0% { opacity: 0; transform: scale(0.985); } /* Começa levemente menor. */
+    100% { opacity: 1; transform: scale(1); } /* Termina no tamanho real. */
+} /* Fecha a entrada do menu. */
+
+/* ---------- AJUSTES RESPONSIVOS DA CAPA ---------- */
+
+@media (max-width: 760px) { /* Compacta a capa em telas estreitas. */
+    #startScreen .start-school { gap: 12px; margin-bottom: 18px; } /* Aproxima logo e textos. */
+    #startScreen .start-school-mark, /* Reduz a área da logo. */
+    #startScreen .start-school-logo { width: 58px; height: 58px; } /* Diminui a logo proporcionalmente. */
+    #startScreen .start-school-text strong { font-size: 9.5px; letter-spacing: 1.2px; } /* Ajusta o nome da escola. */
+    #startScreen .start-school-text span { font-size: 7.5px; letter-spacing: 1.3px; } /* Ajusta o nome do curso. */
+
+    #startScreen .start-kicker { font-size: 9px; letter-spacing: 3px; gap: 10px; } /* Compacta a chamada. */
+
+    #startScreen .start-title-top { letter-spacing: 8px; text-indent: 8px; } /* Fecha o espaçamento da primeira linha. */
+
+    #startScreen .start-tagline { margin-top: 14px; font-size: 12.5px; max-width: 24em; } /* Reduz a frase. */
+
+    #startScreen .start-cta { margin-top: 22px; padding: 15px 26px; font-size: 14px; letter-spacing: 1.8px; } /* Compacta o botão. */
+
+    #startScreen .start-hint { font-size: 9px; letter-spacing: 1.6px; margin-top: 16px; } /* Compacta a dica. */
+
+    #startScreen .start-course { height: 26%; } /* Reduz o percurso para liberar espaço. */
+    #startScreen .start-city-far { height: 34%; } /* Acompanha a nova proporção. */
+    #startScreen .start-city-near { height: 22%; } /* Acompanha a nova proporção. */
+} /* Fecha o ajuste estreito. */
+
+@media (max-height: 720px) { /* Compacta a capa em telas baixas. */
+    #startScreen .start-school { margin-bottom: 14px; } /* Aproxima a marca do título. */
+    #startScreen .start-school-mark, /* Reduz a logo em telas baixas. */
+    #startScreen .start-school-logo { width: 62px; height: 62px; } /* Diminui a logo proporcionalmente. */
+    #startScreen .start-tagline { margin-top: 12px; line-height: 1.5; } /* Reduz o respiro do texto. */
+    #startScreen .start-cta { margin-top: 20px; padding: 14px 32px; } /* Compacta o botão. */
+    #startScreen .start-hint { margin-top: 14px; } /* Aproxima a dica do botão. */
+} /* Fecha o ajuste de altura. */
+
+@media (max-height: 560px) { /* Simplifica a capa em telas muito baixas. */
+    #startScreen .start-tagline, /* Remove a frase explicativa. */
+    #startScreen .start-hint { display: none; } /* Remove a dica de teclado. */
+} /* Fecha o ajuste de altura reduzida. */
+
+/* ---------- ACESSIBILIDADE DA CAPA ---------- */
+
+body:is(.font-large, .font-xlarge) #startScreen .start-tagline { /* Amplia a frase no modo de texto grande. */
+    font-size: calc(14px * var(--accessibility-scale)); /* Aplica o fator de acessibilidade. */
+} /* Fecha a frase ampliada. */
+
+body:is(.font-large, .font-xlarge) #startScreen .start-hint { /* Amplia a dica no modo de texto grande. */
+    font-size: calc(10.5px * var(--accessibility-scale)); /* Aplica o fator de acessibilidade. */
+} /* Fecha a dica ampliada. */
+
+body:is(.font-large, .font-xlarge) #startScreen .start-school-text strong { /* Amplia o nome da escola. */
+    font-size: calc(14px * var(--accessibility-scale)); /* Aplica o fator de acessibilidade. */
+} /* Fecha o nome da escola ampliado. */
+
+body:is(.font-large, .font-xlarge) #startScreen .start-cta { /* Amplia o comando principal. */
+    font-size: calc(17px * var(--accessibility-scale)); /* Aplica o fator de acessibilidade. */
+} /* Fecha o comando ampliado. */
+
+@media (prefers-reduced-motion: reduce) { /* Respeita quem prefere menos movimento. */
+    #startScreen .start-stars, /* Desativa a cintilação do céu. */
+    #startScreen .start-glow, /* Desativa o movimento das auroras. */
+    #startScreen .start-city-far, /* Desativa a paralaxe distante. */
+    #startScreen .start-city-near, /* Desativa a paralaxe próxima. */
+    #startScreen .start-streaks span, /* Desativa os riscos de velocidade. */
+    #startScreen .start-dust, /* Desativa a poeira. */
+    #startScreen .course-runner, /* Desativa o corredor. */
+    #startScreen .course-trail, /* Desativa os rastros. */
+    #startScreen .start-school, /* Desativa a entrada da marca. */
+    #startScreen .start-school-mark::before, /* Desativa o anel da logo. */
+    #startScreen .start-school-logo, /* Desativa a flutuação da logo. */
+    #startScreen .start-kicker, /* Desativa a entrada da chamada. */
+    #startScreen .start-title-top, /* Desativa a entrada do título. */
+    #startScreen .start-title-main, /* Desativa a entrada da palavra principal. */
+    #startScreen .start-tagline, /* Desativa a entrada da frase. */
+    #startScreen .start-cta, /* Desativa as animações do botão. */
+    #startScreen .start-cta::before, /* Desativa o reflexo do botão. */
+    #startScreen .start-hint, /* Desativa a entrada da dica. */
+    #startScreen .start-hint kbd, /* Desativa o pulso da tecla. */
+    #startScreen.start-leaving, /* Desativa a animação de saída. */
+    #menuScreen.menu-fade-in { /* Desativa a entrada do menu. */
+        animation: none; /* Remove as animações decorativas. */
+    } /* Fecha o bloco de animações desativadas. */
+
+    #startScreen .start-streaks, /* Esconde os riscos de velocidade. */
+    #startScreen .course-runner, /* Esconde o corredor do percurso. */
+    #startScreen .course-trail { /* Esconde os rastros do corredor. */
+        display: none; /* Mantém a capa estática e limpa. */
+    } /* Fecha a ocultação dos efeitos. */
+} /* Fecha o respeito à preferência de movimento reduzido. */
+
+body.high-contrast #startScreen { /* Ajusta a capa ao modo de alto contraste. */
+    background: #000; /* Usa fundo preto para máximo contraste. */
+} /* Fecha o fundo de alto contraste da capa. */
+
+body.high-contrast #startScreen .start-stage, /* Remove o cenário decorativo. */
+body.high-contrast #startScreen .start-school-mark::before { /* Remove o anel da logo. */
+    display: none; /* Prioriza a legibilidade do conteúdo. */
+} /* Fecha a limpeza visual do alto contraste. */
+
+body.high-contrast #startScreen .start-title-main { /* Deixa o título em cor sólida. */
+    color: #ffffff; /* Usa branco puro. */
+    background: none; /* Remove o gradiente. */
+    -webkit-text-fill-color: #ffffff; /* Garante o preenchimento branco. */
+    text-shadow: none; /* Remove as camadas de brilho. */
+} /* Fecha o título em alto contraste. */
+
+body.high-contrast #startScreen .start-cta { /* Reforça o contorno do botão. */
+    background: #ffffff; /* Usa fundo branco sólido. */
+    color: #000000; /* Usa texto preto. */
+} /* Fecha o botão em alto contraste. */
+

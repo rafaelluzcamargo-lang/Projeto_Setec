@@ -21,9 +21,104 @@
     <!-- Agrupa a aplicação principal do jogo; pode conter as telas e controles globais. -->
     <main id="app">
 
+        <!-- ================= ABERTURA (CAPA DE PARKOUR) ================= -->
+        <!-- Tela exibida antes do menu; apresenta o jogo, a escola e o comando de início. -->
+        <section id="startScreen" class="screen active">
+
+            <!-- Camada decorativa da capa: céu, cidade, telhados e corrida animada. -->
+            <div class="start-stage" aria-hidden="true">
+
+                <!-- Pontos de luz do céu noturno. -->
+                <span class="start-stars"></span>
+
+                <!-- Auroras luminosas que iluminam a cidade ao fundo. -->
+                <span class="start-glow"></span>
+
+                <!-- Duas camadas de prédios com velocidades diferentes para dar profundidade. -->
+                <div class="start-city start-city-far"><span></span></div>
+                <div class="start-city start-city-near"><span></span></div>
+
+                <!-- Riscos de velocidade que atravessam a tela como em uma corrida. -->
+                <div class="start-streaks">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <!-- Percurso de parkour: três telhados e um corredor que salta entre eles. -->
+                <div class="start-course">
+                    <div class="course-roof roof-1"><i class="roof-unit"></i></div>
+                    <div class="course-roof roof-2"><i class="roof-unit"></i></div>
+                    <div class="course-roof roof-3"><i class="roof-unit"></i></div>
+                    <span class="course-trail"></span>
+                    <span class="course-trail"></span>
+                    <span class="course-runner"></span>
+                </div>
+
+                <!-- Poeira luminosa flutuando em primeiro plano. -->
+                <span class="start-dust"></span>
+
+                <!-- Escurece as bordas para destacar o título central. -->
+                <span class="start-vignette"></span>
+            </div>
+
+            <!-- Bloco central: marca do colégio, nome do jogo e comando de início. -->
+            <div class="start-content">
+
+                <!-- Assinatura institucional: logo do colégio ao lado do nome da escola. -->
+                <div class="start-school">
+
+                    <!-- Envolve a logo para desenhar o anel luminoso ao redor dela. -->
+                    <div class="start-school-mark">
+                        <img class="start-school-logo"
+                             src="img setec/Logo Colégio.png"
+                             alt="Colégio Estadual Barbosa Ferraz">
+                    </div>
+
+                    <!-- Nome da escola e do curso exibidos na capa. -->
+                    <div class="start-school-text">
+                        <strong>COLÉGIO ESTADUAL BARBOSA FERRAZ</strong>
+                        <span>2º DESENVOLVIMENTO DE SISTEMAS</span>
+                    </div>
+                </div>
+
+                <!-- Chamada curta do gênero do jogo, entre duas linhas luminosas. -->
+                <div class="start-kicker">
+                    PARKOUR ADVENTURE
+                </div>
+
+                <!-- Nome do jogo em duas linhas, com a palavra principal em destaque. -->
+                <h1 class="start-title">
+                    <span class="start-title-top">SPEED RUN</span>
+                    <span class="start-title-main">PARKOUR</span>
+                </h1>
+
+                <!-- Frase de apresentação do jogo. -->
+                <p class="start-tagline">
+                    Corra pelos telhados, salte entre plataformas e supere o seu próprio tempo.
+                </p>
+
+                <!-- Comando principal que leva ao menu do jogo. -->
+                <button class="start-cta" id="startBtn" type="button">
+                    <span class="start-cta-label">COMEÇAR A CORRIDA</span>
+                    <span class="start-cta-icon" aria-hidden="true">▶</span>
+                </button>
+
+                <!-- Alternativa de teclado para iniciar. -->
+                <p class="start-hint">
+                    <kbd>ENTER</kbd> ou clique para começar
+                </p>
+            </div>
+
+            <!-- Crédito exibido na capa, igual ao das demais telas. -->
+            <footer class="section-footer">
+                Feito por: Rafael Bento Luz de Camargo — Aluno do 2° Desenvolvimento de Sistemas
+            </footer>
+        </section>
+
         <!-- ================= MENU ================= -->
         <!-- Cria a tela inicial; o id identifica a tela e as classes controlam aparência e visibilidade. -->
-        <section id="menuScreen" class="screen active">
+        <section id="menuScreen" class="screen">
 
             <!-- Camada decorativa animada exclusiva do menu inicial; não interfere nos controles. -->
             <div class="menu-ambient" aria-hidden="true">

@@ -151,6 +151,118 @@ function showScreen(id) {
 }
 
 
+/* =========================================================
+   TELA DE ABERTURA
+   ========================================================= */
+
+const startScreen =
+    document.getElementById("startScreen");
+
+const startBtn =
+    document.getElementById("startBtn");
+
+
+/* Fecha a capa e entrega o controle ao menu do jogo. */
+function openMenuFromStart() {
+
+    if (
+        !startScreen ||
+        !startScreen.classList.contains("active") ||
+        startScreen.classList.contains("start-leaving")
+    ) {
+        return;
+    }
+
+    startScreen.classList.add(
+        "start-leaving"
+    );
+
+
+    window.setTimeout(
+        () => {
+
+            showScreen(
+                "menuScreen"
+            );
+
+
+            const menuScreen =
+                document.getElementById(
+                    "menuScreen"
+                );
+
+
+            if (menuScreen) {
+
+                menuScreen.classList.add(
+                    "menu-fade-in"
+                );
+            }
+
+
+            startScreen.classList.remove(
+                "start-leaving"
+            );
+        },
+        620
+    );
+}
+
+
+if (startBtn) {
+
+    startBtn.onclick = openMenuFromStart;
+}
+
+
+/* Permite iniciar clicando em qualquer ponto da capa. */
+if (startScreen) {
+
+    startScreen.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target.closest(
+                    "button"
+                )
+            ) {
+                return;
+            }
+
+            openMenuFromStart();
+        }
+    );
+}
+
+
+/* Permite iniciar pelo teclado com Enter ou espaço. */
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            !startScreen ||
+            !startScreen.classList.contains("active")
+        ) {
+            return;
+        }
+
+
+        if (
+            event.key === "Enter" ||
+            event.key === " " ||
+            event.key === "Spacebar"
+        ) {
+
+            event.preventDefault();
+
+            openMenuFromStart();
+        }
+    }
+);
+
+
 const playBtn =
     document.getElementById("playBtn");
 
