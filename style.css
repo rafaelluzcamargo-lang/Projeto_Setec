@@ -3733,3 +3733,407 @@ body.high-contrast .accessibility-group legend { /* Ajusta título de cada grupo
     #difficultyScreen .side-deco { display: none; } /* Evita sobrepor o painel central. */
 } /* Fecha o ajuste móvel. */
 
+/* =========================================================
+   EFEITOS ANIMADOS — SOMENTE MENU INICIAL
+   ========================================================= */
+
+#menuScreen { /* Concentra as variáveis usadas pelos efeitos do menu. */
+    --menu-logo-size: 92px; /* Acompanha o tamanho da logo do colégio. */
+} /* Fecha as variáveis do menu. */
+
+#menuScreen::before { /* Anima suavemente a foto desfocada do fundo. */
+    animation: menuBackdropDrift 32s ease-in-out infinite alternate; /* Faz a imagem respirar lentamente. */
+    will-change: transform; /* Prepara a camada para animação por transformação. */
+} /* Fecha a animação do fundo. */
+
+#menuScreen .menu-ambient { /* Cria a atmosfera luminosa atrás do painel. */
+    position: absolute; /* Fica fora do fluxo do menu. */
+    inset: 0; /* Cobre toda a tela inicial. */
+    z-index: 0; /* Mantém a camada atrás do painel. */
+    overflow: hidden; /* Evita que os brilhos ultrapassem a tela. */
+    pointer-events: none; /* Não interfere nos cliques. */
+    mix-blend-mode: screen; /* Mistura as luzes com a foto de fundo. */
+} /* Fecha a atmosfera do menu. */
+
+#menuScreen .menu-ambient > span { /* Posiciona cada camada decorativa. */
+    position: absolute; /* Sobrepõe as camadas no mesmo espaço. */
+    inset: 0; /* Ocupa toda a área disponível. */
+    display: block; /* Garante uma caixa própria para cada camada. */
+} /* Fecha o posicionamento das camadas. */
+
+#menuScreen .menu-ambient-glow { /* Cria auroras azuis em movimento. */
+    background: /* Combina três focos de luz suaves. */
+        radial-gradient(42% 52% at 18% 22%, rgba(87, 206, 255, 0.38), transparent 70%), /* Aurora superior esquerda. */
+        radial-gradient(38% 42% at 82% 78%, rgba(88, 176, 255, 0.3), transparent 72%), /* Aurora inferior direita. */
+        radial-gradient(30% 30% at 50% 0%, rgba(196, 246, 255, 0.22), transparent 75%); /* Clarão no topo. */
+    animation: menuAurora 16s ease-in-out infinite alternate; /* Move as auroras lentamente. */
+    will-change: transform, opacity; /* Prepara a camada para animação. */
+} /* Fecha as auroras. */
+
+#menuScreen .menu-ambient-glow::before { /* Cria feixes de luz girando atrás do painel. */
+    content: ""; /* Necessário para renderizar os feixes. */
+    position: absolute; /* Centraliza o foco luminoso na tela. */
+    top: 50%; /* Posiciona no eixo vertical central. */
+    left: 50%; /* Posiciona no eixo horizontal central. */
+    width: 112vmax; /* Garante que os feixes alcancem todos os cantos. */
+    height: 112vmax; /* Mantém o foco circular. */
+    margin: -56vmax 0 0 -56vmax; /* Corrige a posição para o centro exato. */
+    background: conic-gradient( /* Desenha raios suaves em volta do centro. */
+        from 0deg, /* Define o ângulo inicial dos raios. */
+        transparent 0deg 18deg, /* Intervalo sem luz. */
+        rgba(120, 225, 255, 0.14) 26deg 34deg, /* Primeiro feixe. */
+        transparent 42deg 160deg, /* Intervalo sem luz. */
+        rgba(150, 235, 255, 0.11) 174deg 186deg, /* Segundo feixe. */
+        transparent 194deg 340deg, /* Intervalo sem luz. */
+        rgba(120, 225, 255, 0.09) 350deg 360deg /* Terceiro feixe. */
+    ); /* Fecha o gradiente cônico dos feixes. */
+    border-radius: 50%; /* Recorta o conjunto em um círculo. */
+    filter: blur(16px); /* Suaviza as bordas dos feixes. */
+    opacity: 0.9; /* Mantém os feixes discretos. */
+    animation: menuBeamOrbit 36s linear infinite; /* Gira os feixes lentamente. */
+    will-change: transform; /* Prepara os feixes para animação. */
+} /* Fecha os feixes de luz. */
+
+#menuScreen .menu-ambient-streaks { /* Cria linhas diagonais lembrando velocidade. */
+    inset: -35%; /* Deixa margem para o movimento sem revelar bordas. */
+    background: repeating-linear-gradient( /* Repete faixas finas e inclinadas. */
+        116deg, /* Inclina as linhas no sentido do movimento. */
+        transparent 0 56px, /* Espaço vazio entre as faixas. */
+        rgba(182, 242, 255, 0.18) 57px, /* Início do brilho da faixa. */
+        rgba(182, 242, 255, 0.04) 58px, /* Suaviza o fim da faixa. */
+        transparent 59px 132px /* Fecha o ciclo da faixa. */
+    ); /* Fecha as linhas de velocidade. */
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 22%, #000 76%); /* Esconde o centro para não competir com o painel. */
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 22%, #000 76%); /* Versão padrão da máscara. */
+    opacity: 0.68; /* Mantém as linhas discretas. */
+    animation: menuSpeedLines 13s ease-in-out infinite alternate; /* Faz as linhas deslizarem. */
+    will-change: transform; /* Prepara a camada para animação. */
+} /* Fecha as linhas de velocidade. */
+
+#menuScreen .menu-ambient-dust { /* Cria pequenas partículas luminosas. */
+    background-image: /* Distribui pontos de luz pela tela. */
+        radial-gradient(circle at 14% 22%, rgba(235, 253, 255, 1) 0 1.8px, rgba(150, 235, 255, 0.35) 2.4px, transparent 4px), /* Partícula brilhante com halo. */
+        radial-gradient(circle at 72% 18%, rgba(178, 243, 255, 0.95) 0 1.4px, transparent 3px), /* Partícula média. */
+        radial-gradient(circle at 38% 68%, rgba(226, 252, 255, 0.98) 0 2px, rgba(150, 235, 255, 0.28) 2.8px, transparent 4.4px), /* Partícula maior com halo. */
+        radial-gradient(circle at 86% 78%, rgba(146, 231, 255, 0.9) 0 1.4px, transparent 3px), /* Partícula azulada. */
+        radial-gradient(circle at 56% 44%, rgba(198, 246, 255, 0.85) 0 1.2px, transparent 2.6px); /* Partícula de preenchimento. */
+    background-size: 340px 340px; /* Mesmo ladrilho em todas as camadas para repetir sem emenda. */
+    opacity: 1; /* Mantém as partículas visíveis. */
+    animation: menuDustDrift 26s linear infinite; /* Faz a poeira subir lentamente. */
+} /* Fecha as partículas. */
+
+#menuScreen .menu-box { /* Aplica um pulso de energia ao redor do painel. */
+    animation: menuPanelAura 5.6s ease-in-out infinite; /* Alterna entre brilho suave e intenso. */
+} /* Fecha o pulso do painel. */
+
+#menuScreen .menu-box::before, /* Seleciona a linha superior do painel. */
+#menuScreen .menu-box::after { /* Seleciona a linha inferior do painel. */
+    background: linear-gradient( /* Cria um rastro de luz ao longo da linha. */
+        90deg, /* Percorre a linha da esquerda para a direita. */
+        rgba(156, 231, 255, 0.16), /* Começa quase transparente. */
+        rgba(190, 246, 255, 0.55) 28%, /* Ganha intensidade. */
+        #e4fcff 50%, /* Ponto mais brilhante no centro. */
+        rgba(190, 246, 255, 0.55) 72%, /* Volta a suavizar. */
+        rgba(156, 231, 255, 0.16) /* Termina quase transparente. */
+    ); /* Fecha o gradiente das linhas. */
+    background-size: 240% 100%; /* Dá espaço para o rastro percorrer a linha. */
+    opacity: 0.8; /* Deixa o rastro mais presente. */
+    animation: menuRailChase 4.4s linear infinite; /* Move o brilho continuamente. */
+} /* Fecha as linhas animadas. */
+
+#menuScreen .menu-box::after { /* Inverte o sentido da linha inferior. */
+    animation-direction: reverse; /* Faz os dois rastros cruzarem em sentidos opostos. */
+} /* Fecha a inversão da linha inferior. */
+
+#menuScreen .menu-box-fx { /* Agrupa as camadas internas de brilho do painel. */
+    position: absolute; /* Fica sobre o fundo do painel. */
+    inset: 0; /* Cobre toda a área interna. */
+    z-index: -1; /* Mantém o efeito atrás do conteúdo. */
+    overflow: hidden; /* Recorta a varredura nos limites do painel. */
+    pointer-events: none; /* Não bloqueia os botões. */
+    background: /* Desenha quatro cantos tecnológicos luminosos. */
+        linear-gradient(90deg, #cdf8ff, rgba(120, 225, 255, 0)) 10px 10px / 38px 2px no-repeat, /* Canto superior esquerdo horizontal. */
+        linear-gradient(180deg, #cdf8ff, rgba(120, 225, 255, 0)) 10px 10px / 2px 38px no-repeat, /* Canto superior esquerdo vertical. */
+        linear-gradient(270deg, #cdf8ff, rgba(120, 225, 255, 0)) calc(100% - 10px) 10px / 38px 2px no-repeat, /* Canto superior direito horizontal. */
+        linear-gradient(180deg, #cdf8ff, rgba(120, 225, 255, 0)) calc(100% - 10px) 10px / 2px 38px no-repeat, /* Canto superior direito vertical. */
+        linear-gradient(90deg, #cdf8ff, rgba(120, 225, 255, 0)) 10px calc(100% - 10px) / 38px 2px no-repeat, /* Canto inferior esquerdo horizontal. */
+        linear-gradient(0deg, #cdf8ff, rgba(120, 225, 255, 0)) 10px calc(100% - 10px) / 2px 38px no-repeat, /* Canto inferior esquerdo vertical. */
+        linear-gradient(270deg, #cdf8ff, rgba(120, 225, 255, 0)) calc(100% - 10px) calc(100% - 10px) / 38px 2px no-repeat, /* Canto inferior direito horizontal. */
+        linear-gradient(0deg, #cdf8ff, rgba(120, 225, 255, 0)) calc(100% - 10px) calc(100% - 10px) / 2px 38px no-repeat; /* Canto inferior direito vertical. */
+    filter: drop-shadow(0 0 6px rgba(120, 225, 255, 0.75)); /* Faz os cantos brilharem. */
+} /* Fecha o grupo de efeitos internos. */
+
+#menuScreen .menu-box-fx::before { /* Cria uma faixa de vidro atravessando o painel. */
+    content: ""; /* Necessário para renderizar a faixa. */
+    position: absolute; /* Posiciona a faixa livremente. */
+    top: -80%; /* Estende a faixa acima do painel. */
+    bottom: -80%; /* Estende a faixa abaixo do painel. */
+    left: -55%; /* Começa fora do painel. */
+    width: 44%; /* Define a largura da faixa. */
+    background: linear-gradient( /* Monta o reflexo translúcido. */
+        90deg, /* Direção do reflexo. */
+        transparent, /* Entrada invisível. */
+        rgba(150, 235, 255, 0.18) 36%, /* Início do brilho. */
+        rgba(230, 252, 255, 0.46) 50%, /* Centro mais claro. */
+        rgba(150, 235, 255, 0.18) 64%, /* Fim do brilho. */
+        transparent /* Saída invisível. */
+    ); /* Fecha o gradiente da faixa. */
+    transform: rotate(16deg) translate3d(-130%, 0, 0); /* Inclina e posiciona a faixa fora da vista. */
+    animation: menuGlassSweep 7.2s cubic-bezier(0.4, 0, 0.2, 1) infinite; /* Faz a faixa atravessar o painel. */
+    will-change: transform, opacity; /* Prepara a faixa para animação. */
+} /* Fecha a faixa de vidro. */
+
+#menuScreen .menu-box-fx::after { /* Cria uma linha de leitura holográfica. */
+    content: ""; /* Necessário para renderizar a linha. */
+    position: absolute; /* Permite deslocar a linha verticalmente. */
+    left: 0; /* Encosta à esquerda. */
+    right: 0; /* Encosta à direita. */
+    top: -40px; /* Começa acima do painel. */
+    height: 34px; /* Cria uma faixa de leitura em vez de uma linha fina. */
+    background: linear-gradient( /* Desenha o rastro vertical da varredura. */
+        180deg, /* A luz cresce de cima para baixo. */
+        transparent, /* Topo invisível. */
+        rgba(120, 224, 255, 0.04) 50%, /* Rastro bem suave. */
+        rgba(139, 229, 255, 0.22) 84%, /* Corpo do rastro. */
+        rgba(220, 250, 255, 0.85) 96%, /* Borda luminosa. */
+        transparent /* Desaparece logo após a borda. */
+    ); /* Fecha o gradiente da faixa. */
+    box-shadow: /* Adiciona halo à faixa. */
+        0 0 14px rgba(120, 224, 255, 0.6), /* Brilho próximo. */
+        0 16px 28px rgba(77, 183, 255, 0.22); /* Rastro luminoso abaixo. */
+    opacity: 0; /* Começa escondida. */
+    animation: menuPanelScan 7.2s ease-in-out infinite; /* Desce pelo painel periodicamente. */
+    will-change: top, opacity; /* Prepara a faixa para animação. */
+} /* Fecha a faixa holográfica. */
+
+#menuScreen .menu-header { /* Cria referência para os anéis da logo. */
+    position: relative; /* Permite posicionar os anéis em relação ao cabeçalho. */
+    z-index: 1; /* Mantém o conteúdo acima dos anéis. */
+} /* Fecha a referência do cabeçalho. */
+
+#menuScreen .menu-header::before, /* Seleciona o primeiro anel da logo. */
+#menuScreen .menu-header::after { /* Seleciona o segundo anel da logo. */
+    content: ""; /* Necessário para renderizar os anéis. */
+    position: absolute; /* Posiciona os anéis sobre a logo. */
+    top: 50%; /* Centraliza verticalmente com a logo. */
+    left: 0; /* Alinha à esquerda do cabeçalho. */
+    width: var(--menu-logo-size); /* Acompanha a largura da logo. */
+    height: var(--menu-logo-size); /* Acompanha a altura da logo. */
+    border: 1px solid rgba(170, 240, 255, 0.65); /* Desenha o anel luminoso. */
+    border-radius: 50%; /* Mantém o formato circular. */
+    box-shadow: /* Combina brilho externo e interno. */
+        0 0 16px rgba(80, 205, 255, 0.28), /* Halo externo. */
+        inset 0 0 16px rgba(80, 205, 255, 0.14); /* Luz interna. */
+    transform: translateY(-50%) scale(0.94); /* Centraliza e inicia o anel junto à logo. */
+    z-index: -1; /* Mantém o anel atrás da logo e do título. */
+    pointer-events: none; /* Não interfere nos cliques. */
+    animation: menuLogoRadar 4.8s ease-out infinite; /* Expande o anel como um sonar. */
+} /* Fecha os anéis da logo. */
+
+#menuScreen .menu-header::after { /* Atrasa o segundo anel. */
+    animation-delay: 2.4s; /* Cria uma segunda onda defasada. */
+} /* Fecha o atraso do segundo anel. */
+
+#menuScreen .menu-logo { /* Dá vida à logo do colégio. */
+    animation: menuLogoFloat 5.8s ease-in-out infinite; /* Faz a logo flutuar levemente. */
+    will-change: transform, filter; /* Prepara a logo para animação. */
+} /* Fecha a animação da logo. */
+
+#menuScreen .logo span { /* Aplica um pulso de neon à primeira linha do título. */
+    animation: menuTitleSurge 7s ease-in-out infinite; /* Cria brilho e pequenos clarões. */
+} /* Fecha o pulso da primeira linha. */
+
+#menuScreen .logo strong { /* Aplica o mesmo pulso à segunda linha. */
+    animation: menuTitleSurge 7s ease-in-out 0.25s infinite; /* Defasa levemente o brilho. */
+} /* Fecha o pulso da segunda linha. */
+
+#menuScreen .menu-btn { /* Prepara os botões para os reflexos animados. */
+    position: relative; /* Permite posicionar os reflexos internos. */
+    overflow: hidden; /* Recorta o brilho nos limites do botão. */
+    isolation: isolate; /* Mantém o reflexo atrás do texto. */
+} /* Fecha a preparação dos botões. */
+
+#menuScreen .menu-btn::before { /* Cria o reflexo que atravessa o botão. */
+    content: ""; /* Necessário para renderizar o reflexo. */
+    position: absolute; /* Cobre o botão sem alterar o layout. */
+    inset: -2px; /* Evita uma borda visível nas extremidades. */
+    z-index: -1; /* Mantém o reflexo atrás do rótulo. */
+    background: linear-gradient( /* Monta a faixa clara do reflexo. */
+        112deg, /* Inclina o brilho. */
+        transparent 32%, /* Entrada invisível. */
+        rgba(217, 248, 255, 0.18) 44%, /* Início do reflexo. */
+        rgba(245, 253, 255, 0.36) 49%, /* Centro do reflexo. */
+        rgba(217, 248, 255, 0.16) 55%, /* Fim do reflexo. */
+        transparent 68% /* Saída invisível. */
+    ); /* Fecha o gradiente do reflexo. */
+    transform: translateX(-135%); /* Posiciona o reflexo fora do botão. */
+    transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1); /* Suaviza a passagem do reflexo. */
+    pointer-events: none; /* Não interfere no clique. */
+} /* Fecha o reflexo dos botões. */
+
+#menuScreen .menu-btn:hover::before, /* Move o reflexo ao passar o mouse. */
+#menuScreen .menu-btn:focus-visible::before { /* Move o reflexo também no foco por teclado. */
+    transform: translateX(135%); /* Atravessa o botão da esquerda para a direita. */
+} /* Fecha o movimento do reflexo. */
+
+#menuScreen .menu-btn span { /* Prepara o ícone para reagir ao hover. */
+    display: inline-block; /* Permite aplicar transformação ao ícone. */
+    transition: transform 0.24s ease, filter 0.24s ease; /* Suaviza o movimento e o brilho. */
+} /* Fecha a preparação do ícone. */
+
+#menuScreen .menu-btn:hover span, /* Destaca o ícone sob o cursor. */
+#menuScreen .menu-btn:focus-visible span { /* Destaca o ícone também no foco. */
+    transform: translateX(3px) scale(1.06); /* Move um pouco e aumenta o ícone. */
+    filter: drop-shadow(0 0 8px rgba(210, 248, 255, 0.8)); /* Adiciona brilho ao símbolo. */
+} /* Fecha o destaque do ícone. */
+
+#menuScreen .menu-btn.primary { /* Adiciona energia contínua ao botão JOGAR. */
+    animation: menuPrimaryAura 3.6s ease-in-out infinite; /* Faz o brilho pulsar. */
+} /* Fecha a aura do botão principal. */
+
+#menuScreen .menu-btn.primary::after { /* Cria um segundo reflexo contínuo no botão principal. */
+    content: ""; /* Necessário para renderizar o reflexo. */
+    position: absolute; /* Cobre o botão sem alterar o layout. */
+    inset: -2px; /* Evita bordas visíveis. */
+    z-index: -1; /* Mantém o reflexo atrás do rótulo. */
+    background: linear-gradient( /* Monta uma faixa de luz mais forte. */
+        112deg, /* Inclina a faixa. */
+        transparent 34%, /* Entrada invisível. */
+        rgba(240, 253, 255, 0) 42%, /* Transição suave. */
+        rgba(240, 253, 255, 0.42) 49%, /* Centro brilhante. */
+        rgba(240, 253, 255, 0) 56%, /* Transição de saída. */
+        transparent 66% /* Saída invisível. */
+    ); /* Fecha o gradiente do brilho contínuo. */
+    transform: translateX(-140%); /* Começa fora do botão. */
+    animation: menuPrimaryShine 5s cubic-bezier(0.35, 0, 0.2, 1) infinite; /* Atravessa o botão periodicamente. */
+    pointer-events: none; /* Não interfere no clique. */
+} /* Fecha o reflexo contínuo. */
+
+@keyframes menuBackdropDrift { /* Movimento lento da foto de fundo. */
+    0% { transform: scale(1.02) translate3d(0, 0, 0); } /* Enquadramento inicial. */
+    55% { transform: scale(1.07) translate3d(-1.4%, -1%, 0); } /* Aproxima e desloca para a esquerda. */
+    100% { transform: scale(1.05) translate3d(1.2%, 0.8%, 0); } /* Retorna levemente à direita. */
+} /* Fecha o movimento do fundo. */
+
+@keyframes menuAurora { /* Movimento das auroras luminosas. */
+    0% { transform: translate3d(-1.5%, -1%, 0) scale(1); opacity: 0.75; } /* Posição e brilho iniciais. */
+    100% { transform: translate3d(1.5%, 1%, 0) scale(1.08); opacity: 1; } /* Desloca e intensifica a luz. */
+} /* Fecha a animação das auroras. */
+
+@keyframes menuBeamOrbit { /* Giro completo dos feixes de luz. */
+    0% { transform: rotate(0deg); } /* Inicia apontando para a direita. */
+    100% { transform: rotate(360deg); } /* Completa uma volta completa. */
+} /* Fecha o giro dos feixes. */
+
+@keyframes menuSpeedLines { /* Deslocamento das linhas de velocidade. */
+    0% { transform: translate3d(-1.5%, 1%, 0); } /* Posição inicial. */
+    100% { transform: translate3d(1.5%, -1.2%, 0); } /* Posição final. */
+} /* Fecha o deslocamento das linhas. */
+
+@keyframes menuDustDrift { /* Subida contínua das partículas. */
+    0% { background-position: 0 0; } /* Começa no início do ladrilho. */
+    100% { background-position: -340px -680px; } /* Percorre dois ladrilhos e reinicia sem emenda. */
+} /* Fecha a animação das partículas. */
+
+@keyframes menuPanelAura { /* Pulso de energia ao redor do painel. */
+    0%, 100% { box-shadow: 0 0 0 1px rgba(125, 207, 245, 0.28), 0 0 28px rgba(77, 183, 255, 0.2), 0 25px 55px rgba(5, 18, 32, 0.42); } /* Brilho de repouso. */
+    50% { box-shadow: 0 0 0 1px rgba(185, 244, 255, 0.68), 0 0 56px rgba(96, 210, 255, 0.48), 0 0 120px rgba(77, 183, 255, 0.24), 0 25px 55px rgba(5, 18, 32, 0.42); } /* Brilho intenso no meio do ciclo. */
+} /* Fecha o pulso do painel. */
+
+@keyframes menuRailChase { /* Rastro percorrendo as linhas superior e inferior. */
+    0% { background-position: 100% 0; } /* Rastro à direita. */
+    100% { background-position: -100% 0; } /* Rastro à esquerda. */
+} /* Fecha o rastro das linhas. */
+
+@keyframes menuGlassSweep { /* Faixa de vidro atravessando o painel. */
+    0%, 52% { transform: rotate(16deg) translate3d(-130%, 0, 0); opacity: 0; } /* Espera fora da vista. */
+    58% { opacity: 0.9; } /* Surge ao entrar no painel. */
+    86%, 100% { transform: rotate(16deg) translate3d(430%, 0, 0); opacity: 0; } /* Atravessa e desaparece. */
+} /* Fecha a varredura de vidro. */
+
+@keyframes menuPanelScan { /* Faixa holográfica descendo pelo painel. */
+    0%, 38% { top: -40px; opacity: 0; } /* Espera acima do painel. */
+    44% { opacity: 0.9; } /* Acende ao entrar. */
+    78% { top: calc(100% + 10px); opacity: 0; } /* Atravessa e apaga. */
+    100% { top: calc(100% + 10px); opacity: 0; } /* Mantém a pausa antes do próximo ciclo. */
+} /* Fecha a faixa de leitura. */
+
+@keyframes menuLogoRadar { /* Ondas circulares ao redor da logo. */
+    0% { transform: translateY(-50%) scale(0.94); opacity: 0.7; } /* Nasce junto à logo. */
+    55% { opacity: 0.18; } /* Perde intensidade ao expandir. */
+    100% { transform: translateY(-50%) scale(1.55); opacity: 0; } /* Dissolve-se no ar. */
+} /* Fecha as ondas da logo. */
+
+@keyframes menuLogoFloat { /* Flutuação suave da logo do colégio. */
+    0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 4px 10px rgba(5, 18, 32, 0.45)) drop-shadow(0 0 10px rgba(110, 220, 255, 0.24)); } /* Repouso. */
+    50% { transform: translateY(-3px) rotate(-1.2deg); filter: drop-shadow(0 7px 14px rgba(5, 18, 32, 0.5)) drop-shadow(0 0 20px rgba(110, 220, 255, 0.55)); } /* Ponto alto da flutuação. */
+} /* Fecha a flutuação da logo. */
+
+@keyframes menuTitleSurge { /* Pulso de neon do título. */
+    0%, 100% { filter: brightness(1) drop-shadow(0 0 3px rgba(160, 232, 255, 0.25)); } /* Brilho normal com halo curto. */
+    45% { filter: brightness(1.08) drop-shadow(0 0 9px rgba(160, 232, 255, 0.42)); } /* Leve respiração. */
+    47% { filter: brightness(1.5) drop-shadow(0 0 22px rgba(205, 250, 255, 0.95)); } /* Clarão rápido. */
+    48% { filter: brightness(0.82) drop-shadow(0 0 5px rgba(160, 232, 255, 0.3)); } /* Pequena queda de energia. */
+    49% { filter: brightness(1.25) drop-shadow(0 0 16px rgba(190, 245, 255, 0.72)); } /* Recupera o brilho. */
+    51% { filter: brightness(1) drop-shadow(0 0 3px rgba(160, 232, 255, 0.25)); } /* Volta ao normal. */
+} /* Fecha o pulso do título. */
+
+@keyframes menuPrimaryAura { /* Brilho pulsante do botão JOGAR. */
+    0%, 100% { box-shadow: 0 0 22px rgba(89, 202, 255, 0.48); } /* Brilho de repouso. */
+    50% { box-shadow: 0 0 30px rgba(89, 202, 255, 0.78), 0 0 72px rgba(89, 202, 255, 0.3); } /* Brilho ampliado. */
+} /* Fecha a aura do botão principal. */
+
+@keyframes menuPrimaryShine { /* Reflexo contínuo do botão JOGAR. */
+    0%, 58% { transform: translateX(-140%); } /* Espera fora do botão. */
+    82%, 100% { transform: translateX(140%); } /* Atravessa e reinicia. */
+} /* Fecha o reflexo contínuo. */
+
+@media (max-width: 480px) { /* Ajusta os efeitos ao cabeçalho compacto. */
+    #menuScreen { --menu-logo-size: 64px; } /* Acompanha a logo reduzida. */
+} /* Fecha o ajuste móvel. */
+
+@media (prefers-reduced-motion: reduce) { /* Respeita usuários que preferem menos movimento. */
+    #menuScreen::before, /* Desativa o movimento do fundo. */
+    #menuScreen .menu-ambient-glow, /* Desativa as auroras. */
+    #menuScreen .menu-ambient-glow::before, /* Desativa os feixes giratórios. */
+    #menuScreen .menu-ambient-streaks, /* Desativa as linhas de velocidade. */
+    #menuScreen .menu-ambient-dust, /* Desativa as partículas. */
+    #menuScreen .menu-box, /* Desativa o pulso do painel. */
+    #menuScreen .menu-box::before, /* Desativa o rastro superior. */
+    #menuScreen .menu-box::after, /* Desativa o rastro inferior. */
+    #menuScreen .menu-box-fx::before, /* Desativa a faixa de vidro. */
+    #menuScreen .menu-box-fx::after, /* Desativa a linha holográfica. */
+    #menuScreen .menu-header::before, /* Desativa o primeiro anel. */
+    #menuScreen .menu-header::after, /* Desativa o segundo anel. */
+    #menuScreen .menu-logo, /* Desativa a flutuação da logo. */
+    #menuScreen .logo span, /* Desativa o pulso do título. */
+    #menuScreen .logo strong, /* Desativa o pulso do subtítulo. */
+    #menuScreen .menu-btn.primary, /* Desativa a aura do botão principal. */
+    #menuScreen .menu-btn.primary::after { /* Desativa o reflexo contínuo. */
+        animation: none; /* Remove todas as animações decorativas. */
+    } /* Fecha o bloco de animações desativadas. */
+
+    #menuScreen .menu-ambient, /* Esconde a camada de atmosfera. */
+    #menuScreen .menu-box-fx { /* Esconde os efeitos internos do painel. */
+        display: none; /* Mantém a interface limpa e estática. */
+    } /* Fecha a ocultação dos efeitos. */
+} /* Fecha o respeito à preferência de movimento reduzido. */
+
+body.high-contrast #menuScreen .menu-ambient, /* Remove a atmosfera no alto contraste. */
+body.high-contrast #menuScreen .menu-box-fx, /* Remove os efeitos internos do painel. */
+body.high-contrast #menuScreen .menu-header::before, /* Remove o primeiro anel. */
+body.high-contrast #menuScreen .menu-header::after { /* Remove o segundo anel. */
+    display: none; /* Prioriza a legibilidade. */
+} /* Fecha a limpeza visual do alto contraste. */
+
+body.high-contrast #menuScreen .menu-box, /* Remove o pulso do painel. */
+body.high-contrast #menuScreen .menu-box::before, /* Remove o rastro superior. */
+body.high-contrast #menuScreen .menu-box::after, /* Remove o rastro inferior. */
+body.high-contrast #menuScreen .menu-logo, /* Remove a flutuação da logo. */
+body.high-contrast #menuScreen .logo span, /* Remove o pulso do título. */
+body.high-contrast #menuScreen .logo strong, /* Remove o pulso do subtítulo. */
+body.high-contrast #menuScreen .menu-btn.primary, /* Remove a aura do botão principal. */
+body.high-contrast #menuScreen .menu-btn.primary::after { /* Remove o reflexo contínuo. */
+    animation: none; /* Mantém a interface estática no alto contraste. */
+} /* Fecha a desativação de animações no alto contraste. */
+

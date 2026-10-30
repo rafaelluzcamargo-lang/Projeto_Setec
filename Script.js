@@ -2120,11 +2120,13 @@ function createLevel(level) {
 
         {
             /*
-             * Esta serra ficava em x=3550, exatamente sobre a plataforma
-             * alta que antecede o portal. Ela foi deslocada para depois
-             * da linha de chegada para não cobrir o salto final.
+             * Serra da plataforma alta que antecede a chegada.
+             * Fica elevada o suficiente para não cobrir o salto final,
+             * mas dentro do percurso (não depois da linha de chegada).
+             * Como as fases compartilham esta base, a correção vale
+             * para as 6 fases.
              */
-            x: 4040,
+            x: 3550,
 
             y: 70,
 
@@ -2134,9 +2136,9 @@ function createLevel(level) {
 
             type: "saw",
 
-            startX: 3980,
+            startX: 3500,
 
-            endX: 4100,
+            endX: 3600,
 
             direction: 1,
 
@@ -7844,23 +7846,6 @@ function drawFinish() {
     }
 
 
-    ctx.fillStyle =
-        "#ffffff";
-
-
-    ctx.font =
-        "bold 14px Arial";
-
-
-    ctx.textAlign =
-        "center";
-
-
-    ctx.fillText(
-        "FINISH",
-        x + 42,
-        205
-    );
 }
 
 

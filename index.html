@@ -25,8 +25,18 @@
         <!-- Cria a tela inicial; o id identifica a tela e as classes controlam aparência e visibilidade. -->
         <section id="menuScreen" class="screen active">
 
+            <!-- Camada decorativa animada exclusiva do menu inicial; não interfere nos controles. -->
+            <div class="menu-ambient" aria-hidden="true">
+                <span class="menu-ambient-glow"></span>
+                <span class="menu-ambient-streaks"></span>
+                <span class="menu-ambient-dust"></span>
+            </div>
+
             <!-- Reúne o logotipo e os comandos do menu; opções adicionais podem ser colocadas neste painel. -->
             <div class="menu-box">
+
+                <!-- Camada interna de brilho e varredura do painel; fica atrás do conteúdo. -->
+                <span class="menu-box-fx" aria-hidden="true"></span>
 
                 <!-- Cabeçalho do menu: logo do colégio à esquerda e marca do jogo à direita. -->
                 <div class="menu-header">
